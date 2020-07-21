@@ -1,0 +1,26 @@
+INDEX VERSION 1.131+C:\Users\Casper Thijsen\Documents\GitHub\aoi-mods\.metadata\.plugins\org.eclipse.jdt.core
+1449670059.index
+3244928352.index
+3706720661.index
+1281372593.index
+1160206323.index
+3840152754.index
+3103965743.index
+3231380448.index
+999275863.index
+3073555910.index
+1766808697.index
+1426601832.index
+1295373575.index
+1470194667.index
+1764916300.index
+1671692264.index
+3876279375.index
+4111410434.index
+3501337221.index
+1267649822.index
+1905684896.index
+3648590154.index
+2805099440.index
+3358506485.index
+1365543643.index
