@@ -1,0 +1,52 @@
+package io.github.OGKushper.aoimods;
+
+import java.util.logging.Logger;
+
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
+import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.channel.MessageChannel;
+import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.text.format.TextStyles;
+
+import com.flowpowered.math.vector.Vector3i;
+import com.google.inject.Inject;
+
+@Plugin(id = "dummyplugin", name = "Example Plugin", version = "1.0", description = "Test plugin")
+
+public class DummyPlugin {
+
+	Player player;
+	MessageChannel TO_PLAYER;
+	
+	@Inject
+    private Logger logger;
+
+    @Listener
+    public void onServerStart(GameStartedServerEvent event) {
+        logger.info("Successfully running Test Plugin");
+    }
+	
+	@Listener
+	public void OnServerJoin(ClientConnectionEvent.Join event) {
+		player = event.getTargetEntity();
+		TO_PLAYER = MessageChannel.fixed(player);
+		logger.info("Succesfully registered " + player.getName() + " as player to Test Plugin");
+	}
+	@Listener
+	public void OnBlockBreak(ChangeBlockEvent.Break event) {
+		logger.info("amount of transactions: " + event.getTransactions().size());
+		Vector3i location = event.getTransactions().get(0).getFinal().getPosition();
+		Text msg = Text.builder("Player ").append(
+				Text.builder(player.getName()).color(TextColors.GOLD).style(TextStyles.BOLD).append(
+				Text.builder(" has broken block at location ").append(
+				Text.builder(location.getX() + " " + location.getY() + " " + location.getZ()).style(TextStyles.BOLD).style(TextStyles.ITALIC).build()).build()).build()).build();
+		logger.info(msg.toPlain());
+		TO_PLAYER.send(msg);
+	}
+	
+}

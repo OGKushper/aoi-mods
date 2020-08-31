@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'org.spongepowered.plugin' version '0.9.0'
+}
+
+// This may not be required, but has solved issues in the past
+compileJava.options.encoding = 'UTF-8'
+
+group = 'com.ogkushper'
+version = '1.0'
+description = 'Test plugin'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:7.2.0'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'SpongeDummy',
+                   'Implementation-Version': version
+    }
+}

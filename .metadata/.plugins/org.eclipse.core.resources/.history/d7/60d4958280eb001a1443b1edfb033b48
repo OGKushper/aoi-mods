@@ -1,0 +1,11 @@
+package io.github.OGKushper.aoimods;
+
+import org.spongepowered.api.plugin.Plugin;
+
+@Plugin(id = "dummyplugin", name = "Example Plugin", version = "1.0", description = "Test plugin")
+
+public class DummyPlugin {
+
+	
+	
+}
