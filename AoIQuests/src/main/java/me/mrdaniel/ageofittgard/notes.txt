@@ -1,0 +1,8 @@
+
+About reward items. The way its written down in the docs file is nearly impossible
+Possible options:
+- Reward collection interface (chest).
+- General reward collection button (in logbook).
+- Per-quest reward collection (in logbook).
+- Quest completion cancellation (near impossible).
+
