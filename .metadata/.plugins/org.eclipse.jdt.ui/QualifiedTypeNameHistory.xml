@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.block.ChangeBlockEvent"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.Listener"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.text.channel.MessageChannel"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.network.ClientConnectionEvent"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.data.LocatableSnapshot"/>
+<fullyQualifiedTypeName name="com.flowpowered.math.vector.Vector3i"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.text.Text"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.text.format.TextColors"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.text.format.TextStyles"/>
+<fullyQualifiedTypeName name="com.google.inject.Inject"/>
+<fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.game.state.GameStartedServerEvent"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.filter.cause.Root"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.data.ChangeDataHolderEvent"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.scheduler.Task"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.impl.AbstractEvent"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.Sponge"/>
+<fullyQualifiedTypeName name="io.github.OGKushper.aoimods.regions.region.PlayerRegionMonitor"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.entity.living.player.Player"/>
+<fullyQualifiedTypeName name="io.github.OGKushper.aoimods.regions.region.RegionMap"/>
+<fullyQualifiedTypeName name="java.util.Dictionary"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
+<fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.event.game.state.GameStoppingServerEvent"/>
+</qualifiedTypeNameHistroy>

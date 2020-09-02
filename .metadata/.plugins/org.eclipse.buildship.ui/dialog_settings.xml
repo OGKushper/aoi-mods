@@ -4,4 +4,7 @@
 		<item key="project_location" value="C:\Users\Casper Thijsen\eclipse-workspace\SpongeDummy"/>
 		<item key="use_default_location" value="true"/>
 	</section>
+	<section name="org.eclipse.buildship.ui.wizard.project.import">
+		<item key="project_location" value="C:\Users\Casper Thijsen\Documents\GitHub\aoi-mods\BorderPlugin"/>
+	</section>
 </section>
