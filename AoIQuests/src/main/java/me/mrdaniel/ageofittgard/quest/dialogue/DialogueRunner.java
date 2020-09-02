@@ -1,6 +1,6 @@
 package me.mrdaniel.ageofittgard.quest.dialogue;
 
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.data.dialogue.DialogueData;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.scheduler.Task;
@@ -31,7 +31,7 @@ public class DialogueRunner {
     }
 
     public void runNodeDelayed(int nodeId) {
-        Task.builder().delayTicks(NPCDialogue.DELAY_TICKS).execute(() -> this.runNode(nodeId)).submit(AgeOfIttgard.getInstance());
+        Task.builder().delayTicks(NPCDialogue.DELAY_TICKS).execute(() -> this.runNode(nodeId)).submit(AoIQuests.getInstance());
     }
 
     public void runLink(int linkId) {
@@ -55,11 +55,11 @@ public class DialogueRunner {
     }
 
     public void runLinkDelayed(DialogueLink link, int lineIndex) {
-        Task.builder().delayTicks(NPCDialogue.DELAY_TICKS).execute(() -> this.runLink(link, lineIndex)).submit(AgeOfIttgard.getInstance());
+        Task.builder().delayTicks(NPCDialogue.DELAY_TICKS).execute(() -> this.runLink(link, lineIndex)).submit(AoIQuests.getInstance());
     }
 
     public void stop() {
-        AgeOfIttgard.getInstance().getDialogueManager().stopDialogue(this.player.getUniqueId());
+        AoIQuests.getInstance().getDialogueManager().stopDialogue(this.player.getUniqueId());
     }
 
     public Player getPlayer() {

@@ -1,6 +1,6 @@
 package me.mrdaniel.ageofittgard.quest.quest.objective;
 
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypes;
 import me.mrdaniel.ageofittgard.event.CompleteDialogueEvent;
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
@@ -44,7 +44,7 @@ public class ObjectiveNPCTalk extends QuestObjective {
     public boolean evaluate(Player player, Event e) {
         if (e instanceof NPCInteractEvent) {       // Always returns false. This only kicks off the NPC dialogue.
             if (((NPCInteractEvent) e).getData().getId() == this.npcId) {
-                AgeOfIttgard.getInstance().getDialogueManager().startDialogue(this.dialogueId, player);
+                AoIQuests.getInstance().getDialogueManager().startDialogue(this.dialogueId, player);
             }
         } else if (e instanceof CompleteDialogueEvent) {
             return ((CompleteDialogueEvent) e).getDialogueId() == this.dialogueId;

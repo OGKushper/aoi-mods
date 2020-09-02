@@ -24,7 +24,7 @@ targetCompatibility = 1.8
 
 group = 'me.mrdaniel'
 version = '1.0.0'
-description = 'The Age Of Ittgard plugin.'
+description = 'The Age Of Ittgard quest plugin.'
 
 compileJava.options.encoding = 'UTF-8'
 

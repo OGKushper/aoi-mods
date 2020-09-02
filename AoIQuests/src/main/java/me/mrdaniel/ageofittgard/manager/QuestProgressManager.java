@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.manager;
 
 import com.google.common.collect.Lists;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.event.CompleteQuestEvent;
 import me.mrdaniel.ageofittgard.event.CompleteQuestObjectiveEvent;
 import me.mrdaniel.ageofittgard.event.CompleteQuestStageEvent;
@@ -48,7 +48,7 @@ public class QuestProgressManager {
         this.objectiveListeners.add(new QuestListener());
         this.objectiveListeners.add(new CollectListener());
 
-        this.objectiveListeners.forEach(l -> Sponge.getEventManager().registerListeners(AgeOfIttgard.getInstance(), l));
+        this.objectiveListeners.forEach(l -> Sponge.getEventManager().registerListeners(AoIQuests.getInstance(), l));
     }
 
     /**
@@ -60,7 +60,7 @@ public class QuestProgressManager {
      * @param data The player's PlayerData
      */
     public void load(UUID uuid, PlayerData data) {
-        for (Quest quest : AgeOfIttgard.getInstance().getQuestManager().getAllQuests()) {
+        for (Quest quest : AoIQuests.getInstance().getQuestManager().getAllQuests()) {
             if (!data.isCompleted(quest)) {
                 this.load(uuid, data, data.getActive(quest).orElseGet(() -> data.setup(quest)));
             }
@@ -115,7 +115,7 @@ public class QuestProgressManager {
      * @throws InvalidQuestException
      */
     public void startQuest(Player player, Quest quest) throws InvalidQuestException {
-        PlayerData data = AgeOfIttgard.getInstance().getPlayerDataManager().getPlayerData(player.getUniqueId());
+        PlayerData data = AoIQuests.getInstance().getPlayerDataManager().getPlayerData(player.getUniqueId());
         if (data.isStarted(quest)) {
             return;
         }

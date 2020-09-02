@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.gui.inventory;
 
 import com.google.common.collect.Lists;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatus;
 import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatusus;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
@@ -50,12 +50,12 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
     protected List<Button> getListButtons() {
         List<Button> buttons = Lists.newArrayList();
 
-        PlayerData data = AgeOfIttgard.getInstance().getPlayerDataManager().getPlayerData(super.player.getUniqueId());
+        PlayerData data = AoIQuests.getInstance().getPlayerDataManager().getPlayerData(super.player.getUniqueId());
         List<Integer> quests = data.getStarted();
         ListIterator<Integer> iter = quests.listIterator(quests.size());
 
         while (iter.hasPrevious()) {
-            Quest quest = AgeOfIttgard.getInstance().getQuestManager().getQuest(iter.previous()).orElse(null);
+            Quest quest = AoIQuests.getInstance().getQuestManager().getQuest(iter.previous()).orElse(null);
             if (quest == null) {
                 continue;
             }

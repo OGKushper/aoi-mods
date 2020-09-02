@@ -1,6 +1,6 @@
 package me.mrdaniel.ageofittgard.quest.dialogue.node;
 
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.catalogtypes.nodetype.NodeTypes;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
@@ -24,7 +24,7 @@ public class GiftDialogueNode extends DialogueNode {
         if (inv.canFit(this.item)) {
             inv.offer(this.item.copy());
         } else {
-            AgeOfIttgard.getInstance().getPlayerDataManager().getPlayerData(runner.getPlayer().getUniqueId()).addUnclaimed(this.item.copy()).save();
+            AoIQuests.getInstance().getPlayerDataManager().getPlayerData(runner.getPlayer().getUniqueId()).addUnclaimed(this.item.copy()).save();
         }
         runner.runLink(this.linkId);
     }

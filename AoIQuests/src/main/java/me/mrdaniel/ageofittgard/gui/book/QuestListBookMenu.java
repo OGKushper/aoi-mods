@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.gui.book;
 
 import com.google.common.collect.Lists;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 import me.mrdaniel.npcs.gui.book.AbstractBookMenu;
 import org.spongepowered.api.entity.living.player.Player;
@@ -23,7 +23,7 @@ public class QuestListBookMenu extends AbstractBookMenu {
     protected List<Text> getPages() {
         List<Text> pages = Lists.newArrayList();
 
-        AgeOfIttgard.getInstance().getPlayerDataManager().getPlayerData(super.player.getUniqueId()).getActive().forEach(a -> pages.add(this.getPage(a)));
+        AoIQuests.getInstance().getPlayerDataManager().getPlayerData(super.player.getUniqueId()).getActive().forEach(a -> pages.add(this.getPage(a)));
 
         return pages;
     }

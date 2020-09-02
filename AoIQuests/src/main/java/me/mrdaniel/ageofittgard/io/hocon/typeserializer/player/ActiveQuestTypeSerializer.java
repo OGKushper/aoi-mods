@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.io.hocon.typeserializer.player;
 
 import com.google.common.reflect.TypeToken;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.exception.InvalidQuestException;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
@@ -19,7 +19,7 @@ public class ActiveQuestTypeSerializer implements TypeSerializer<ActiveQuest> {
     @Override
     public ActiveQuest deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
         try {
-            Quest quest = AgeOfIttgard.getInstance().getQuestManager().getQuest(value.getNode("questId").getInt(0)).orElseThrow(InvalidQuestException::new);
+            Quest quest = AoIQuests.getInstance().getQuestManager().getQuest(value.getNode("questId").getInt(0)).orElseThrow(InvalidQuestException::new);
             ActiveQuest active = new ActiveQuest(quest);
             active.setStage(quest.getStage(value.getNode("stageId").getInt(0)).orElse(null));
 

@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.io.hocon;
 
 import com.google.common.collect.Maps;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.hocon.config.Config;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 import me.mrdaniel.ageofittgard.quest.IPlayerDataStore;
@@ -31,7 +31,7 @@ public class HoconPlayerDataStore implements IPlayerDataStore {
             try {
                 Files.createDirectories(this.storageDir);
             } catch (final IOException exc) {
-                AgeOfIttgard.getInstance().getLogger().error("Failed to create main player storage directory",  exc);
+                AoIQuests.getInstance().getLogger().error("Failed to create main player storage directory",  exc);
             }
         }
     }

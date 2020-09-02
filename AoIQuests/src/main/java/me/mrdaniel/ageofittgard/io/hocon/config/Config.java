@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.io.hocon.config;
 
 import com.google.common.reflect.TypeToken;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -55,7 +55,7 @@ public class Config<T> {
             this.node.setValue(TypeToken.of(this.clazz), value);
             this.loader.save(this.node);
         } catch (IOException | ObjectMappingException exc) {
-            AgeOfIttgard.getInstance().getLogger().error("Failed to save config file", exc);
+            AoIQuests.getInstance().getLogger().error("Failed to save config file", exc);
         }
     }
 
@@ -65,9 +65,9 @@ public class Config<T> {
             this.value = this.node.getValue(TypeToken.of(this.clazz), this.clazz.getConstructor().newInstance());
             this.loader.save(this.node);
         } catch (final IOException exc) {
-            AgeOfIttgard.getInstance().getLogger().error("Failed to load config file", exc);
+            AoIQuests.getInstance().getLogger().error("Failed to load config file", exc);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException | ObjectMappingException exc) {
-            AgeOfIttgard.getInstance().getLogger().error("Failed to create default config file", exc);
+            AoIQuests.getInstance().getLogger().error("Failed to create default config file", exc);
         }
     }
 
@@ -75,7 +75,7 @@ public class Config<T> {
         try {
             Files.deleteIfExists(this.path);
         } catch (IOException exc) {
-            AgeOfIttgard.getInstance().getLogger().error("Failed to delete config file", exc);
+            AoIQuests.getInstance().getLogger().error("Failed to delete config file", exc);
         }
     }
 
@@ -84,7 +84,7 @@ public class Config<T> {
             Files.createDirectories(configDir);
             Files.createFile(configDir.resolve(fileName));
         } catch (IOException exc) {
-            AgeOfIttgard.getInstance().getLogger().error("Failed to create config file", exc);
+            AoIQuests.getInstance().getLogger().error("Failed to create config file", exc);
         }
     }
 }

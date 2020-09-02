@@ -2,7 +2,7 @@ package me.mrdaniel.ageofittgard.io.hocon;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.hocon.config.Config;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 import me.mrdaniel.ageofittgard.quest.IDialogueStore;
@@ -33,7 +33,7 @@ public class HoconDialogueStore implements IDialogueStore {
             try {
                 Files.createDirectories(this.storageDir);
             } catch (final IOException exc) {
-                AgeOfIttgard.getInstance().getLogger().error("Failed to create main dialogue storage directory",  exc);
+                AoIQuests.getInstance().getLogger().error("Failed to create main dialogue storage directory",  exc);
                 return;
             }
         }

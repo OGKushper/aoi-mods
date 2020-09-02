@@ -21,7 +21,7 @@ public class TempQuestDesigner {
 
         // Dialogue 1 (Youngster) [Trigger]
 
-        AgeOfIttgard.getInstance().getDialogueManager().createDialogue()
+        AoIQuests.getInstance().getDialogueManager().createDialogue()
                 .setFirstNode(1)
                 .addNode(new LinkDialogueNode(1).setLinkId(1))
                 .addNode(new EndDialogueNode(2))
@@ -33,7 +33,7 @@ public class TempQuestDesigner {
 
         // Dialogue 2 (Old Man)
 
-        AgeOfIttgard.getInstance().getDialogueManager().createDialogue()
+        AoIQuests.getInstance().getDialogueManager().createDialogue()
                 .setFirstNode(1)
                 .addNode(new LinkDialogueNode(1).setLinkId(1))
                 .addLink(new DialogueLink(1, 2)
@@ -58,7 +58,7 @@ public class TempQuestDesigner {
     }
 
     public TempQuestDesigner createMainQuest() {
-        AgeOfIttgard.getInstance().getQuestManager().createQuest()
+        AoIQuests.getInstance().getQuestManager().createQuest()
                 .setName(Text.of(TextColors.GOLD, TextStyles.BOLD, "The legend of the ", TextColors.DARK_RED, TextStyles.RESET, "50", TextColors.GOLD, TextStyles.BOLD, " spirits"))
                 .addStartClue(Text.of(TextColors.GRAY, "You hear of a story about a house, haunted by spirits."))
                 .addStartClue(Text.of(TextColors.GRAY, "It might be worth looking into."))
@@ -85,7 +85,7 @@ public class TempQuestDesigner {
 
         // Dialogue 1 (Billy) [Trigger]
 
-        AgeOfIttgard.getInstance().getDialogueManager().createDialogue()
+        AoIQuests.getInstance().getDialogueManager().createDialogue()
                 .setFirstNode(1)
                 .addNode(new LinkDialogueNode(1).setLinkId(1))
                 .addLink(new DialogueLink(1, 2)
@@ -96,7 +96,7 @@ public class TempQuestDesigner {
 
         // Dialogue 2 (Bully)
 
-        AgeOfIttgard.getInstance().getDialogueManager().createDialogue()
+        AoIQuests.getInstance().getDialogueManager().createDialogue()
                 .setFirstNode(1)
                 .addNode(new LinkDialogueNode(1).setLinkId(1))
                 .addLink(new DialogueLink(1, 2)
@@ -115,7 +115,7 @@ public class TempQuestDesigner {
 
         // Dialogue 3 (Seamstress)
 
-        AgeOfIttgard.getInstance().getDialogueManager().createDialogue()
+        AoIQuests.getInstance().getDialogueManager().createDialogue()
                 .setFirstNode(1)
                 .addNode(new LinkDialogueNode(1).setLinkId(1))
                 .addLink(new DialogueLink(1, 2)
@@ -141,7 +141,7 @@ public class TempQuestDesigner {
 
         // Dialogue 4 (Billy)
 
-        AgeOfIttgard.getInstance().getDialogueManager().createDialogue()
+        AoIQuests.getInstance().getDialogueManager().createDialogue()
                 .setFirstNode(1)
                 .addNode(new LinkDialogueNode(1).setLinkId(1))
                 .addLink(new DialogueLink(1, 2).addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": Hello sir, did you find my toy?")))
@@ -163,7 +163,7 @@ public class TempQuestDesigner {
     }
 
     public TempQuestDesigner createSideQuest() {
-        AgeOfIttgard.getInstance().getQuestManager().createQuest()
+        AoIQuests.getInstance().getQuestManager().createQuest()
                 .setName(Text.of(TextColors.GOLD, "Billy"))
                 .addStartClue(Text.of(TextColors.GRAY, "A bully stole Billy's childhood toy. You should get it back for him!"))
                 .addStartClue(Text.of(TextColors.GRAY, "The bully can usually be found on the beach."))

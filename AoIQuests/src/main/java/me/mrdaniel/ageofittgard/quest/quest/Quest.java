@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.quest.quest;
 
 import com.google.common.collect.Lists;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
@@ -24,7 +24,7 @@ public class Quest {
     private final List<ItemStack> rewards;
 
     public Quest() {
-        this(AgeOfIttgard.getInstance().getQuestManager().getPersistStrategy(), 0);
+        this(AoIQuests.getInstance().getQuestManager().getPersistStrategy(), 0);
     }
 
     public Quest(IPersistStrategy persistStrategy, int questId) {

@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.gui.chat;
 
 import com.google.common.collect.Lists;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.exception.InvalidQuestException;
 import me.mrdaniel.ageofittgard.gui.inventory.QuestListInventoryMenu;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
@@ -57,10 +57,10 @@ public class ClueChatMenu extends AbstractChatMenu {
                 this.completed = true;
                 try {
                     Player player = (Player) src;
-                    AgeOfIttgard.getInstance().getQuestProgressManager().startQuest(player, this.quest);
+                    AoIQuests.getInstance().getQuestProgressManager().startQuest(player, this.quest);
                     new QuestListInventoryMenu(player).setNewQuest(this.quest).open();
                 } catch (InvalidQuestException exc) {
-                    AgeOfIttgard.getInstance().getLogger().error("Failed to start quest", exc);
+                    AoIQuests.getInstance().getLogger().error("Failed to start quest", exc);
                 }
             }
         };

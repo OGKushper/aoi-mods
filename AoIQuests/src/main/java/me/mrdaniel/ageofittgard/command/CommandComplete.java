@@ -1,6 +1,6 @@
 package me.mrdaniel.ageofittgard.command;
 
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.quest.player.PlayerData;
 import me.mrdaniel.npcs.commands.PlayerCommand;
 import org.spongepowered.api.command.CommandException;
@@ -16,7 +16,7 @@ public class CommandComplete extends PlayerCommand {
     @Override
     public void execute(Player player, CommandContext args) throws CommandException {
         Integer questId = args.<Integer>getOne("questId").get();
-        PlayerData data = AgeOfIttgard.getInstance().getPlayerDataManager().getPlayerData(player.getUniqueId());
+        PlayerData data = AoIQuests.getInstance().getPlayerDataManager().getPlayerData(player.getUniqueId());
 
         if (!data.getStarted().contains(questId)) {
             data.getStarted().add(questId);

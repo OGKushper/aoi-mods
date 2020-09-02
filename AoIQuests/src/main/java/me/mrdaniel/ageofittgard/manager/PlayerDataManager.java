@@ -1,6 +1,6 @@
 package me.mrdaniel.ageofittgard.manager;
 
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 import me.mrdaniel.ageofittgard.io.hocon.config.MainConfig;
 import me.mrdaniel.ageofittgard.io.hocon.HoconPlayerDataStore;
@@ -23,7 +23,7 @@ public class PlayerDataManager {
         }
 
         // TODO: Add different storage types
-        this.playerDataStore = new HoconPlayerDataStore(AgeOfIttgard.getInstance().getConfigDir());
+        this.playerDataStore = new HoconPlayerDataStore(AoIQuests.getInstance().getConfigDir());
         this.playerDataStore.load();
     }
 

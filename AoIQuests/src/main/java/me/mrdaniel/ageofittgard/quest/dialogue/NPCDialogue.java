@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.quest.dialogue;
 
 import com.google.common.collect.Maps;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 
 import java.util.Map;
@@ -19,7 +19,7 @@ public class NPCDialogue {
     private final Map<Integer, DialogueCondition> conditions;
 
     public NPCDialogue() {
-        this(AgeOfIttgard.getInstance().getDialogueManager().getPersistStrategy(), 0);
+        this(AoIQuests.getInstance().getDialogueManager().getPersistStrategy(), 0);
     }
 
     public NPCDialogue(IPersistStrategy persistStrategy, int dialogueId) {

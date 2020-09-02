@@ -1,6 +1,6 @@
 package me.mrdaniel.ageofittgard.io.hocon.config;
 
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,9 +18,9 @@ public class DefaultConfig<T> extends Config<T> {
 
     protected void createFile(Path configDir, String fileName) {
         try {
-            AgeOfIttgard.getInstance().getContainer().getAsset(fileName).get().copyToDirectory(configDir);
+            AoIQuests.getInstance().getContainer().getAsset(fileName).get().copyToDirectory(configDir);
         } catch (IOException exc) {
-            AgeOfIttgard.getInstance().getLogger().error("Failed to copy default config from assets folder", exc);
+            AoIQuests.getInstance().getLogger().error("Failed to copy default config from assets folder", exc);
         }
     }
 }

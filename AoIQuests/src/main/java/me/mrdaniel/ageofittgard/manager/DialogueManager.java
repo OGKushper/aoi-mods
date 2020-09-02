@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.manager;
 
 import com.google.common.collect.Maps;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.data.dialogue.DialogueData;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 import me.mrdaniel.ageofittgard.io.hocon.HoconDialogueStore;
@@ -34,7 +34,7 @@ public class DialogueManager {
         }
 
         // TODO: Add different storage types
-        this.dialogueStore = new HoconDialogueStore(AgeOfIttgard.getInstance().getConfigDir());
+        this.dialogueStore = new HoconDialogueStore(AoIQuests.getInstance().getConfigDir());
         this.dialogueStore.load();
 
         this.runners.clear();
@@ -70,7 +70,7 @@ public class DialogueManager {
         DialogueData data = player.get(DialogueData.class).orElse(new DialogueData());
 
         if (dialogue == null) {
-            AgeOfIttgard.getInstance().getLogger().warn("Failed to find Dialogue " + dialogueId + " for a Quest Objective!");
+            AoIQuests.getInstance().getLogger().warn("Failed to find Dialogue " + dialogueId + " for a Quest Objective!");
             player.sendMessage(Text.of(TextColors.RED, "Dialogue not found. Please contact an admin."));
             return;
         }

@@ -2,7 +2,7 @@ package me.mrdaniel.ageofittgard.listener.objective;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
 import me.mrdaniel.ageofittgard.quest.player.ActiveObjective;
 import me.mrdaniel.ageofittgard.manager.QuestProgressManager;
@@ -51,7 +51,7 @@ public abstract class AbstractObjectiveListener {
             return;
         }
 
-        QuestProgressManager manager = AgeOfIttgard.getInstance().getQuestProgressManager();
+        QuestProgressManager manager = AoIQuests.getInstance().getQuestProgressManager();
         List<ActiveObjective> toRemove = Lists.newArrayList();
 
         for (ActiveObjective active : Lists.newArrayList(objectives)) {

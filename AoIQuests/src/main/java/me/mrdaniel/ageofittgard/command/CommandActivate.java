@@ -1,6 +1,6 @@
 package me.mrdaniel.ageofittgard.command;
 
-import me.mrdaniel.ageofittgard.AgeOfIttgard;
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.exception.InvalidQuestException;
 import me.mrdaniel.ageofittgard.quest.player.PlayerData;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
@@ -18,15 +18,15 @@ public class CommandActivate extends PlayerCommand {
     @Override
     public void execute(Player player, CommandContext args) throws CommandException {
         Integer questId = args.<Integer>getOne("questId").get();
-        Quest quest = AgeOfIttgard.getInstance().getQuestManager().getQuest(questId).orElseThrow(() -> new CommandException(Text.of(TextColors.RED, "No quest with that id exists.")));
-        PlayerData data = AgeOfIttgard.getInstance().getPlayerDataManager().getPlayerData(player.getUniqueId());
+        Quest quest = AoIQuests.getInstance().getQuestManager().getQuest(questId).orElseThrow(() -> new CommandException(Text.of(TextColors.RED, "No quest with that id exists.")));
+        PlayerData data = AoIQuests.getInstance().getPlayerDataManager().getPlayerData(player.getUniqueId());
 
         data.getStarted().remove(questId);
         data.getActive().removeIf(a -> a.getQuest().getQuestId() == questId);
         data.getCompleted().remove(questId);
 
         try {
-            AgeOfIttgard.getInstance().getQuestProgressManager().startQuest(player, quest);
+            AoIQuests.getInstance().getQuestProgressManager().startQuest(player, quest);
         } catch (InvalidQuestException exc) {
             throw new CommandException(Text.of(TextColors.RED, "Failed to start quest", exc));
         }
