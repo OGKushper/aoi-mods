@@ -17,13 +17,13 @@ public class RegionCommandRegisterer {
 		CommandSpec regionRenameCommand = CommandSpec.builder()
 				.description(Text.of("renames the current region. usage: /region rename [new name]"))
 				.permission("aoiregions.command.region.rename")
-				.arguments(GenericArguments.onlyOne(GenericArguments.string(Text.of("name"))))
+				.arguments(GenericArguments.onlyOne(GenericArguments.string(Text.of("name1"))), GenericArguments.optional(GenericArguments.string(Text.of("name2"))))
 				.executor(new RegionRenameCommand())
 				.build();
 		CommandSpec regionOriginCommand = CommandSpec.builder()
 				.description(Text.of("sets the point of origin for region generation. usage: '/region origin [x] [y]' OR '/region origin' (uses player location)"))
 				.permission("aoiregions.command.region.generate")
-				.arguments(GenericArguments.optional(GenericArguments.integer(Text.of("x"))), GenericArguments.optional(GenericArguments.integer(Text.of("y"))))
+				.arguments(GenericArguments.optional(GenericArguments.integer(Text.of("x"))), GenericArguments.optional(GenericArguments.integer(Text.of("z"))))
 				.executor(new RegionOriginCommand())
 				.build();
 		CommandSpec regionGenerateCommand = CommandSpec.builder()
@@ -33,7 +33,7 @@ public class RegionCommandRegisterer {
 				.build();
 		
 		CommandSpec regionCommand = CommandSpec.builder()
-				.description(Text.of("command used for getting, renaming and generating Regions.\n Using the command without arguments will display a list of uses"))
+				.description(Text.of("command used for getting, renaming and generating Regions."))
 				.permission("aoiregions.command.region")
 				.child(regionGetCommand, "get", "g")
 				.child(regionRenameCommand, "rename", "set", "name")

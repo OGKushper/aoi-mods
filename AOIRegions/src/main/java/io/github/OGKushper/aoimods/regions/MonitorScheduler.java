@@ -42,4 +42,8 @@ public class MonitorScheduler {
 		}
 		monitors.clear();
 	}
+	
+	public int getCurrentRegion(Player p) {
+		monitors.get(p.getUniqueId())
+	}
 }

@@ -29,6 +29,7 @@ public class AOIRegions {
 
     @Listener
     public void onServerStarted(GameStartedServerEvent event) {
+    	RegionManager.register(this);
         monitorScheduler = new MonitorScheduler();
         RegionCommandRegisterer.Register(this);
         map = new RegionMap(); //TODO Needs to call to a function of a (now non existing) class that deserializes the region JSON to a filled RegionMap
