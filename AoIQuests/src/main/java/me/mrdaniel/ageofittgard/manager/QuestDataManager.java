@@ -2,8 +2,8 @@ package me.mrdaniel.ageofittgard.manager;
 
 import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
-import me.mrdaniel.ageofittgard.io.hocon.config.MainConfig;
 import me.mrdaniel.ageofittgard.io.hocon.HoconQuestStore;
+import me.mrdaniel.ageofittgard.io.hocon.config.MainConfig;
 import me.mrdaniel.ageofittgard.quest.IQuestStore;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
 

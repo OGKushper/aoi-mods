@@ -24,7 +24,6 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         this.serializers = Maps.newHashMap();
         this.serializers.put(NodeTypes.LINK, new Link());
         this.serializers.put(NodeTypes.CHOOSE, new Choose());
-//        this.serializers.put(NodeTypes.CONDITIONS, new Condition());
         this.serializers.put(NodeTypes.BREAK, new Break());
         this.serializers.put(NodeTypes.GIFT, new Gift());
         this.serializers.put(NodeTypes.END, new End());

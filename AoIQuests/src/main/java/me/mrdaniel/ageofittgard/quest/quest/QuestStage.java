@@ -13,8 +13,8 @@ public class QuestStage {
 
     private final int stageId;
     private final List<QuestObjective> objectives;
-    private Text preDesc;
-    private Text postDesc;
+    private final List<Text> preDesc;
+    private final List<Text> postDesc;
 
     public QuestStage() {
         this(0);
@@ -23,6 +23,8 @@ public class QuestStage {
     public QuestStage(int stageId) {
         this.stageId = stageId;
         this.objectives = Lists.newArrayList();
+        this.preDesc = Lists.newArrayList();
+        this.postDesc = Lists.newArrayList();
     }
 
     public int getStageId() {
@@ -42,21 +44,31 @@ public class QuestStage {
         return this;
     }
 
-    public Text getPreDesc() {
+    public List<Text> getPreDesc() {
         return preDesc;
     }
 
-    public QuestStage setPreDesc(Text preDesc) {
-        this.preDesc = preDesc;
+    public QuestStage addPreDesc(Text line) {
+        this.preDesc.add(line);
         return this;
     }
 
-    public Text getPostDesc() {
+    public QuestStage addPreDesc(List<Text> lines) {
+        this.preDesc.addAll(lines);
+        return this;
+    }
+
+    public List<Text> getPostDesc() {
         return postDesc;
     }
 
-    public QuestStage setPostDesc(Text postDesc) {
-        this.postDesc = postDesc;
+    public QuestStage addPostDesc(Text line) {
+        this.postDesc.add(line);
+        return this;
+    }
+
+    public QuestStage addPostDesc(List<Text> lines) {
+        this.postDesc.addAll(lines);
         return this;
     }
 

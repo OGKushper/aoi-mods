@@ -7,7 +7,6 @@ import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatusus;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 import me.mrdaniel.ageofittgard.quest.player.PlayerData;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
-import me.mrdaniel.ageofittgard.quest.quest.QuestStage;
 import me.mrdaniel.npcs.gui.inventory.AbstractInventoryListMenu;
 import me.mrdaniel.npcs.gui.inventory.Button;
 import org.spongepowered.api.data.key.Keys;
@@ -23,7 +22,6 @@ import org.spongepowered.api.text.format.TextStyles;
 
 import java.util.List;
 import java.util.ListIterator;
-import java.util.stream.Collectors;
 
 public class QuestListInventoryMenu extends AbstractInventoryListMenu {
 
@@ -54,6 +52,7 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
         List<Integer> quests = data.getStarted();
         ListIterator<Integer> iter = quests.listIterator(quests.size());
 
+        // Looping though quests in reverse order so that most recently started quests are displayeds first in the inventory
         while (iter.hasPrevious()) {
             Quest quest = AoIQuests.getInstance().getQuestManager().getQuest(iter.previous()).orElse(null);
             if (quest == null) {
@@ -61,15 +60,14 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
             }
 
             boolean blinking = this.newQuest != null && this.newQuest.getQuestId() == quest.getQuestId();
-            boolean started = data.isStarted(quest);
-            boolean completed = data.isCompleted(quest);
-            QuestStatus questStatus = completed ? QuestStatusus.COMPLETED : started ? QuestStatusus.ACTIVE : QuestStatusus.AVAILABLE;
+            QuestStatus questStatus = data.isCompleted(quest) ? QuestStatusus.COMPLETED : data.isStarted(quest) ? QuestStatusus.ACTIVE : QuestStatusus.AVAILABLE;
 
-            // TODO: Decide whether to include available quests or not
+            // Do not display available quests
             if (questStatus == QuestStatusus.AVAILABLE) {
                 continue;
             }
 
+            // If a filter is selected, don't display quests not matching the filter
             if (this.filter != null && this.filter != questStatus) {
                 continue;
             }
@@ -79,7 +77,7 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
                             .itemType(questStatus.getItemType())
                             .quantity(1)
                             .add(Keys.DISPLAY_NAME, quest.getName())
-                            .add(Keys.ITEM_LORE, completed ? this.getCompletedLore(quest) : started ? this.getActiveLore(data.getActive(quest).get()) : Lists.newArrayList())
+                            .add(Keys.ITEM_LORE, questStatus == QuestStatusus.COMPLETED ? this.getCompletedLore(quest) : questStatus == QuestStatusus.ACTIVE ? this.getActiveLore(data.getActive(quest).get()) : Lists.newArrayList())
                             .add(Keys.HIDE_ENCHANTMENTS, true)
                             .build());
             if (blinking) {
@@ -99,18 +97,22 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
     }
 
     private List<Text> getActiveLore(ActiveQuest active) {
-        List<Text> lore = Lists.newArrayList();
+        List<Text> lore = Lists.newArrayList(active.getQuest().getTrigger().getPostDesc());
 
         for (int i = 1; i < active.getStage().getStageId(); i++) {
-            lore.add(active.getQuest().getStage(i).get().getPostDesc());
+            lore.addAll(active.getQuest().getStage(i).get().getPostDesc());
         }
-        lore.add(active.getStage().getPreDesc());
+        lore.addAll(active.getStage().getPreDesc());
 
         return lore;
     }
 
     private List<Text> getCompletedLore(Quest quest) {
-        return quest.getStages().stream().map(QuestStage::getPostDesc).collect(Collectors.toList());
+        List<Text> lore = Lists.newArrayList(quest.getTrigger().getPostDesc());
+
+        quest.getStages().forEach(stage -> lore.addAll(stage.getPostDesc()));
+
+        return lore;
     }
 
     @Override
@@ -127,17 +129,13 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
 
         buttons.add(Button.spacer());
 
-        buttons.add(new Button()
-                .setItemStack(ItemStack.builder()
-                        .itemType(ItemTypes.BOOK)
-                        .quantity(1)
-                        .add(Keys.DISPLAY_NAME, Text.of(TextColors.GRAY, "Filter Available Quests"))
-                        .build())
-                .setLeftAction((p, s) -> { this.filter = QuestStatusus.AVAILABLE; this.changePage(1); }));
+        // Do not display filter button for available quests
+//        buttons.add(new Button().setItemStack(ItemStack.builder().itemType(QuestStatusus.AVAILABLE.getItemType()).quantity(1).add(Keys.DISPLAY_NAME, Text.of(TextColors.GRAY, "Filter Available Quests")).build()).setLeftAction((p, s) -> { this.filter = QuestStatusus.AVAILABLE; this.changePage(1); }));
+        buttons.add(Button.spacer());
 
         buttons.add(new Button()
                 .setItemStack(ItemStack.builder()
-                        .itemType(ItemTypes.WRITABLE_BOOK)
+                        .itemType(QuestStatusus.ACTIVE.getItemType())
                         .quantity(1)
                         .add(Keys.DISPLAY_NAME, Text.of(TextColors.GRAY, "Filter Active Quests"))
                         .build())
@@ -145,7 +143,7 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
 
         buttons.add(new Button()
                 .setItemStack(ItemStack.builder()
-                        .itemType(ItemTypes.ENCHANTED_BOOK)
+                        .itemType(QuestStatusus.COMPLETED.getItemType())
                         .quantity(1)
                         .add(Keys.DISPLAY_NAME, Text.of(TextColors.GRAY, "Filter Completed Quests"))
                         .build())

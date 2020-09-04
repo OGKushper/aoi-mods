@@ -5,6 +5,7 @@ import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.exception.InvalidQuestException;
 import me.mrdaniel.ageofittgard.gui.inventory.QuestListInventoryMenu;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
+import me.mrdaniel.npcs.gui.chat.AbstractChatMenu;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
@@ -44,7 +45,7 @@ public class ClueChatMenu extends AbstractChatMenu {
                 .onClick(TextActions.executeCallback(src -> this.completed = true))
                 .build();
 
-        lines.addAll(this.quest.getStartClues());
+        lines.addAll(this.quest.getTrigger().getPreDesc());
         lines.add(Text.of(TextColors.AQUA, "Do you want to write this clue down in your logbook?"));
         lines.add(Text.of(yes, "   ", no));
 

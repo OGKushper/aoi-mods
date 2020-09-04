@@ -33,14 +33,12 @@ public class ActiveQuestTypeSerializer implements TypeSerializer<ActiveQuest> {
 
     @Override
     public void serialize(@NonNull TypeToken<?> type, @Nullable ActiveQuest obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        if (obj == null) {
-            return;
-        }
-
-        value.getNode("questId").setValue(obj.getQuest().getQuestId());
-        value.getNode("progress").setValue(new TypeToken<Map<Integer, Integer>>(){}, obj.getProgress());
-        if (obj.getStage() != null) {
-            value.getNode("stageId").setValue(obj.getStage().getStageId());
+        if (obj != null) {
+            value.getNode("questId").setValue(obj.getQuest().getQuestId());
+            value.getNode("progress").setValue(new TypeToken<Map<Integer, Integer>>(){}, obj.getProgress());
+            if (obj.getStage() != null) {
+                value.getNode("stageId").setValue(obj.getStage().getStageId());
+            }
         }
     }
 }

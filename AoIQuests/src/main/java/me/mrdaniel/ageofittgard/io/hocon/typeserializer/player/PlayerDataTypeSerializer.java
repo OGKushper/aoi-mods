@@ -31,12 +31,10 @@ public class PlayerDataTypeSerializer implements TypeSerializer<PlayerData> {
 
     @Override
     public void serialize(@NonNull TypeToken<?> type, @Nullable PlayerData obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        if (obj == null) {
-            return;
+        if (obj != null) {
+            value.getNode("started").setValue(obj.getStarted());
+            value.getNode("active").setValue(new TypeToken<List<ActiveQuest>>(){}, obj.getActive());
+            value.getNode("completed").setValue(obj.getCompleted());
         }
-
-        value.getNode("started").setValue(obj.getStarted());
-        value.getNode("active").setValue(new TypeToken<List<ActiveQuest>>(){}, obj.getActive());
-        value.getNode("completed").setValue(obj.getCompleted());
     }
 }

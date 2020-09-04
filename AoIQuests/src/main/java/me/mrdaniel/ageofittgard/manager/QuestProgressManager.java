@@ -80,7 +80,7 @@ public class QuestProgressManager {
         active.load(data);
 
         if (active.getStage() == null) {
-            this.objectiveListeners.forEach(l -> l.add(uuid, new ActiveObjective(active, active.getQuest().getTrigger())));
+            this.objectiveListeners.forEach(l -> l.add(uuid, new ActiveObjective(active, active.getQuest().getTrigger().getObjective())));
         } else {
             active.getStage().getObjectives().forEach(obj -> this.objectiveListeners.forEach(l -> l.add(uuid, new ActiveObjective(active, obj))));
         }

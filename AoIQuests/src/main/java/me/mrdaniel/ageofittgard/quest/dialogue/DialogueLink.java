@@ -11,8 +11,8 @@ public class DialogueLink {
     private final int nextNodeId;
 
     private Text choiceLine;
-    private final List<Text> npcLines;
-    private final List<Integer> conditions;
+    private List<Text> npcLines;
+    private List<Integer> conditions;
 
     public DialogueLink(int linkId, int nextNodeId) {
         this.linkId = linkId;
@@ -55,6 +55,11 @@ public class DialogueLink {
 
     public DialogueLink addNpcLine(Text line) {
         this.npcLines.add(line);
+        return this;
+    }
+
+    public DialogueLink setNpcLines(List<Text> npcLines) {
+        this.npcLines = npcLines;
         return this;
     }
 

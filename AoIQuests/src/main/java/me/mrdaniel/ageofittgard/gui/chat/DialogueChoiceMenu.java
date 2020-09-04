@@ -3,6 +3,7 @@ package me.mrdaniel.ageofittgard.gui.chat;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
 import me.mrdaniel.ageofittgard.quest.dialogue.node.ChooseDialogueNode;
+import me.mrdaniel.npcs.gui.chat.AbstractChatMenu;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.ClickAction;

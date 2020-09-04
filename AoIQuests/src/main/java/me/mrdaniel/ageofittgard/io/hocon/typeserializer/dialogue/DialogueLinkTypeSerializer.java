@@ -8,10 +8,8 @@ import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.spongepowered.api.util.TypeTokens;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DialogueLinkTypeSerializer implements TypeSerializer<DialogueLink> {
 
@@ -19,23 +17,21 @@ public class DialogueLinkTypeSerializer implements TypeSerializer<DialogueLink> 
     @Override
     public DialogueLink deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
         DialogueLink data = new DialogueLink(value.getNode("linkId").getInt(), value.getNode("nextNodeId").getInt());
-        data.getNpcLines().addAll(value.getNode("npcLines").getList(TypeTokens.STRING_TOKEN).stream().map(TextUtils::toText).collect(Collectors.toList()));
-        data.getConditions().addAll(value.getNode("conditions").getList(TypeToken.of(Integer.class)));
         data.setChoiceLine(TextUtils.toText(value.getNode("choiceLine").getString(null)));
+        data.setNpcLines(TextUtils.deserialize(value.getNode("npcLines")));
+        data.getConditions().addAll(value.getNode("conditions").getList(TypeToken.of(Integer.class)));
 
         return data;
     }
 
     @Override
     public void serialize(@NonNull TypeToken<?> type, @Nullable DialogueLink obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        if (obj == null) {
-            return;
+        if (obj != null) {
+            value.getNode("linkId").setValue(obj.getLinkId());
+            value.getNode("nextNodeId").setValue(obj.getNextNodeId());
+            value.getNode("choiceLine").setValue(TextUtils.toString(obj.getChoiceLine()));
+            TextUtils.serialize(value.getNode("npcLines"), obj.getNpcLines());
+            value.getNode("conditions").setValue(new TypeToken<List<Integer>>(){}, obj.getConditions());
         }
-
-        value.getNode("linkId").setValue(obj.getLinkId());
-        value.getNode("nextNodeId").setValue(obj.getNextNodeId());
-        value.getNode("choiceLine").setValue(TextUtils.toString(obj.getChoiceLine()));
-        value.getNode("npcLines").setValue(new TypeToken<List<String>>(){}, obj.getNpcLines().stream().map(TextUtils::toString).collect(Collectors.toList()));
-        value.getNode("conditions").setValue(new TypeToken<List<Integer>>(){}, obj.getConditions());
     }
 }

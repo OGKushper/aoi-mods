@@ -27,6 +27,7 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         this.serializers.put(ObjectiveTypes.KILL, new Kill());
         this.serializers.put(ObjectiveTypes.LOCATION, new Location());
         this.serializers.put(ObjectiveTypes.NPC_TALK, new NPCTalk());
+        this.serializers.put(ObjectiveTypes.MONEY, new Money());
         this.serializers.put(ObjectiveTypes.QUEST, new Quest());
     }
 
@@ -126,6 +127,25 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
             if (obj != null) {
                 value.getNode("npcId").setValue(obj.getNpcId());
                 value.getNode("dialogueId").setValue(obj.getDialogueId());
+            }
+        }
+    }
+
+    public static class Money implements TypeSerializer<ObjectiveMoney> {
+
+        @Nullable
+        @Override
+        public ObjectiveMoney deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            ObjectiveMoney obj = new ObjectiveMoney(value.getNode("objectiveId").getInt());
+            obj.setMoney(value.getNode("money").getDouble());
+
+            return obj;
+        }
+
+        @Override
+        public void serialize(@NonNull TypeToken<?> type, @Nullable ObjectiveMoney obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            if (obj != null) {
+                value.getNode("money").setValue(obj.getMoney());
             }
         }
     }

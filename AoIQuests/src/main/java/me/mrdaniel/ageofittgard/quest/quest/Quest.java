@@ -16,22 +16,24 @@ public class Quest {
     private final int questId;
     private Text name;
 
-    private QuestObjective trigger;
-    private final List<Text> startClues;
+    private QuestTrigger trigger;
     private final List<QuestStage> stages;
 
     private double rewardMoney;
     private final List<ItemStack> rewards;
 
     public Quest() {
-        this(AoIQuests.getInstance().getQuestManager().getPersistStrategy(), 0);
+        this(0);
+    }
+
+    public Quest(int questId) {
+        this(AoIQuests.getInstance().getQuestManager().getPersistStrategy(), questId);
     }
 
     public Quest(IPersistStrategy persistStrategy, int questId) {
         this.persistStrategy = persistStrategy;
 
         this.questId = questId;
-        this.startClues = Lists.newArrayList();
         this.stages = Lists.newArrayList();
         this.rewards = Lists.newArrayList();
     }
@@ -49,21 +51,12 @@ public class Quest {
         return this;
     }
 
-    public QuestObjective getTrigger() {
+    public QuestTrigger getTrigger() {
         return this.trigger;
     }
 
-    public Quest setTrigger(QuestObjective trigger) {
+    public Quest setTrigger(QuestTrigger trigger) {
         this.trigger = trigger;
-        return this;
-    }
-
-    public List<Text> getStartClues() {
-        return this.startClues;
-    }
-
-    public Quest addStartClue(Text clue) {
-        this.startClues.add(clue);
         return this;
     }
 

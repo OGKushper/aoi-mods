@@ -26,6 +26,7 @@ import me.mrdaniel.ageofittgard.io.hocon.typeserializer.player.ActiveQuestTypeSe
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.player.PlayerDataTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestObjectiveTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestStageTypeSerializer;
+import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestTriggerTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestTypeSerializer;
 import me.mrdaniel.ageofittgard.listener.TestListener;
 import me.mrdaniel.ageofittgard.manager.DialogueManager;
@@ -41,6 +42,7 @@ import me.mrdaniel.ageofittgard.quest.player.PlayerData;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
 import me.mrdaniel.ageofittgard.quest.quest.QuestStage;
+import me.mrdaniel.ageofittgard.quest.quest.QuestTrigger;
 import me.mrdaniel.npcs.io.hocon.typeserializers.CatalogTypeSerializer;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 import org.slf4j.Logger;
@@ -116,6 +118,7 @@ public class AoIQuests {
         CatalogTypeSerializer.register(NodeType.class);
         CatalogTypeSerializer.register(ObjectiveType.class);
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Quest.class), new QuestTypeSerializer());
+        TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(QuestTrigger.class), new QuestTriggerTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(QuestStage.class), new QuestStageTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(QuestObjective.class), new QuestObjectiveTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(PlayerData.class), new PlayerDataTypeSerializer());
