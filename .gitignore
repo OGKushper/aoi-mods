@@ -28,3 +28,9 @@ hs_err_pid*
 # Ignore Gradle build output directory
 build
 /.metadata/
+/.idea/
+/gradle/
+/.gradle/
+/build/
+/bin/
+
