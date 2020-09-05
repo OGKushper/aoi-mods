@@ -19,8 +19,8 @@ public class CommandLogbook extends PlayerCommand {
 
     public CommandCallable build() {
         return CommandSpec.builder()
-                .description(Text.of(TextColors.GOLD, "AoI | Logbook Command"))
-                .permission("aoi.logbook")
+                .description(Text.of(TextColors.GOLD, "AoI Quests | Logbook Command"))
+                .permission("aoi.quests.logbook")
                 .executor(this)
                 .build();
     }

@@ -20,8 +20,8 @@ public class CommandQuestItem extends PlayerCommand {
 
     public CommandCallable build() {
         return CommandSpec.builder()
-                .description(Text.of(TextColors.GOLD, "AoI | QuestItem Command"))
-                .permission("aoi.questitem")
+                .description(Text.of(TextColors.GOLD, "AoI Quests | QuestItem Command"))
+                .permission("aoi.quests.admin.questitem")
                 .executor(this)
                 .arguments(GenericArguments.catalogedElement(Text.of("item"), QuestItem.class))
                 .build();

@@ -34,8 +34,8 @@ public class CommandActivate extends PlayerCommand {
 
     public CommandSpec build() {
         return CommandSpec.builder()
-                .description(Text.of(TextColors.GOLD, "AoI | Activate Quest"))
-                .permission("aoi.admin.activate")
+                .description(Text.of(TextColors.GOLD, "AoI Quests | Activate Quest"))
+                .permission("aoi.quests.admin.activate")
                 .arguments(GenericArguments.integer(Text.of("questId")))
                 .executor(this)
                 .build();

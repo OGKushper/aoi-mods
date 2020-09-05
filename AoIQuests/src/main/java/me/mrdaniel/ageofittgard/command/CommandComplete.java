@@ -31,8 +31,8 @@ public class CommandComplete extends PlayerCommand {
 
     public CommandSpec build() {
         return CommandSpec.builder()
-                .description(Text.of(TextColors.GOLD, "AoI | Complete Quest"))
-                .permission("aoi.admin.complete")
+                .description(Text.of(TextColors.GOLD, "AoI Quests | Complete Quest"))
+                .permission("aoi.quests.admin.complete")
                 .arguments(GenericArguments.integer(Text.of("questId")))
                 .executor(this)
                 .build();

@@ -17,9 +17,10 @@ public class CommandAoI extends PlayerCommand {
 
     public CommandSpec build() {
         return CommandSpec.builder()
-                .description(Text.of(TextColors.GOLD, "AoI | Main Command"))
-                .permission("aoi.player")
+                .description(Text.of(TextColors.GOLD, "AoI Quests | Main Command"))
+                .permission("aoi.quests.main")
                 .executor(this)
+                .child(new CommandReload().build(), "reload")
                 .child(new CommandQuestItem().build(), "questitem")
                 .child(new CommandRemove().build(), "remove")
                 .child(new CommandActivate().build(), "activate")

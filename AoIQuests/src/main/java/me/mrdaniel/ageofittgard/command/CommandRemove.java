@@ -31,8 +31,8 @@ public class CommandRemove extends PlayerCommand {
 
     public CommandSpec build() {
         return CommandSpec.builder()
-                .description(Text.of(TextColors.GOLD, "AoI | Remove Quest"))
-                .permission("aoi.admin.remove")
+                .description(Text.of(TextColors.GOLD, "AoI Quests | Remove Quest"))
+                .permission("aoi.quests.admin.remove")
                 .arguments(GenericArguments.integer(Text.of("questId")))
                 .executor(this)
                 .build();
