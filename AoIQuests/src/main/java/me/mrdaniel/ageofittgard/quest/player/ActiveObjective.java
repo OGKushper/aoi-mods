@@ -1,7 +1,6 @@
 package me.mrdaniel.ageofittgard.quest.player;
 
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
-import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 
 public class ActiveObjective {
 
