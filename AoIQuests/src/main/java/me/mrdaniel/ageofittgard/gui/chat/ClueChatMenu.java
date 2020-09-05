@@ -23,9 +23,7 @@ public class ClueChatMenu extends AbstractChatMenu {
 
     public ClueChatMenu(Player player, Quest quest) {
         this.setPlayer(player);
-        this.setTitle(Text.of(TextColors.AQUA, TextStyles.BOLD, "Write down clue?"));
-        this.setHeader(null);
-        this.setFooter(null);
+        this.setTitle(Text.of(TextColors.GOLD, TextStyles.BOLD, "You found a clue!"));
 
         this.quest = quest;
         this.completed = false;
@@ -42,12 +40,13 @@ public class ClueChatMenu extends AbstractChatMenu {
 
         Text no = Text.builder().append(Text.of(TextColors.RED, "Ignore clue."))
                 .onHover(TextActions.showText(Text.of(TextColors.RED, "Click to ignore the clue.")))
-                .onClick(TextActions.executeCallback(src -> this.completed = true))
+                .onClick(TextActions.executeCallback(this.getNoAction()))
                 .build();
 
         lines.addAll(this.quest.getTrigger().getPreDesc());
+        lines.add(Text.EMPTY);
         lines.add(Text.of(TextColors.AQUA, "Do you want to write this clue down in your logbook?"));
-        lines.add(Text.of(yes, "   ", no));
+        lines.add(Text.of("   ", yes, "   ", no));
 
         return lines;
     }
@@ -62,6 +61,18 @@ public class ClueChatMenu extends AbstractChatMenu {
                     new QuestListInventoryMenu(player).setNewQuest(this.quest).open();
                 } catch (InvalidQuestException exc) {
                     AoIQuests.getInstance().getLogger().error("Failed to start quest", exc);
+                }
+            }
+        };
+    }
+
+    private Consumer<CommandSource> getNoAction() {
+        return src -> {
+            if (!this.completed) {
+                this.completed = true;
+
+                for (int i = 0; i < 20; i++) {
+                    src.sendMessage(Text.EMPTY);
                 }
             }
         };

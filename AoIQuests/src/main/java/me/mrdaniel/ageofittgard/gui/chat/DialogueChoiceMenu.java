@@ -24,9 +24,7 @@ public class DialogueChoiceMenu extends AbstractChatMenu {
 
     public DialogueChoiceMenu(DialogueRunner runner, ChooseDialogueNode node) {
         this.setPlayer(runner.getPlayer());
-        this.setTitle(Text.of(TextColors.AQUA, TextStyles.BOLD, "Choices"));
-        this.setHeader(null);
-        this.setFooter(null);
+        this.setTitle(Text.of(TextColors.GOLD, TextStyles.BOLD, "Make a choice."));
 
         this.runner = runner;
         this.node = node;

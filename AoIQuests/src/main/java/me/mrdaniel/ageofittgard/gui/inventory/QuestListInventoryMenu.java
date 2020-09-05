@@ -11,6 +11,7 @@ import me.mrdaniel.npcs.gui.inventory.AbstractInventoryListMenu;
 import me.mrdaniel.npcs.gui.inventory.Button;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.enchantment.EnchantmentTypes;
@@ -150,5 +151,12 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
                 .setLeftAction((p, s) -> { this.filter = QuestStatusus.COMPLETED; this.changePage(1); }));
 
         return buttons;
+    }
+
+    @Override
+    protected void onInventoryClose(InteractInventoryEvent.Close e) {
+        super.onInventoryClose(e);
+
+        this.newQuest = null;
     }
 }
