@@ -6,7 +6,6 @@
 <fullyQualifiedTypeName name="org.spongepowered.api.event.network.ClientConnectionEvent"/>
 <fullyQualifiedTypeName name="org.spongepowered.api.data.LocatableSnapshot"/>
 <fullyQualifiedTypeName name="com.flowpowered.math.vector.Vector3i"/>
-<fullyQualifiedTypeName name="org.spongepowered.api.text.Text"/>
 <fullyQualifiedTypeName name="org.spongepowered.api.text.format.TextColors"/>
 <fullyQualifiedTypeName name="org.spongepowered.api.text.format.TextStyles"/>
 <fullyQualifiedTypeName name="com.google.inject.Inject"/>
@@ -16,7 +15,6 @@
 <fullyQualifiedTypeName name="org.spongepowered.api.event.data.ChangeDataHolderEvent"/>
 <fullyQualifiedTypeName name="org.spongepowered.api.scheduler.Task"/>
 <fullyQualifiedTypeName name="org.spongepowered.api.event.impl.AbstractEvent"/>
-<fullyQualifiedTypeName name="org.spongepowered.api.Sponge"/>
 <fullyQualifiedTypeName name="io.github.OGKushper.aoimods.regions.region.PlayerRegionMonitor"/>
 <fullyQualifiedTypeName name="java.awt.List"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -29,4 +27,14 @@
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
 <fullyQualifiedTypeName name="org.spongepowered.api.event.game.state.GameStoppingServerEvent"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.command.args.CommandContext"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.command.CommandException"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.command.CommandResult"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.command.CommandSource"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.command.spec.CommandExecutor"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.command.spec.CommandSpec"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.text.Text"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.command.args.GenericArguments"/>
+<fullyQualifiedTypeName name="org.spongepowered.api.Sponge"/>
+<fullyQualifiedTypeName name="io.github.OGKushper.aoimods.regions.command.RegionCommandRegisterer"/>
 </qualifiedTypeNameHistroy>
