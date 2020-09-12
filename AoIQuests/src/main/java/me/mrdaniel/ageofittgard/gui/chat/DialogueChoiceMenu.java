@@ -65,8 +65,8 @@ public class DialogueChoiceMenu extends AbstractChatMenu {
     }
 
     private boolean conditionsMet(Player player, DialogueLink link, boolean apply) {
-        return link.getConditions().stream()
-                .map(this.runner.getDialogue().getConditions()::get)
+        return link.getRequirements().stream()
+                .map(this.runner.getDialogue().getRequirements()::get)
                 .allMatch(condition -> apply ? condition.apply(player) : condition.evaluate(player));
     }
 }

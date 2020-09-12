@@ -12,14 +12,14 @@ public class DialogueLink {
 
     private Text choiceLine;
     private List<Text> npcLines;
-    private List<Integer> conditions;
+    private List<Integer> requirements;
 
     public DialogueLink(int linkId, int nextNodeId) {
         this.linkId = linkId;
         this.nextNodeId = nextNodeId;
         this.choiceLine = null;
         this.npcLines = Lists.newArrayList();
-        this.conditions = Lists.newArrayList();
+        this.requirements = Lists.newArrayList();
     }
 
     public void run(DialogueRunner runner, int lineIndex) {
@@ -63,12 +63,12 @@ public class DialogueLink {
         return this;
     }
 
-    public List<Integer> getConditions() {
-        return conditions;
+    public List<Integer> getRequirements() {
+        return requirements;
     }
 
-    public DialogueLink addCondition(int conditionId) {
-        this.conditions.add(conditionId);
+    public DialogueLink addRequirement(int requirementId) {
+        this.requirements.add(requirementId);
         return this;
     }
 }

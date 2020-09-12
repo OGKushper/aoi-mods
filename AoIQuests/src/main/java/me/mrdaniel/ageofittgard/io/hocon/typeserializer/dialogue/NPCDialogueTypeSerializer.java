@@ -3,10 +3,10 @@ package me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue;
 import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
 import me.mrdaniel.ageofittgard.io.hocon.HoconPersistStrategy;
-import me.mrdaniel.ageofittgard.quest.dialogue.DialogueCondition;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;
+import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
@@ -25,7 +25,7 @@ public class NPCDialogueTypeSerializer implements TypeSerializer<NPCDialogue> {
         data.setFirstNode(value.getNode("firstNode").getInt(0));
         value.getNode("nodes").getList(TypeToken.of(DialogueNode.class)).forEach(data::addNode);
         value.getNode("links").getList(TypeToken.of(DialogueLink.class)).forEach(data::addLink);
-        value.getNode("conditions").getList(TypeToken.of(DialogueCondition.class)).forEach(data::addCondition);
+        value.getNode("requirements").getList(TypeToken.of(QuestRequirement.class)).forEach(data::addRequirement);
 
         return data;
     }
@@ -37,8 +37,8 @@ public class NPCDialogueTypeSerializer implements TypeSerializer<NPCDialogue> {
             value.getNode("firstNode").setValue(obj.getFirstNode());
             value.getNode("nodes").setValue(new TypeToken<List<DialogueNode>>(){}, Lists.newArrayList(obj.getNodes().values()));
             value.getNode("links").setValue(new TypeToken<List<DialogueLink>>(){}, Lists.newArrayList(obj.getLinks().values()));
-            if (!obj.getConditions().isEmpty()) {
-                value.getNode("conditions").setValue(new TypeToken<List<DialogueCondition>>(){}, Lists.newArrayList(obj.getConditions().values()));
+            if (!obj.getRequirements().isEmpty()) {
+                value.getNode("requirements").setValue(new TypeToken<List<QuestRequirement>>(){}, Lists.newArrayList(obj.getRequirements().values()));
             }
         }
     }

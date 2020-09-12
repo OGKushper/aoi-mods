@@ -1,15 +1,15 @@
-package me.mrdaniel.ageofittgard.catalogtypes.conditiontype;
+package me.mrdaniel.ageofittgard.catalogtypes.requirementtype;
 
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
-@CatalogedBy(ConditionTypes.class)
-public class ConditionType implements CatalogType {
+@CatalogedBy(RequirementTypes.class)
+public class RequirementType implements CatalogType {
 
 	private final String name;
 	private final String id;
 
-	ConditionType(String name, String id) {
+	RequirementType(String name, String id) {
 		this.name = name;
 		this.id = id;
 	}

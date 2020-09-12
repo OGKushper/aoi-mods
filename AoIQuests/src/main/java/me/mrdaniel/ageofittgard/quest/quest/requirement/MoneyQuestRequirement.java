@@ -1,7 +1,7 @@
-package me.mrdaniel.ageofittgard.quest.dialogue.condition;
+package me.mrdaniel.ageofittgard.quest.quest.requirement;
 
-import me.mrdaniel.ageofittgard.catalogtypes.conditiontype.ConditionTypes;
-import me.mrdaniel.ageofittgard.quest.dialogue.DialogueCondition;
+import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
+import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
 import me.mrdaniel.ageofittgard.util.CauseUtils;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -11,13 +11,13 @@ import org.spongepowered.api.service.economy.transaction.ResultType;
 
 import java.math.BigDecimal;
 
-public class MoneyDialogueCondition extends DialogueCondition {
+public class MoneyQuestRequirement extends QuestRequirement {
 
     private double money;
     private boolean take;
 
-    public MoneyDialogueCondition(int conditionId) {
-        super(ConditionTypes.MONEY, conditionId);
+    public MoneyQuestRequirement(int requirementId) {
+        super(RequirementTypes.MONEY, requirementId);
     }
 
     @Override
@@ -37,11 +37,11 @@ public class MoneyDialogueCondition extends DialogueCondition {
         }
 
         UniqueAccount account = econ.getOrCreateAccount(player.getUniqueId()).get();
-        if (!take) {
+        if (take) {
+            return account.withdraw(econ.getDefaultCurrency(), new BigDecimal(this.money), CauseUtils.getPluginCause()).getResult() == ResultType.SUCCESS;
+        } else {
             return account.getBalance(econ.getDefaultCurrency()).doubleValue() >= this.money;
         }
-
-        return account.withdraw(econ.getDefaultCurrency(), new BigDecimal(this.money), CauseUtils.getPluginCause()).getResult() == ResultType.SUCCESS;
     }
 
     public double getMoney() {

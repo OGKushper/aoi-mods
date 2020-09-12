@@ -3,6 +3,7 @@ package me.mrdaniel.ageofittgard.quest.dialogue;
 import com.google.common.collect.Maps;
 import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
+import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
 
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class NPCDialogue {
     private int firstNode;
     private final Map<Integer, DialogueNode> nodes;
     private final Map<Integer, DialogueLink> links;
-    private final Map<Integer, DialogueCondition> conditions;
+    private final Map<Integer, QuestRequirement> requirements;
 
     public NPCDialogue() {
         this(AoIQuests.getInstance().getDialogueManager().getPersistStrategy(), 0);
@@ -28,7 +29,7 @@ public class NPCDialogue {
         this.dialogueId = dialogueId;
         this.nodes = Maps.newHashMap();
         this.links = Maps.newHashMap();
-        this.conditions = Maps.newHashMap();
+        this.requirements = Maps.newHashMap();
     }
 
     public int getDialogueId() {
@@ -62,12 +63,12 @@ public class NPCDialogue {
         return this;
     }
 
-    public Map<Integer, DialogueCondition> getConditions() {
-        return this.conditions;
+    public Map<Integer, QuestRequirement> getRequirements() {
+        return this.requirements;
     }
 
-    public NPCDialogue addCondition(DialogueCondition condition) {
-        this.conditions.put(condition.getConditionId(), condition);
+    public NPCDialogue addRequirement(QuestRequirement requirement) {
+        this.requirements.put(requirement.getRequirementId(), requirement);
         return this;
     }
 

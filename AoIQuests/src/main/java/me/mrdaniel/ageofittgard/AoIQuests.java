@@ -2,8 +2,6 @@ package me.mrdaniel.ageofittgard;
 
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
-import me.mrdaniel.ageofittgard.catalogtypes.conditiontype.ConditionType;
-import me.mrdaniel.ageofittgard.catalogtypes.conditiontype.ConditionTypeRegistryModule;
 import me.mrdaniel.ageofittgard.catalogtypes.nodetype.NodeType;
 import me.mrdaniel.ageofittgard.catalogtypes.nodetype.NodeTypeRegistryModule;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
@@ -12,37 +10,31 @@ import me.mrdaniel.ageofittgard.catalogtypes.questitem.QuestItem;
 import me.mrdaniel.ageofittgard.catalogtypes.questitem.QuestItemRegistryModule;
 import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatus;
 import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatusRegistryModule;
+import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementType;
+import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypeRegistryModule;
 import me.mrdaniel.ageofittgard.command.CommandAoI;
 import me.mrdaniel.ageofittgard.command.CommandLogbook;
 import me.mrdaniel.ageofittgard.data.AoIKeys;
 import me.mrdaniel.ageofittgard.data.dialogue.DialogueDataBuilder;
 import me.mrdaniel.ageofittgard.io.hocon.config.DefaultConfig;
 import me.mrdaniel.ageofittgard.io.hocon.config.MainConfig;
-import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.DialogueConditionTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.DialogueLinkTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.DialogueNodeTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.NPCDialogueTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.player.ActiveQuestTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.player.PlayerDataTypeSerializer;
-import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestObjectiveTypeSerializer;
-import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestStageTypeSerializer;
-import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestTriggerTypeSerializer;
-import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.QuestTypeSerializer;
+import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.*;
 import me.mrdaniel.ageofittgard.listener.TestListener;
 import me.mrdaniel.ageofittgard.manager.DialogueManager;
 import me.mrdaniel.ageofittgard.manager.PlayerDataManager;
 import me.mrdaniel.ageofittgard.manager.QuestDataManager;
 import me.mrdaniel.ageofittgard.manager.QuestProgressManager;
-import me.mrdaniel.ageofittgard.quest.dialogue.DialogueCondition;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 import me.mrdaniel.ageofittgard.quest.player.PlayerData;
-import me.mrdaniel.ageofittgard.quest.quest.Quest;
-import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
-import me.mrdaniel.ageofittgard.quest.quest.QuestStage;
-import me.mrdaniel.ageofittgard.quest.quest.QuestTrigger;
+import me.mrdaniel.ageofittgard.quest.quest.*;
 import me.mrdaniel.npcs.io.hocon.typeserializers.CatalogTypeSerializer;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 import org.slf4j.Logger;
@@ -108,25 +100,25 @@ public class AoIQuests {
         AoIKeys.init();
         DialogueDataBuilder.register();
 
-        this.game.getRegistry().registerModule(ConditionType.class, new ConditionTypeRegistryModule());
+        this.game.getRegistry().registerModule(RequirementType.class, new RequirementTypeRegistryModule());
         this.game.getRegistry().registerModule(NodeType.class, new NodeTypeRegistryModule());
         this.game.getRegistry().registerModule(ObjectiveType.class, new ObjectiveTypeRegistryModule());
         this.game.getRegistry().registerModule(QuestItem.class, new QuestItemRegistryModule());
         this.game.getRegistry().registerModule(QuestStatus.class, new QuestStatusRegistryModule());
 
-        CatalogTypeSerializer.register(ConditionType.class);
+        CatalogTypeSerializer.register(RequirementType.class);
         CatalogTypeSerializer.register(NodeType.class);
         CatalogTypeSerializer.register(ObjectiveType.class);
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Quest.class), new QuestTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(QuestTrigger.class), new QuestTriggerTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(QuestStage.class), new QuestStageTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(QuestObjective.class), new QuestObjectiveTypeSerializer());
+        TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(QuestRequirement.class), new QuestRequirementTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(PlayerData.class), new PlayerDataTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(ActiveQuest.class), new ActiveQuestTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(NPCDialogue.class), new NPCDialogueTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(DialogueNode.class), new DialogueNodeTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(DialogueLink.class), new DialogueLinkTypeSerializer());
-        TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(DialogueCondition.class), new DialogueConditionTypeSerializer());
     }
 
     @Listener
@@ -140,7 +132,7 @@ public class AoIQuests {
         this.dialogueManager.load(config);
         this.questProgressManager.load();
 
-//        new TempQuestDesigner().createMainDialogues().createMainQuest().createSideDialogues().createSideQuest(); // TODO: Remove
+        new TempQuestDesigner().createMainDialogues().createMainQuest().createSideDialogues().createSideQuest(); // TODO: Remove
 
         this.game.getEventManager().registerListeners(this, new TestListener()); // TODO: Remove
         this.game.getCommandManager().register(this, new CommandAoI().build(), "aoi", "ageofittgard");

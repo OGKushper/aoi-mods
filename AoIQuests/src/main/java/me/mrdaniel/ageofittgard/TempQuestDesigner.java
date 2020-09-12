@@ -2,7 +2,6 @@ package me.mrdaniel.ageofittgard;
 
 import me.mrdaniel.ageofittgard.catalogtypes.questitem.QuestItems;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
-import me.mrdaniel.ageofittgard.quest.dialogue.condition.ItemDialogueCondition;
 import me.mrdaniel.ageofittgard.quest.dialogue.node.*;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
 import me.mrdaniel.ageofittgard.quest.quest.QuestStage;
@@ -11,6 +10,7 @@ import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveCollect;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveKill;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveLocation;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveNPCTalk;
+import me.mrdaniel.ageofittgard.quest.quest.requirement.ItemQuestRequirement;
 import me.mrdaniel.npcs.utils.Position;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.text.Text;
@@ -132,10 +132,10 @@ public class TempQuestDesigner {
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": Alright then."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": I will see you around then!")))
                 .addNode(new BreakDialogueNode(3).setNextNodeId(1))
-                .addCondition(new ItemDialogueCondition(1, QuestItems.BILLY_TOY_PART.build(), 3, true))
+                .addRequirement(new ItemQuestRequirement(1, QuestItems.BILLY_TOY_PART.build(), 3, true))
                 .addLink(new DialogueLink(3, 4)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Actually, do you think you could fix this toy for me?"))
-                        .addCondition(1)
+                        .addRequirement(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": That is no problem at all!")))
                 .addNode(new GiftDialogueNode(4).setItem(QuestItems.BILLY_TOY.build()).setLinkId(4))
                 .addLink(new DialogueLink(4, 5)
@@ -156,10 +156,10 @@ public class TempQuestDesigner {
                 .addNode(new BreakDialogueNode(3).setNextNodeId(1))
                 .addLink(new DialogueLink(3, 4)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Ofcourse I did, here it is!"))
-                        .addCondition(1)
+                        .addRequirement(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": Wow, thank you so much sir!"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": I'll never let anyone take it away from me again!")))
-                .addCondition(new ItemDialogueCondition(1, QuestItems.BILLY_TOY.build(), 1, true))
+                .addRequirement(new ItemQuestRequirement(1, QuestItems.BILLY_TOY.build(), 1, true))
                 .addNode(new EndDialogueNode(4))
                 .save();
 

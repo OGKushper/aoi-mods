@@ -1,23 +1,23 @@
-package me.mrdaniel.ageofittgard.quest.dialogue.condition;
+package me.mrdaniel.ageofittgard.quest.quest.requirement;
 
-import me.mrdaniel.ageofittgard.catalogtypes.conditiontype.ConditionTypes;
-import me.mrdaniel.ageofittgard.quest.dialogue.DialogueCondition;
+import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
+import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
 import me.mrdaniel.ageofittgard.util.ItemUtils;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-public class ItemDialogueCondition extends DialogueCondition {
+public class ItemQuestRequirement extends QuestRequirement {
 
     private ItemStack item;
     private int itemAmount;
     private boolean take;
 
-    public ItemDialogueCondition(int conditionId) {
-        super(ConditionTypes.ITEM, conditionId);
+    public ItemQuestRequirement(int requirementId) {
+        super(RequirementTypes.ITEM, requirementId);
     }
 
-    public ItemDialogueCondition(int conditionId, ItemStack item, int itemAmount, boolean take) {
-        this(conditionId);
+    public ItemQuestRequirement(int requirementId, ItemStack item, int itemAmount, boolean take) {
+        this(requirementId);
 
         this.item = item;
         this.itemAmount = itemAmount;
