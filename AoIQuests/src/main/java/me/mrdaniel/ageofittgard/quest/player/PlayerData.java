@@ -48,16 +48,16 @@ public class PlayerData {
         return this.completed;
     }
 
-    public boolean isStarted(Quest quest) {
-        return this.started.contains(quest.getQuestId());
+    public boolean isStarted(int questId) {
+        return this.started.contains(questId);
     }
 
-    public boolean isActive(Quest quest) {
-        return this.active.stream().anyMatch(a -> a.getQuest().getQuestId() == quest.getQuestId());
+    public boolean isActive(int questId) {
+        return this.active.stream().anyMatch(a -> a.getQuest().getQuestId() == questId);
     }
 
-    public boolean isCompleted(Quest quest) {
-        return this.completed.contains(quest.getQuestId());
+    public boolean isCompleted(int questId) {
+        return this.completed.contains(questId);
     }
 
     public List<ItemStack> getUnclaimed() {

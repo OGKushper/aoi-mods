@@ -60,7 +60,7 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
                 continue;
             }
 
-            QuestStatus questStatus = data.isCompleted(quest) ? QuestStatusus.COMPLETED : data.isStarted(quest) ? QuestStatusus.ACTIVE : QuestStatusus.AVAILABLE;
+            QuestStatus questStatus = data.isCompleted(quest.getQuestId()) ? QuestStatusus.COMPLETED : data.isStarted(quest.getQuestId()) ? QuestStatusus.ACTIVE : QuestStatusus.AVAILABLE;
 
             // Do not display available quests
             if (questStatus == QuestStatusus.AVAILABLE) {

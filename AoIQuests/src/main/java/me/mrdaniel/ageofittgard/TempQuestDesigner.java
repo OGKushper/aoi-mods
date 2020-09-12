@@ -10,7 +10,7 @@ import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveCollect;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveKill;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveLocation;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveNPCTalk;
-import me.mrdaniel.ageofittgard.quest.quest.requirement.ItemQuestRequirement;
+import me.mrdaniel.ageofittgard.quest.quest.requirement.QuestRequirementItem;
 import me.mrdaniel.npcs.utils.Position;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.text.Text;
@@ -132,7 +132,7 @@ public class TempQuestDesigner {
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": Alright then."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": I will see you around then!")))
                 .addNode(new BreakDialogueNode(3).setNextNodeId(1))
-                .addRequirement(new ItemQuestRequirement(1, QuestItems.BILLY_TOY_PART.build(), 3, true))
+                .addRequirement(new QuestRequirementItem(1, QuestItems.BILLY_TOY_PART.build(), 3, true))
                 .addLink(new DialogueLink(3, 4)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Actually, do you think you could fix this toy for me?"))
                         .addRequirement(1)
@@ -159,7 +159,7 @@ public class TempQuestDesigner {
                         .addRequirement(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": Wow, thank you so much sir!"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": I'll never let anyone take it away from me again!")))
-                .addRequirement(new ItemQuestRequirement(1, QuestItems.BILLY_TOY.build(), 1, true))
+                .addRequirement(new QuestRequirementItem(1, QuestItems.BILLY_TOY.build(), 1, true))
                 .addNode(new EndDialogueNode(4))
                 .save();
 

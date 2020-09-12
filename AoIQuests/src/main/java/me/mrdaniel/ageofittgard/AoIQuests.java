@@ -132,7 +132,7 @@ public class AoIQuests {
         this.dialogueManager.load(config);
         this.questProgressManager.load();
 
-        new TempQuestDesigner().createMainDialogues().createMainQuest().createSideDialogues().createSideQuest(); // TODO: Remove
+//        new TempQuestDesigner().createMainDialogues().createMainQuest().createSideDialogues().createSideQuest(); // TODO: Remove
 
         this.game.getEventManager().registerListeners(this, new TestListener()); // TODO: Remove
         this.game.getCommandManager().register(this, new CommandAoI().build(), "aoi", "ageofittgard");

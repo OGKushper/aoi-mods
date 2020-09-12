@@ -61,7 +61,7 @@ public class QuestProgressManager {
      */
     public void load(UUID uuid, PlayerData data) {
         for (Quest quest : AoIQuests.getInstance().getQuestManager().getAllQuests()) {
-            if (!data.isCompleted(quest)) {
+            if (!data.isCompleted(quest.getQuestId())) {
                 this.load(uuid, data, data.getActive(quest).orElseGet(() -> data.setup(quest)));
             }
         }
@@ -116,7 +116,7 @@ public class QuestProgressManager {
      */
     public void startQuest(Player player, Quest quest) throws InvalidQuestException {
         PlayerData data = AoIQuests.getInstance().getPlayerDataManager().getPlayerData(player.getUniqueId());
-        if (data.isStarted(quest)) {
+        if (data.isStarted(quest.getQuestId())) {
             return;
         }
 

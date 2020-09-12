@@ -11,12 +11,12 @@ import org.spongepowered.api.service.economy.transaction.ResultType;
 
 import java.math.BigDecimal;
 
-public class MoneyQuestRequirement extends QuestRequirement {
+public class QuestRequirementMoney extends QuestRequirement {
 
     private double money;
     private boolean take;
 
-    public MoneyQuestRequirement(int requirementId) {
+    public QuestRequirementMoney(int requirementId) {
         super(RequirementTypes.MONEY, requirementId);
     }
 
