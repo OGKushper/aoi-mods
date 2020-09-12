@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public class QuestStage {
 
-    private Quest quest;
-
     private final int stageId;
     private final List<QuestObjective> objectives;
     private final List<Text> preDesc;
@@ -80,19 +78,5 @@ public class QuestStage {
         }
 
         return true;
-    }
-
-    public void load(Quest quest) {
-        this.quest = quest;
-        this.objectives.forEach(obj -> obj.load(this));
-    }
-
-    public void unload() {
-        this.quest = null;
-        this.objectives.forEach(QuestObjective::unload);
-    }
-
-    public void save() {
-        this.quest.save();
     }
 }

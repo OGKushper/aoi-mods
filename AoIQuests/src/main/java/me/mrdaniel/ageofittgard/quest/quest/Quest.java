@@ -93,12 +93,10 @@ public class Quest {
 
     public void load(Object saveable) {
         this.persistStrategy.load(saveable);
-        this.stages.forEach(stage -> stage.load(this));
     }
 
     public void unload() {
         this.persistStrategy.unload();
-        this.stages.forEach(QuestStage::unload);
     }
 
     public void save() {

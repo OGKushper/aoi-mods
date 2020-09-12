@@ -7,8 +7,6 @@ import org.spongepowered.api.event.Event;
 
 public abstract class QuestObjective {
 
-    protected QuestStage stage;
-
     protected final int objectiveId;
     protected final ObjectiveType type;
 
@@ -47,17 +45,4 @@ public abstract class QuestObjective {
      * @return whether the player has met the objective
      */
     public abstract boolean evaluate(Player player, Event e);
-
-    public void load(QuestStage stage) {
-        this.stage = stage;
-    }
-
-    public void unload() {
-        this.stage = null;
-    }
-
-    public void save() {
-        this.stage.save();
-    }
-
 }

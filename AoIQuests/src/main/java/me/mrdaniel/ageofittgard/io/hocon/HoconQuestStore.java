@@ -3,8 +3,8 @@ package me.mrdaniel.ageofittgard.io.hocon;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import me.mrdaniel.ageofittgard.AoIQuests;
-import me.mrdaniel.ageofittgard.io.hocon.config.Config;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
+import me.mrdaniel.ageofittgard.io.hocon.config.Config;
 import me.mrdaniel.ageofittgard.quest.IQuestStore;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
 

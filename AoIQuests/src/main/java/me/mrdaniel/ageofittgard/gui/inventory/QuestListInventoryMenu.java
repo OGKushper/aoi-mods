@@ -60,7 +60,6 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
                 continue;
             }
 
-            boolean blinking = this.newQuest != null && this.newQuest.getQuestId() == quest.getQuestId();
             QuestStatus questStatus = data.isCompleted(quest) ? QuestStatusus.COMPLETED : data.isStarted(quest) ? QuestStatusus.ACTIVE : QuestStatusus.AVAILABLE;
 
             // Do not display available quests
@@ -73,15 +72,14 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
                 continue;
             }
 
-            Button button = new Button()
-                    .setItemStack(ItemStack.builder()
-                            .itemType(questStatus.getItemType())
-                            .quantity(1)
-                            .add(Keys.DISPLAY_NAME, quest.getName())
-                            .add(Keys.ITEM_LORE, questStatus == QuestStatusus.COMPLETED ? this.getCompletedLore(quest) : questStatus == QuestStatusus.ACTIVE ? this.getActiveLore(data.getActive(quest).get()) : Lists.newArrayList())
-                            .add(Keys.HIDE_ENCHANTMENTS, true)
-                            .build());
-            if (blinking) {
+            Button button = new Button().setItemStack(ItemStack.builder()
+                    .itemType(questStatus.getItemType())
+                    .quantity(1)
+                    .add(Keys.DISPLAY_NAME, quest.getName())
+                    .add(Keys.ITEM_LORE, questStatus == QuestStatusus.COMPLETED ? this.getCompletedLore(quest) : questStatus == QuestStatusus.ACTIVE ? this.getActiveLore(data.getActive(quest).get()) : Lists.newArrayList())
+                    .add(Keys.HIDE_ENCHANTMENTS, true)
+                    .build());
+            if (this.newQuest != null && this.newQuest.getQuestId() == quest.getQuestId()) {
                 button.setModifier(item -> {
                     if (item.get(Keys.ITEM_ENCHANTMENTS).orElse(Lists.newArrayList()).isEmpty()) {
                         item.offer(Keys.ITEM_ENCHANTMENTS, Lists.newArrayList(Enchantment.builder().type(EnchantmentTypes.MENDING).level(1).build()));
