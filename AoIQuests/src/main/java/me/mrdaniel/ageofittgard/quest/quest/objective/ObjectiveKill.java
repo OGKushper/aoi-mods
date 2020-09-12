@@ -31,7 +31,7 @@ public class ObjectiveKill extends QuestAmountObjective {
     }
 
     @Override
-    public boolean evaluate(Player player, Event e) {
+    protected boolean evaluateObjective(Player player, Event e) {
         if (!(e instanceof DestructEntityEvent.Death)) {
             return false;
         }

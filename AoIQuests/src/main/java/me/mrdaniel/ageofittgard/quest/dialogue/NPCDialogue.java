@@ -19,6 +19,9 @@ public class NPCDialogue {
     private final Map<Integer, DialogueLink> links;
     private final Map<Integer, QuestRequirement> requirements;
 
+    /**
+     * Required empty constructor for Hocon config file instantiation. Should never be used.
+     */
     public NPCDialogue() {
         this(AoIQuests.getInstance().getDialogueManager().getPersistStrategy(), 0);
     }

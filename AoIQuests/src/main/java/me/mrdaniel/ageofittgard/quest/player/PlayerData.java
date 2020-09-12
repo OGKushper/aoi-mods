@@ -19,6 +19,9 @@ public class PlayerData {
     private List<Integer> completed;
     private List<ItemStack> unclaimed;
 
+    /**
+     * Required empty constructor for Hocon config file instantiation. Can be used safely.
+     */
     public PlayerData() {
         this(AoIQuests.getInstance().getPlayerDataManager().getPersistStrategy());
     }

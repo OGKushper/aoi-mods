@@ -41,7 +41,7 @@ public class ObjectiveNPCTalk extends QuestObjective {
     }
 
     @Override
-    public boolean evaluate(Player player, Event e) {
+    protected boolean evaluateObjective(Player player, Event e) {
         if (e instanceof NPCInteractEvent) {       // Always returns false. This only kicks off the NPC dialogue.
             if (((NPCInteractEvent) e).getData().getId() == this.npcId) {
                 AoIQuests.getInstance().getDialogueManager().startDialogue(this.dialogueId, player);

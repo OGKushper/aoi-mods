@@ -30,7 +30,7 @@ public class ObjectiveMoney extends QuestObjective {
     }
 
     @Override
-    public boolean evaluate(Player player, Event e) {
+    protected boolean evaluateObjective(Player player, Event e) {
         EconomyService econ = Sponge.getServiceManager().provide(EconomyService.class).orElse(null);
         if (econ == null) {
             return false;

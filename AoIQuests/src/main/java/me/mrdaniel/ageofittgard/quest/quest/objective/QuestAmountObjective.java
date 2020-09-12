@@ -8,10 +8,6 @@ public abstract class QuestAmountObjective extends QuestObjective {
 
     private int amount;
 
-    public QuestAmountObjective(ObjectiveType type) {
-        super(type);
-    }
-
     public QuestAmountObjective(int objectiveId, ObjectiveType type) {
         super(objectiveId, type);
     }

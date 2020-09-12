@@ -40,7 +40,7 @@ public class ObjectiveCollect extends QuestObjective {
     }
 
     @Override
-    public boolean evaluate(Player player, Event e) {
+    protected boolean evaluateObjective(Player player, Event e) {
         return ItemUtils.hasItems(player, item, itemAmount);
     }
 }

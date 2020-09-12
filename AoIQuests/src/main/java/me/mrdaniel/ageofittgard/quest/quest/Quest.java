@@ -22,6 +22,9 @@ public class Quest {
     private double rewardMoney;
     private final List<ItemStack> rewards;
 
+    /**
+     * Required empty constructor for Hocon config file instantiation. Should never be used.
+     */
     public Quest() {
         this(0);
     }

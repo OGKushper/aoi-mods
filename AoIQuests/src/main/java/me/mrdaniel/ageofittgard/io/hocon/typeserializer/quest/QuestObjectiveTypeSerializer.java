@@ -5,6 +5,7 @@ import com.google.common.reflect.TypeToken;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypes;
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
+import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
 import me.mrdaniel.ageofittgard.quest.quest.objective.*;
 import me.mrdaniel.npcs.utils.Position;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -15,6 +16,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.api.entity.EntityType;
 import org.spongepowered.api.item.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Map;
 
 public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjective> {
@@ -34,7 +36,13 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
     @Nullable
     @Override
     public QuestObjective deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        return (QuestObjective) this.serializers.get(value.getNode("type").getValue(TypeToken.of(ObjectiveType.class))).deserialize(type, value);
+        QuestObjective obj = (QuestObjective) this.serializers.get(value.getNode("type").getValue(TypeToken.of(ObjectiveType.class))).deserialize(type, value);
+
+        if (obj != null) {
+            obj.addRequirements(value.getNode("requirements").getList(TypeToken.of(QuestRequirement.class)));
+        }
+
+        return obj;
     }
 
     @Override
@@ -44,6 +52,10 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
 
             value.getNode("type").setValue(TypeToken.of(ObjectiveType.class), obj.getType());
             value.getNode("objectiveId").setValue(obj.getObjectiveId());
+
+            if (!obj.getRequirements().isEmpty()) {
+                value.getNode("requirements").setValue(new TypeToken<List<QuestRequirement>>(){}, obj.getRequirements());
+            }
         }
     }
 

@@ -29,7 +29,7 @@ public class ObjectiveQuest extends QuestObjective {
     }
 
     @Override
-    public boolean evaluate(Player player, Event e) {
+    protected boolean evaluateObjective(Player player, Event e) {
         return e instanceof CompleteQuestEvent && ((CompleteQuestEvent) e).getActiveQuest().getQuest().getQuestId() == this.questId;
     }
 }
