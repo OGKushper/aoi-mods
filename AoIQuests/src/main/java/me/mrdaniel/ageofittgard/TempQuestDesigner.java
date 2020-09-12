@@ -11,6 +11,7 @@ import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveKill;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveLocation;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveNPCTalk;
 import me.mrdaniel.ageofittgard.quest.quest.requirement.QuestRequirementItem;
+import me.mrdaniel.ageofittgard.quest.quest.requirement.QuestRequirementTime;
 import me.mrdaniel.npcs.utils.Position;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.text.Text;
@@ -77,8 +78,10 @@ public class TempQuestDesigner {
                         .addPostDesc(Text.of(TextColors.GRAY, "The villagers told me that strange things only happen during a full moon.")))
                 .addStage(new QuestStage(3)
                         .addPreDesc(Text.of(TextColors.GRAY, "I should come back then."))
-                        .addObjective(new ObjectiveLocation(1, new Position("world", 0, 70, 0, 0, 0), 5.0 * 5.0))
-                        .addObjective(new ObjectiveKill(2, EntityTypes.GHAST, 3))
+                        .addObjective(new ObjectiveLocation(1, new Position("world", 0, 70, 0, 0, 0), 5.0 * 5.0)
+                                .addRequirement(new QuestRequirementTime(1, 13_000, 22_000)))
+                        .addObjective(new ObjectiveKill(2, EntityTypes.GHAST, 3)
+                                .addRequirement(new QuestRequirementTime(1, 13_000, 22_000)))
                         .addPostDesc(Text.of(TextColors.GRAY, "I came back during the next full moon, only to find the place crawling with angry ghosts.")))
                 .save();
 
