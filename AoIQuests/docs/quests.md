@@ -9,6 +9,17 @@
 
 - [1. Introduction](#1-Introduction)
 - [2. File Structure](#2-File-Structure)
+- [3. Trigger](#3-Trigger)
+- [4. Stages](#4-Stages)
+  - [4.1. Objectives]($41-Objectives)
+    - [4.1.1. NPC Dialogue](#411-NPC-Dialogue)
+    - [4.1.2. Location](#412-Location)
+    - [4.1.3. Kill](#413-Kill)
+    - [4.1.4. Collect](#414-Collect)
+    - [4.1.5. Poem](#415-Poem)
+    - [4.1.6. Money](#416-Money)
+    - [4.1.7. Quest](#417-Quest)
+  - [4.2. Requirements](#42-Requirements)
 
 ---
 
@@ -75,7 +86,7 @@ trigger {
 
 # 4. Stages
 
-Every stage consists of a stageId, a list of objectives, a pre-description and a post-description. The stageId must be unique, must also start at 1 and must progressive (stage 3 can't exist without stage 2). 
+Every stage consists of a stageId, a list of objectives, a pre-description and a post-description. The stageId must be unique in the quest, must start at 1 and must be progressive (stage 3 can't exist without stage 2). 
 
 The pre and post-descriptions are the same as the pre and post-description in the trigger. Both can be either a list or a single text. Both are displayed below. 
 
@@ -98,3 +109,223 @@ The objectives are explained [further below](#41-Objectives).
 
 ## 4.1. Objectives
 
+Each stage has a list of objectives that must be completed before the player can progress to the next stage. A trigger also has an objective, which once completed starts the quest (If the player decides to write down the clue).
+
+Each objectives has at least 3 values: the objectiveId and the type. The objectiveId must be unique in the stage. It is used to keep track of a player's progress. The type specifies what type ob objective it is.
+
+There are multiple types of objectives. Here are all the objective types. 
+
+| Type         | Description |
+|--------------|-------------|
+| NPC Dialogue | The player has to complete a specific dialogue with a specific NPC. |
+| Location | The player has to go to a location. |
+| Kill | The player has to kill a certain amount of a specific mob. |
+| Collect | The player has to gather a certain amount of a specific item. |
+| Poem | Unimplemented |
+| Money | The player has to have a certain amount of money. |
+| Quest | The player has to complete a different quest. |
+
+Each objective is described further below.
+
+### 4.1.1. NPC Dialogue
+
+The NPC Dialogue objective requires two extra values: the dialogueId and the npcId. The dialogueId must refer to a valid dialogue and the npcId must refer to a valid npc.
+
+```
+{
+    objectiveId=1
+    type="npc_dialogue"
+    dialogueId=2
+    npcId=2
+}
+```
+
+### 4.1.2. Location
+
+The Location objective requires 2 extra values: the distance and the target location. The distance is the range in blocks that the player must be in to complete the objective.
+
+```
+{
+    objectiveId=1
+    type=location
+    distance=5.0
+    target {
+        world=world
+        x=0.0
+        y=70.0
+        z=0.0
+    }
+}
+```
+
+### 4.1.3. Kill
+
+The Kill objective requires 2 extra values: the entity type and the amount. Additional values may be added in the future to support bosses.
+
+```
+{
+    objectiveId=1
+    type=kill
+    entityType="minecraft:ghast"
+    amount=3
+}
+```
+
+### 4.1.4. Collect
+
+The Collect objective requires 2 extra values: the item amount and the item. The item format is the standard sponge item format.
+
+```
+{
+    objectiveId=1
+    type=collect
+    itemAmount=3
+    item {
+        ContentVersion=1
+        Count=1
+        ItemType="minecraft:gold_nugget"
+        UnsafeDamage=0
+        UnsafeData {
+            display {
+                Lore=[
+                    "§7Item Lore Line 1."
+                ]
+                Name="§6Item Name"
+            }
+        }
+    }
+}
+```
+
+### 4.1.5. Poem
+
+Unimplemented
+
+```
+{
+    objectiveId=1
+    type=poem
+}
+```
+
+### 4.1.6. Money
+
+The Money objective requires 1 extra value, the amount of money.
+
+```
+{
+    objectiveId=1
+    type=money
+    money=500.0
+}
+```
+
+### 4.1.7. Quest
+
+The Quest objective requires 1 extra value, the questId. The questId must refer to a valid quest.
+
+```
+{
+    objectiveId=1
+    type=money
+    questId=3
+}
+```
+
+## 4.2. Requirements
+
+Each objective can also have additional requirements. If an objective is completed but not all the requirements are met, the objective will not be completed. These are all the requirement types:
+
+| Type         | Description |
+|--------------|-------------|
+| Item | Requires the player to have a certain amount of a specific item in his inventory. |
+| Location | Requires the player to be near a certain location. |
+| Money | Requires the player to have a certain amount of money. |
+| Quest | Requires the player to have completed a different quest. |
+| Time | Requires the time to be between 2 values. |
+
+Here is an example of how requirements should be added to objectives.
+
+```
+{
+    objectiveId=1
+    type=location
+    distance=5.0
+    target {
+        world=world
+        x=0.0
+        y=70.0
+        z=0.0
+    }
+    requirements=[
+        {},
+        {}
+    ]
+}
+```
+
+Each objective is described further below.
+
+### 4.2.1. Item
+
+The Item requirement requires 3 extra values: the item amount, whether or not the items are taken away and the item itself.
+
+```
+{
+    requirementId=1
+    requirementType=item
+    itemAmount=3
+    take=true
+    item {
+        ContentVersion=1
+        Count=1
+        ItemType="minecraft:gold_nugget"
+        UnsafeDamage=0
+        UnsafeData {
+            display {
+                Lore=[
+                    "§7Item Lore Line 1."
+                ]
+                Name="§6Item Name"
+            }
+        }
+    }
+}
+```
+
+### 4.2.2. Location
+
+The Location requirement requires 2 extra values: the distance and the target. The distance is the range in blocks that the player must be in to meet the requirement. 
+
+```
+{
+    requirementId=1
+    requirementType=location
+    distance=5.0
+    target {
+        world=world
+        x=0.0
+        y=70.0
+        z=0.0
+    }
+}
+```
+
+### 4.2.3. Money
+
+
+
+### 4.2.4. Quest
+
+
+
+### 4.2.5. Time
+
+```
+{
+    requirementId=1
+    requirementType=time
+    fromTicks=13000
+    toTicks=22000
+}
+```
