@@ -77,7 +77,7 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequi
             QuestRequirementLocation data = new QuestRequirementLocation(value.getNode("requirementId").getInt());
 
             data.setTarget(value.getNode("target").getValue(TypeToken.of(Position.class)));
-            data.setDistanceSquared(value.getNode("distanceSquared").getDouble());
+            data.setDistance(value.getNode("distance").getDouble());
 
             return data;
         }
@@ -86,7 +86,7 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequi
         public void serialize(@NonNull TypeToken<?> type, @Nullable QuestRequirementLocation obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
                 value.getNode("target").setValue(TypeToken.of(Position.class), obj.getTarget());
-                value.getNode("distanceSquared").setValue(obj.getDistanceSquared());
+                value.getNode("distance").setValue(obj.getDistance());
             }
         }
     }

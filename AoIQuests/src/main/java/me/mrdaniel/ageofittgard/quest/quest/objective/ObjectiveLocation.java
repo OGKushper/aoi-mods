@@ -10,16 +10,18 @@ public class ObjectiveLocation extends QuestObjective {
 
     private Position target;
     private double distanceSquared;
+    private double distance;
 
     public ObjectiveLocation(int objectiveId) {
         this(objectiveId, null, 0);
     }
 
-    public ObjectiveLocation(int objectiveId, Position target, double distanceSquared) {
+    public ObjectiveLocation(int objectiveId, Position target, double distance) {
         super(objectiveId, ObjectiveTypes.LOCATION);
 
         this.target = target;
-        this.distanceSquared = distanceSquared;
+        this.distanceSquared = distance * distance;
+        this.distance = distance;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class ObjectiveLocation extends QuestObjective {
     }
 
     public Position getTarget() {
-        return target;
+        return this.target;
     }
 
     public void setTarget(Position target) {
@@ -37,10 +39,15 @@ public class ObjectiveLocation extends QuestObjective {
     }
 
     public double getDistanceSquared() {
-        return distanceSquared;
+        return this.distanceSquared;
     }
 
-    public void setDistanceSquared(double distanceSquared) {
-        this.distanceSquared = distanceSquared;
+    public double getDistance() {
+        return this.distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distanceSquared = distance * distance;
+        this.distance = distance;
     }
 }

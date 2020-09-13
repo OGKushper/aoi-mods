@@ -9,16 +9,18 @@ public class QuestRequirementLocation extends QuestRequirement {
 
     private Position target;
     private double distanceSquared;
+    private double distance;
 
     public QuestRequirementLocation(int requirementId) {
         super(RequirementTypes.LOCATION, requirementId);
     }
 
-    public QuestRequirementLocation(int requirementId, Position target, double distanceSquared) {
+    public QuestRequirementLocation(int requirementId, Position target, double distance) {
         this(requirementId);
 
         this.target = target;
-        this.distanceSquared = distanceSquared;
+        this.distanceSquared = distance * distance;
+        this.distance = distance;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class QuestRequirementLocation extends QuestRequirement {
     }
 
     public Position getTarget() {
-        return target;
+        return this.target;
     }
 
     public void setTarget(Position target) {
@@ -41,10 +43,15 @@ public class QuestRequirementLocation extends QuestRequirement {
     }
 
     public double getDistanceSquared() {
-        return distanceSquared;
+        return this.distanceSquared;
     }
 
-    public void setDistanceSquared(double distanceSquared) {
-        this.distanceSquared = distanceSquared;
+    public double getDistance() {
+        return this.distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distanceSquared = distance * distance;
+        this.distance = distance;
     }
 }

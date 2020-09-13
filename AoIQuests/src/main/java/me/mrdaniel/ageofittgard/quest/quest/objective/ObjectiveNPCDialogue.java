@@ -7,17 +7,17 @@ import me.mrdaniel.npcs.events.NPCInteractEvent;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Event;
 
-public class ObjectiveNPCTalk extends QuestObjective {
+public class ObjectiveNPCDialogue extends QuestObjective {
 
     private int npcId;
     private int dialogueId;
 
-    public ObjectiveNPCTalk(int objectiveId) {
+    public ObjectiveNPCDialogue(int objectiveId) {
         this(objectiveId, 0, 0);
     }
 
-    public ObjectiveNPCTalk(int objectiveId, int npcId, int dialogueId) {
-        super(objectiveId, ObjectiveTypes.NPC_TALK);
+    public ObjectiveNPCDialogue(int objectiveId, int npcId, int dialogueId) {
+        super(objectiveId, ObjectiveTypes.NPC_DIALOGUE);
 
         this.npcId = npcId;
         this.dialogueId = dialogueId;

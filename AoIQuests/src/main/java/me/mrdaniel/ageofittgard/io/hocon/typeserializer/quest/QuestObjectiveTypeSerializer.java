@@ -4,8 +4,8 @@ import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypes;
-import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
 import me.mrdaniel.ageofittgard.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
 import me.mrdaniel.ageofittgard.quest.quest.objective.*;
 import me.mrdaniel.npcs.utils.Position;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -28,7 +28,7 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         this.serializers.put(ObjectiveTypes.COLLECT, new Collect());
         this.serializers.put(ObjectiveTypes.KILL, new Kill());
         this.serializers.put(ObjectiveTypes.LOCATION, new Location());
-        this.serializers.put(ObjectiveTypes.NPC_TALK, new NPCTalk());
+        this.serializers.put(ObjectiveTypes.NPC_DIALOGUE, new NPCDialogue());
         this.serializers.put(ObjectiveTypes.MONEY, new Money());
         this.serializers.put(ObjectiveTypes.QUEST, new Quest());
     }
@@ -59,7 +59,7 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         }
     }
 
-    public static class Collect implements TypeSerializer<ObjectiveCollect> {
+    private static class Collect implements TypeSerializer<ObjectiveCollect> {
 
         @Nullable
         @Override
@@ -80,7 +80,7 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         }
     }
 
-    public static class Kill implements TypeSerializer<ObjectiveKill> {
+    private static class Kill implements TypeSerializer<ObjectiveKill> {
 
         @Nullable
         @Override
@@ -101,14 +101,14 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         }
     }
 
-    public static class Location implements TypeSerializer<ObjectiveLocation> {
+    private static class Location implements TypeSerializer<ObjectiveLocation> {
 
         @Nullable
         @Override
         public ObjectiveLocation deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
             ObjectiveLocation obj = new ObjectiveLocation(value.getNode("objectiveId").getInt());
             obj.setTarget(value.getNode("target").getValue(TypeToken.of(Position.class)));
-            obj.setDistanceSquared(value.getNode("distanceSquared").getDouble());
+            obj.setDistance(value.getNode("distance").getDouble());
 
             return obj;
         }
@@ -117,17 +117,17 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         public void serialize(@NonNull TypeToken<?> type, @Nullable ObjectiveLocation obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
                 value.getNode("target").setValue(TypeToken.of(Position.class), obj.getTarget());
-                value.getNode("distanceSquared").setValue(obj.getDistanceSquared());
+                value.getNode("distance").setValue(obj.getDistance());
             }
         }
     }
 
-    public static class NPCTalk implements TypeSerializer<ObjectiveNPCTalk> {
+    private static class NPCDialogue implements TypeSerializer<ObjectiveNPCDialogue> {
 
         @Nullable
         @Override
-        public ObjectiveNPCTalk deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            ObjectiveNPCTalk obj = new ObjectiveNPCTalk(value.getNode("objectiveId").getInt());
+        public ObjectiveNPCDialogue deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            ObjectiveNPCDialogue obj = new ObjectiveNPCDialogue(value.getNode("objectiveId").getInt());
             obj.setNpcId(value.getNode("npcId").getInt());
             obj.setDialogueId(value.getNode("dialogueId").getInt());
 
@@ -135,7 +135,7 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         }
 
         @Override
-        public void serialize(@NonNull TypeToken<?> type, @Nullable ObjectiveNPCTalk obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        public void serialize(@NonNull TypeToken<?> type, @Nullable ObjectiveNPCDialogue obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
                 value.getNode("npcId").setValue(obj.getNpcId());
                 value.getNode("dialogueId").setValue(obj.getDialogueId());
@@ -143,7 +143,7 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         }
     }
 
-    public static class Money implements TypeSerializer<ObjectiveMoney> {
+    private static class Money implements TypeSerializer<ObjectiveMoney> {
 
         @Nullable
         @Override
@@ -162,7 +162,7 @@ public class QuestObjectiveTypeSerializer implements TypeSerializer<QuestObjecti
         }
     }
 
-    public static class Quest implements TypeSerializer<ObjectiveQuest> {
+    private static class Quest implements TypeSerializer<ObjectiveQuest> {
 
         @Nullable
         @Override

@@ -45,7 +45,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         }
     }
 
-    public static class Link implements TypeSerializer<LinkDialogueNode> {
+    private static class Link implements TypeSerializer<LinkDialogueNode> {
 
         @Nullable
         @Override
@@ -65,7 +65,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         }
     }
 
-    public static class Choose implements TypeSerializer<ChooseDialogueNode> {
+    private static class Choose implements TypeSerializer<ChooseDialogueNode> {
 
         @Nullable
         @Override
@@ -85,29 +85,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         }
     }
 
-//    public static class Condition implements TypeSerializer<ConditionDialogueNode> {
-//
-//        @Nullable
-//        @Override
-//        public ConditionDialogueNode deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-//            ConditionDialogueNode data = new ConditionDialogueNode(value.getNode("nodeId").getInt());
-//
-//            data.setDefaultLink(value.getNode("defaultLink").getInt());
-//            data.getLinks().addAll(value.getNode("links").getList(TypeToken.of(Integer.class)));
-//
-//            return data;
-//        }
-//
-//        @Override
-//        public void serialize(@NonNull TypeToken<?> type, @Nullable ConditionDialogueNode obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
-//            if (obj != null) {
-//                value.getNode("defaultLink").setValue(obj.getDefaultLink());
-//                value.getNode("links").setValue(new TypeToken<List<Integer>>(){}, obj.getLinks());
-//            }
-//        }
-//    }
-
-    public static class Break implements TypeSerializer<BreakDialogueNode> {
+    private static class Break implements TypeSerializer<BreakDialogueNode> {
 
         @Nullable
         @Override
@@ -127,7 +105,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         }
     }
 
-    public static class Gift implements TypeSerializer<GiftDialogueNode> {
+    private static class Gift implements TypeSerializer<GiftDialogueNode> {
 
         @Nullable
         @Override
@@ -149,7 +127,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         }
     }
 
-    public static class End implements TypeSerializer<EndDialogueNode> {
+    private static class End implements TypeSerializer<EndDialogueNode> {
 
         @Nullable
         @Override

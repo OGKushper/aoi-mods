@@ -9,7 +9,7 @@ import me.mrdaniel.ageofittgard.quest.quest.QuestTrigger;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveCollect;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveKill;
 import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveLocation;
-import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveNPCTalk;
+import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveNPCDialogue;
 import me.mrdaniel.ageofittgard.quest.requirement.QuestRequirementItem;
 import me.mrdaniel.ageofittgard.quest.requirement.QuestRequirementTime;
 import me.mrdaniel.npcs.utils.Position;
@@ -64,7 +64,7 @@ public class TempQuestDesigner {
         AoIQuests.getInstance().getQuestManager().createQuest()
                 .setName(Text.of(TextColors.GOLD, TextStyles.BOLD, "The legend of the ", TextColors.DARK_RED, TextStyles.RESET, "50", TextColors.GOLD, TextStyles.BOLD, " spirits"))
                 .setTrigger(new QuestTrigger()
-                        .setObjective(new ObjectiveNPCTalk(1, 1, 1))
+                        .setObjective(new ObjectiveNPCDialogue(1, 1, 1))
                         .addPreDesc(Text.of(TextColors.GRAY, "You hear of a story about a house, haunted by spirits."))
                         .addPreDesc(Text.of(TextColors.GRAY, "It might be worth looking into."))
                         .addPostDesc(Text.of(TextColors.GRAY, "I heard a story about a haunted house.")))
@@ -74,7 +74,7 @@ public class TempQuestDesigner {
                         .addPostDesc(Text.of(TextColors.GRAY, "I found the abandoned building, but found no sign of anything abnormal.")))
                 .addStage(new QuestStage(2)
                         .addPreDesc(Text.of(TextColors.GRAY, "Maybe the local villagers know something."))
-                        .addObjective(new ObjectiveNPCTalk(1, 2, 2))
+                        .addObjective(new ObjectiveNPCDialogue(1, 2, 2))
                         .addPostDesc(Text.of(TextColors.GRAY, "The villagers told me that strange things only happen during a full moon.")))
                 .addStage(new QuestStage(3)
                         .addPreDesc(Text.of(TextColors.GRAY, "I should come back then."))
@@ -173,13 +173,13 @@ public class TempQuestDesigner {
         AoIQuests.getInstance().getQuestManager().createQuest()
                 .setName(Text.of(TextColors.GOLD, "Billy"))
                 .setTrigger(new QuestTrigger()
-                        .setObjective(new ObjectiveNPCTalk(1, 3, 3))
+                        .setObjective(new ObjectiveNPCDialogue(1, 3, 3))
                         .addPreDesc(Text.of(TextColors.GRAY, "A bully stole Billy's childhood toy. You should get it back for him!"))
                         .addPreDesc(Text.of(TextColors.GRAY, "The bully can usually be found on the beach."))
                         .addPostDesc(Text.of(TextColors.GRAY, "I found a kid named Billy who's favorite toy was stolen by a bully.")))
                 .addStage(new QuestStage(1)
                         .addPreDesc(Text.of(TextColors.GRAY, "I should find the bully that stole Billy's toy on the beach."))
-                        .addObjective(new ObjectiveNPCTalk(1, 4, 4))
+                        .addObjective(new ObjectiveNPCDialogue(1, 4, 4))
                         .addPostDesc(Text.of(TextColors.GRAY, "I found the bully, but he hid the toy.")))
                 .addStage(new QuestStage(2)
                         .addPreDesc(Text.of(TextColors.GRAY, "I should search the bully's room."))
@@ -187,12 +187,12 @@ public class TempQuestDesigner {
                         .addPostDesc(Text.of(TextColors.GRAY, "I found Billy's toy, but the bully ripped it into 3 pieces.")))
                 .addStage(new QuestStage(3)
                         .addPreDesc(Text.of(TextColors.GRAY, "Maybe the seamstress in town can fix it?"))
-                        .addObjective(new ObjectiveNPCTalk(1, 5, 5))
+                        .addObjective(new ObjectiveNPCDialogue(1, 5, 5))
                         .addObjective(new ObjectiveCollect(2, QuestItems.BILLY_TOY.build(), 1))
                         .addPostDesc(Text.of(TextColors.GRAY, "The seamstress in town was very nice, and fixed the toy up nicely.")))
                 .addStage(new QuestStage(4)
                         .addPreDesc(Text.of(TextColors.GRAY, "Lets find Billy."))
-                        .addObjective(new ObjectiveNPCTalk(1, 3, 6))
+                        .addObjective(new ObjectiveNPCDialogue(1, 3, 6))
                         .addPostDesc(Text.of(TextColors.GRAY, "Billy is happy to have his toy back.")))
                 .save();
 
@@ -205,12 +205,12 @@ public class TempQuestDesigner {
 
             quest.setName(Text.of(TextColors.GOLD, "Quest " + quest.getQuestId()))
                     .setTrigger(new QuestTrigger()
-                            .setObjective(new ObjectiveNPCTalk(1, 999, 999))
+                            .setObjective(new ObjectiveNPCDialogue(1, 999, 999))
                             .addPreDesc(Text.of(" "))
                             .addPostDesc(Text.of(" ")))
                     .addStage(new QuestStage(1)
                             .addPreDesc(Text.of(" "))
-                            .addObjective(new ObjectiveNPCTalk(1, 999, 999))
+                            .addObjective(new ObjectiveNPCDialogue(1, 999, 999))
                             .addPostDesc(Text.of(" ")))
                     .save();
         }

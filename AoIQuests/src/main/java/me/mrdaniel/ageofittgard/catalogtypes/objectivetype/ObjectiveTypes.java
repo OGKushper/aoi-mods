@@ -7,7 +7,7 @@ import java.util.List;
 
 public final class ObjectiveTypes {
 
-	public static final ObjectiveType NPC_TALK = new ObjectiveType("Talk to an NPC", "npc_talk", ObjectiveNPCTalk.class);
+	public static final ObjectiveType NPC_DIALOGUE = new ObjectiveType("Talk to an NPC", "npc_dialogue", ObjectiveNPCDialogue.class);
 //	public static final ObjectiveType NPC_ESCORT = new ObjectiveType("Escort an NPC", "npc_escort", HoconObjectiveNPCEscort.class);
 //	public static final ObjectiveType NPC_FOLLOW = new ObjectiveType("Follow an NPC", "npc_follow", HoconObjectiveNPCFollow.class);
 
@@ -19,5 +19,5 @@ public final class ObjectiveTypes {
 	public static final ObjectiveType QUEST = new ObjectiveType("Complete an other quest", "quest", ObjectiveQuest.class);
 //	public static final ObjectiveType LEVEL = new ObjectiveType("Level up", "level", HoconObjectiveLevel.class);
 
-	public static final List<ObjectiveType> ALL = Lists.newArrayList(NPC_TALK, LOCATION, KILL, COLLECT, MONEY, QUEST);
+	public static final List<ObjectiveType> ALL = Lists.newArrayList(NPC_DIALOGUE, LOCATION, KILL, COLLECT, MONEY, QUEST);
 }
