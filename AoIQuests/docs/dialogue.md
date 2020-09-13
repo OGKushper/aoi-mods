@@ -34,8 +34,8 @@ The general idea of the dialogue system is to have a network of nodes, connected
 
 All dialogue files are placed in the 'config/aoi-quests/dialogue' folder. The file name does not matter, as long as the file prefix is `.conf`.
 
-A dialogue file consists of a dialogueId, the firstNodeId, a list of nodes and a list of links.
-The dialogueId is used to refer to a specific dialogue by quests. This id must be unique. The firstNodeId is required so that the plugin knows where to start the dialogue. The nodes and links are explained further below.
+A dialogue file consists of a dialogueId, the firstNodeId, a list of nodes, a list of links and a list of requirements.
+The dialogueId is used to refer to a specific dialogue by quests. This id must be unique. The firstNodeId is required so that the plugin knows where to start the dialogue. The nodes, links and requirements are explained further below.
 
 The general file structure of dialogue files goes as following. Keep in mind that these files are written in HOCON, not JSON.
 
@@ -47,6 +47,10 @@ nodes=[
     {}
 ]
 links=[
+    {},
+    {}
+]
+requirements=[
     {},
     {}
 ]
@@ -191,7 +195,9 @@ A choice line is the text displayed in choice menu's for choose nodes. Every lin
 
 ## 4.3. Requirements
 
-Requirements are used to check whether the player is allowed to run this link. Currently it is only allowed in combination with choose nodes. This means any link with requirements should also contain a choise line. The requirement format is explained further in [the quests documentation](quests.md#).
+Requirements are used to check whether the player is allowed to run this link. Currently it is only allowed in combination with choose nodes. This means any link with requirements should also contain a choise line. The requirement format is explained further in [the quests documentation](quests.md#42-Requirements). The requirements are not placed directly in the link for the sake of reusability.
+
+This is an example of how requirements should be applied to links.
 
 ```
 {
@@ -200,8 +206,8 @@ Requirements are used to check whether the player is allowed to run this link. C
     npcLines=""
     choiceLine="&7No thank you, I'm good."
     requirements=[
-        {},
-        {}
+        1,
+        2
     ]
 }
 ```
