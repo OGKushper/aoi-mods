@@ -1,7 +1,7 @@
-package me.mrdaniel.ageofittgard.quest.quest.requirement;
+package me.mrdaniel.ageofittgard.quest.requirement;
 
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
-import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.QuestRequirement;
 import me.mrdaniel.ageofittgard.util.CauseUtils;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;

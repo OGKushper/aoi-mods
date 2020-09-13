@@ -2,12 +2,12 @@ package me.mrdaniel.ageofittgard.quest.player;
 
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
 
-public class ActiveObjective {
+public class ActiveObjective<T extends QuestObjective> {
 
     private ActiveQuest activeQuest;
-    private QuestObjective objective;
+    private T objective;
 
-    public ActiveObjective(ActiveQuest activeQuest, QuestObjective objective) {
+    public ActiveObjective(ActiveQuest activeQuest, T objective) {
         this.activeQuest = activeQuest;
         this.objective = objective;
     }
@@ -16,7 +16,7 @@ public class ActiveObjective {
         return this.activeQuest;
     }
 
-    public QuestObjective getObjective() {
+    public T getObjective() {
         return this.objective;
     }
 }

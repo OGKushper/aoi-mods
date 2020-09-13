@@ -12,7 +12,7 @@ public class ObjectivePoem extends QuestObjective {
     }
 
     @Override
-    protected boolean evaluateObjective(Player player, Event e) {
+    protected boolean evaluateObjective(Player player, Event event) {
         
 
         return false;

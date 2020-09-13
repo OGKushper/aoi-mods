@@ -21,21 +21,21 @@ public class ObjectiveMoney extends QuestObjective {
         this.money = money;
     }
 
-    public double getMoney() {
-        return this.money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
     @Override
-    protected boolean evaluateObjective(Player player, Event e) {
+    protected boolean evaluateObjective(Player player, Event event) {
         EconomyService econ = Sponge.getServiceManager().provide(EconomyService.class).orElse(null);
         if (econ == null) {
             return false;
         }
 
         return econ.getOrCreateAccount(player.getUniqueId()).get().getBalance(econ.getDefaultCurrency()).doubleValue() >= this.money;
+    }
+
+    public double getMoney() {
+        return this.money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
     }
 }

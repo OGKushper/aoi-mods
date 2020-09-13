@@ -1,4 +1,4 @@
-package me.mrdaniel.ageofittgard.quest.quest;
+package me.mrdaniel.ageofittgard.quest;
 
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementType;
 import org.spongepowered.api.entity.living.player.Player;

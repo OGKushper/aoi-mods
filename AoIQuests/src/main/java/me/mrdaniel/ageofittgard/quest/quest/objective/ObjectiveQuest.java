@@ -20,16 +20,16 @@ public class ObjectiveQuest extends QuestObjective {
         this.questId = questId;
     }
 
+    @Override
+    protected boolean evaluateObjective(Player player, Event event) {
+        return event instanceof CompleteQuestEvent && ((CompleteQuestEvent) event).getActiveQuest().getQuest().getQuestId() == this.questId;
+    }
+
     public int getQuestId() {
         return questId;
     }
 
     public void setQuestId(int questId) {
         this.questId = questId;
-    }
-
-    @Override
-    protected boolean evaluateObjective(Player player, Event e) {
-        return e instanceof CompleteQuestEvent && ((CompleteQuestEvent) e).getActiveQuest().getQuest().getQuestId() == this.questId;
     }
 }

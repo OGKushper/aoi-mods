@@ -22,20 +22,20 @@ public class ObjectiveKill extends QuestAmountObjective {
         this.setAmount(amount);
     }
 
+    @Override
+    protected boolean evaluateObjective(Player player, Event event) {
+        if (!(event instanceof DestructEntityEvent.Death)) {
+            return false;
+        }
+
+        return this.entityType == ((DestructEntityEvent.Death) event).getTargetEntity().getType();
+    }
+
     public EntityType getEntityType() {
         return entityType;
     }
 
     public void setEntityType(EntityType entityType) {
         this.entityType = entityType;
-    }
-
-    @Override
-    protected boolean evaluateObjective(Player player, Event e) {
-        if (!(e instanceof DestructEntityEvent.Death)) {
-            return false;
-        }
-
-        return this.entityType == ((DestructEntityEvent.Death) e).getTargetEntity().getType();
     }
 }

@@ -2,6 +2,7 @@ package me.mrdaniel.ageofittgard.quest.quest;
 
 import com.google.common.collect.Lists;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
+import me.mrdaniel.ageofittgard.quest.QuestRequirement;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Event;
@@ -36,11 +37,11 @@ public abstract class QuestObjective {
      * Checks if the event has met the criteria for the objective. Also kicks off NPC dialogue when appropriate.
      *
      * @param player The player
-     * @param e The event
+     * @param event The event
      * @return whether the player has met the objective
      */
-    public boolean evaluate(Player player, Event e) {
-        return this.evaluateRequirements(player) && this.evaluateObjective(player, e);
+    public boolean evaluate(Player player, Event event) {
+        return this.evaluateRequirements(player) && this.evaluateObjective(player, event);
     }
 
     protected boolean evaluateRequirements(Player player) {
@@ -53,7 +54,7 @@ public abstract class QuestObjective {
         return true;
     }
 
-    protected abstract boolean evaluateObjective(Player player, Event e);
+    protected abstract boolean evaluateObjective(Player player, Event event);
 
     public int getObjectiveId() {
         return this.objectiveId;

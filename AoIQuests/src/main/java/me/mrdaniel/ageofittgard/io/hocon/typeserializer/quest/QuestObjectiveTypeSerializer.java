@@ -5,7 +5,7 @@ import com.google.common.reflect.TypeToken;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypes;
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
-import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.QuestRequirement;
 import me.mrdaniel.ageofittgard.quest.quest.objective.*;
 import me.mrdaniel.npcs.utils.Position;
 import ninja.leaping.configurate.ConfigurationNode;

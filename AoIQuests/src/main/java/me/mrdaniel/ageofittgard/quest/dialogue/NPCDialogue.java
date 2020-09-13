@@ -3,7 +3,7 @@ package me.mrdaniel.ageofittgard.quest.dialogue;
 import com.google.common.collect.Maps;
 import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
-import me.mrdaniel.ageofittgard.quest.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.QuestRequirement;
 
 import java.util.Map;
 

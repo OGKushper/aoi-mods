@@ -1,6 +1,5 @@
 package me.mrdaniel.ageofittgard.quest.quest.objective;
 
-import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypes;
 import me.mrdaniel.ageofittgard.event.CompleteDialogueEvent;
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
@@ -24,6 +23,26 @@ public class ObjectiveNPCTalk extends QuestObjective {
         this.dialogueId = dialogueId;
     }
 
+    @Override
+    protected boolean evaluateObjective(Player player, Event event) {
+        if (event instanceof CompleteDialogueEvent) {
+            return ((CompleteDialogueEvent) event).getDialogueId() == this.dialogueId;
+        }
+
+        return false;
+    }
+
+    /**
+     * Used by the NPCListener to check whether the dialogue needs to be started.
+     * Separated from evaluateObjective because this should never complete an objective.
+     *
+     * @param event The event
+     * @return whether or not the dialogue needs to be started.
+     */
+    public boolean evaluateDialogue(Player player, NPCInteractEvent event) {
+        return super.evaluateRequirements(player) && event.getData().getId() == this.npcId;
+    }
+
     public int getNpcId() {
         return this.npcId;
     }
@@ -38,18 +57,5 @@ public class ObjectiveNPCTalk extends QuestObjective {
 
     public void setDialogueId(int dialogueId) {
         this.dialogueId = dialogueId;
-    }
-
-    @Override
-    protected boolean evaluateObjective(Player player, Event e) {
-        if (e instanceof NPCInteractEvent) {       // Always returns false. This only kicks off the NPC dialogue.
-            if (((NPCInteractEvent) e).getData().getId() == this.npcId) {
-                AoIQuests.getInstance().getDialogueManager().startDialogue(this.dialogueId, player);
-            }
-        } else if (e instanceof CompleteDialogueEvent) {
-            return ((CompleteDialogueEvent) e).getDialogueId() == this.dialogueId;
-        }
-
-        return false;
     }
 }

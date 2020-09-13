@@ -4,8 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
-import me.mrdaniel.ageofittgard.quest.player.ActiveObjective;
 import me.mrdaniel.ageofittgard.manager.QuestProgressManager;
+import me.mrdaniel.ageofittgard.quest.player.ActiveObjective;
 import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Event;
@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public abstract class AbstractObjectiveListener {
+public abstract class AbstractObjectiveListener<T extends QuestObjective> {
 
     protected ObjectiveType type;
-    protected final Map<UUID, List<ActiveObjective>> objectives;
+    protected final Map<UUID, List<ActiveObjective<T>>> objectives;
 
     public AbstractObjectiveListener(ObjectiveType type) {
         this.type = type;
@@ -30,7 +30,7 @@ public abstract class AbstractObjectiveListener {
      * @param uuid The players UUID
      * @param objective The objective
      */
-    public void add(UUID uuid, ActiveObjective objective) {
+    public void add(UUID uuid, ActiveObjective<T> objective) {
         if (this.type == objective.getObjective().getType()) {
             this.objectives.computeIfAbsent(uuid, k -> Lists.newArrayList()).add(objective);
         }
@@ -45,16 +45,16 @@ public abstract class AbstractObjectiveListener {
     }
 
     protected void checkObjectives(Player player, Event e) {
-        List<ActiveObjective> objectives = this.objectives.get(player.getUniqueId());
-
+        List<ActiveObjective<T>> objectives = this.objectives.get(player.getUniqueId());
         if (objectives == null || objectives.isEmpty()) {
             return;
         }
 
         QuestProgressManager manager = AoIQuests.getInstance().getQuestProgressManager();
-        List<ActiveObjective> toRemove = Lists.newArrayList();
+        List<ActiveObjective<T>> toRemove = Lists.newArrayList();
 
-        for (ActiveObjective active : Lists.newArrayList(objectives)) {
+        // Caches a new List to fix concurrent modification issues
+        for (ActiveObjective<T> active : Lists.newArrayList(objectives)) {
             QuestObjective objective = active.getObjective();
 
             if (objective.evaluate(player, e) && manager.increaseObjective(player, active.getActiveQuest(), objective)) {

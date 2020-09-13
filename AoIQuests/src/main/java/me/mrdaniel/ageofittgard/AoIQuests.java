@@ -29,6 +29,8 @@ import me.mrdaniel.ageofittgard.manager.DialogueManager;
 import me.mrdaniel.ageofittgard.manager.PlayerDataManager;
 import me.mrdaniel.ageofittgard.manager.QuestDataManager;
 import me.mrdaniel.ageofittgard.manager.QuestProgressManager;
+import me.mrdaniel.ageofittgard.quest.quest.QuestObjective;
+import me.mrdaniel.ageofittgard.quest.QuestRequirement;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;

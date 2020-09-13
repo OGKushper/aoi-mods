@@ -1,26 +1,44 @@
 package me.mrdaniel.ageofittgard.listener.objective;
 
+import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypes;
 import me.mrdaniel.ageofittgard.event.CompleteDialogueEvent;
+import me.mrdaniel.ageofittgard.quest.player.ActiveObjective;
+import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveNPCTalk;
 import me.mrdaniel.npcs.events.NPCInteractEvent;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 
-public class NPCListener extends AbstractObjectiveListener {
+import java.util.List;
+
+public class NPCListener extends AbstractObjectiveListener<ObjectiveNPCTalk> {
 
     public NPCListener() {
         super(ObjectiveTypes.NPC_TALK);
     }
 
     @Listener
-    public void onNPCInteract(NPCInteractEvent e) {
-        if (e.getSource() instanceof Player) {
-            super.checkObjectives(((Player) e.getSource()), e);
+    public void onNPCInteract(NPCInteractEvent event) {
+        if (event.getSource() instanceof Player) {
+            Player player = ((Player) event.getSource());
+
+            List<ActiveObjective<ObjectiveNPCTalk>> objectives = this.objectives.get(player.getUniqueId());
+            if (objectives == null || objectives.isEmpty()) {
+                return;
+            }
+
+            ActiveObjective<ObjectiveNPCTalk> active = objectives.stream().filter(a -> a.getObjective().evaluateDialogue(player, event)).findFirst().orElse(null);
+
+            if (active != null) {
+                AoIQuests.getInstance().getDialogueManager().startDialogue(active.getObjective().getDialogueId(), player);
+            } else {
+                // TODO: Implement pre and post quest dialogue.
+            }
         }
     }
 
     @Listener
-    public void onDialogueComplete(CompleteDialogueEvent e) {
-        super.checkObjectives(e.getPlayer(), e);
+    public void onDialogueComplete(CompleteDialogueEvent event) {
+        super.checkObjectives(event.getPlayer(), event);
     }
 }

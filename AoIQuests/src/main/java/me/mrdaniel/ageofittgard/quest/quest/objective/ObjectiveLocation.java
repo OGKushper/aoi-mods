@@ -22,6 +22,12 @@ public class ObjectiveLocation extends QuestObjective {
         this.distanceSquared = distanceSquared;
     }
 
+    @Override
+    protected boolean evaluateObjective(Player player, Event event) {
+        return player.getWorld().getName().equalsIgnoreCase(this.target.getWorldName())
+                && player.getPosition().distanceSquared(this.target.getX(), this.target.getY(), this.target.getZ()) < this.distanceSquared;
+    }
+
     public Position getTarget() {
         return target;
     }
@@ -36,11 +42,5 @@ public class ObjectiveLocation extends QuestObjective {
 
     public void setDistanceSquared(double distanceSquared) {
         this.distanceSquared = distanceSquared;
-    }
-
-    @Override
-    protected boolean evaluateObjective(Player player, Event e) {
-        return player.getWorld().getName().equalsIgnoreCase(this.target.getWorldName())
-                && player.getPosition().distanceSquared(this.target.getX(), this.target.getY(), this.target.getZ()) < this.distanceSquared;
     }
 }

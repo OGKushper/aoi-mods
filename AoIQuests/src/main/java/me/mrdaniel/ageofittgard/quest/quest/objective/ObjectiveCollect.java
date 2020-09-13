@@ -23,6 +23,11 @@ public class ObjectiveCollect extends QuestObjective {
         this.itemAmount = itemAmount;
     }
 
+    @Override
+    protected boolean evaluateObjective(Player player, Event event) {
+        return ItemUtils.hasItems(player, item, itemAmount);
+    }
+
     public ItemStack getItem() {
         return item;
     }
@@ -37,10 +42,5 @@ public class ObjectiveCollect extends QuestObjective {
 
     public void setItemAmount(int itemAmount) {
         this.itemAmount = itemAmount;
-    }
-
-    @Override
-    protected boolean evaluateObjective(Player player, Event e) {
-        return ItemUtils.hasItems(player, item, itemAmount);
     }
 }

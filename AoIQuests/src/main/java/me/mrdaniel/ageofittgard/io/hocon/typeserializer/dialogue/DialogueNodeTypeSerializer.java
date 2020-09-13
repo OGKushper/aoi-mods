@@ -52,7 +52,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         public LinkDialogueNode deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
             LinkDialogueNode data = new LinkDialogueNode(value.getNode("nodeId").getInt());
 
-            data.setLinkId(value.getNode("link").getInt());
+            data.setLinkId(value.getNode("linkId").getInt());
 
             return data;
         }
@@ -60,7 +60,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         @Override
         public void serialize(@NonNull TypeToken<?> type, @Nullable LinkDialogueNode obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
-                value.getNode("link").setValue(obj.getLinkId());
+                value.getNode("linkId").setValue(obj.getLinkId());
             }
         }
     }
@@ -72,7 +72,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         public ChooseDialogueNode deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
             ChooseDialogueNode data = new ChooseDialogueNode(value.getNode("nodeId").getInt());
 
-            data.getLinks().addAll(value.getNode("links").getList(TypeToken.of(Integer.class)));
+            data.getLinks().addAll(value.getNode("linkIds").getList(TypeToken.of(Integer.class)));
 
             return data;
         }
@@ -80,7 +80,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         @Override
         public void serialize(@NonNull TypeToken<?> type, @Nullable ChooseDialogueNode obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
-                value.getNode("links").setValue(new TypeToken<List<Integer>>(){}, obj.getLinks());
+                value.getNode("linkIds").setValue(new TypeToken<List<Integer>>(){}, obj.getLinks());
             }
         }
     }
@@ -134,7 +134,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         public GiftDialogueNode deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
             GiftDialogueNode data = new GiftDialogueNode(value.getNode("nodeId").getInt());
 
-            data.setLinkId(value.getNode("link").getInt());
+            data.setLinkId(value.getNode("linkId").getInt());
             data.setItem(value.getNode("item").getValue(TypeToken.of(ItemStack.class)));
 
             return data;
@@ -143,7 +143,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         @Override
         public void serialize(@NonNull TypeToken<?> type, @Nullable GiftDialogueNode obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
-                value.getNode("link").setValue(obj.getLinkId());
+                value.getNode("linkId").setValue(obj.getLinkId());
                 value.getNode("item").setValue(TypeToken.of(ItemStack.class), obj.getItem());
             }
         }
