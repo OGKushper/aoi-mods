@@ -313,13 +313,32 @@ The Location requirement requires 2 extra values: the distance and the target. T
 
 ### 4.2.3. Money
 
+The Money requirement requires 2 extra values: the amount of money the player needs and whether to take the money on completion or not.
 
+```
+{
+    requirementId=1
+    requirementType=money
+    money=500.0
+    take=true
+}
+```
 
 ### 4.2.4. Quest
 
+The Quest requirement requires 1 extra value, the questId of the quest that must be completed. 
 
+```
+{
+    requirementId=1
+    requirementType=quest
+    questId=3
+}
+```
 
 ### 4.2.5. Time
+
+The Time requirement requires 2 extra values, both are times in ticks. The requirement is met when the time is between fromTicks and toTicks. Will also work with values that cross midnight (e.q. from=23000, to=1000).
 
 ```
 {
