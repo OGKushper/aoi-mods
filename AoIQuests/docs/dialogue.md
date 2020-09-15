@@ -28,19 +28,21 @@
 
 The general idea of the dialogue system is to have a network of nodes, connected by links. The player start at the starting node and based on what type of node is it, will be refered by a link to another node. This will continue until the player reaches an end node. It is also possible to create loops, by linking back to a node the player has already visited.
 
+A dialogue is linked directly to 1 NPC. This means an NPC can only have 1 dialogue. In order to make the NPC say different things in different cases, a dialogue can start at a branching node.
+
 <br>
 
 # 2. File structure
 
 All dialogue files are placed in the 'config/aoi-quests/dialogue' folder. The file name does not matter, as long as the file prefix is `.conf`.
 
-A dialogue file consists of a dialogueId, the firstNodeId, a list of nodes, a list of links and a list of requirements.
+A dialogue file consists of an npcId, the firstNodeId, a list of nodes, a list of links and a list of requirements.
 The dialogueId is used to refer to a specific dialogue by quests. This id must be unique. The firstNodeId is required so that the plugin knows where to start the dialogue. The nodes, links and requirements are explained further below.
 
 The general file structure of dialogue files goes as following. Keep in mind that these files are written in HOCON, not JSON.
 
 ```
-dialogueId=1
+npcId=1
 firstNodeId=1
 nodes=[
     {},

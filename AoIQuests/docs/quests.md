@@ -20,6 +20,12 @@
     - [4.1.6. Money](#416-Money)
     - [4.1.7. Quest](#417-Quest)
   - [4.2. Requirements](#42-Requirements)
+    - [4.2.1. Item](#421-Item)
+    - [4.2.2. Location](#422-Location)
+    - [4.2.3. Money](#423-Money)
+    - [4.2.4. Time](#424-Time)
+    - [4.2.5. Quest Status](#425-Quest-Status)
+    - [4.2.6. Active Stage](#426-Active-Stage)
 
 ---
 
@@ -73,12 +79,12 @@ The pre and post descriptions are used in the logbook to tell the story during o
 
 ```
 trigger {
-    objective {}
     preDesc=[
         "&7Pre Description Line 1.",
         "&7Pre Description Line 2."
     ]
     postDesc="&7Post Description Line 1.."
+    objective {}
 }
 ```
 
@@ -95,14 +101,14 @@ The objectives are explained [further below](#41-Objectives).
 ```
 {
     stageId=1
-    objectives=[
-        {},
-        {}
-    ]
     preDesc="&7Pre-description Line 1."
     postDesc=[
         "&7Post-description Line 1.",
         "&7Post-description Line 2."
+    ]
+    objectives=[
+        {},
+        {}
     ]
 }
 ```
@@ -135,7 +141,6 @@ The NPC Dialogue objective requires two extra values: the dialogueId and the npc
 {
     objectiveId=1
     type="npc_dialogue"
-    dialogueId=2
     npcId=2
 }
 ```
@@ -187,10 +192,10 @@ The Collect objective requires 2 extra values: the item amount and the item. The
         UnsafeDamage=0
         UnsafeData {
             display {
+                Name="§6Item Name"
                 Lore=[
                     "§7Item Lore Line 1."
                 ]
-                Name="§6Item Name"
             }
         }
     }
@@ -241,8 +246,9 @@ Each objective can also have additional requirements. If an objective is complet
 | Item | Requires the player to have a certain amount of a specific item in his inventory. |
 | Location | Requires the player to be near a certain location. |
 | Money | Requires the player to have a certain amount of money. |
-| Quest | Requires the player to have completed a different quest. |
 | Time | Requires the time to be between 2 values. |
+| Quest Status | Requires the player be at a certain status of a quest. |
+| Active Stage | Requires the player to be in a certain stage of a quest. |
 
 Here is an example of how requirements should be added to objectives.
 
@@ -283,10 +289,10 @@ The Item requirement requires 3 extra values: the item amount, whether or not th
         UnsafeDamage=0
         UnsafeData {
             display {
+                Name="§6Item Name"
                 Lore=[
                     "§7Item Lore Line 1."
                 ]
-                Name="§6Item Name"
             }
         }
     }
@@ -324,19 +330,7 @@ The Money requirement requires 2 extra values: the amount of money the player ne
 }
 ```
 
-### 4.2.4. Quest
-
-The Quest requirement requires 1 extra value, the questId of the quest that must be completed. 
-
-```
-{
-    requirementId=1
-    requirementType=quest
-    questId=3
-}
-```
-
-### 4.2.5. Time
+### 4.2.4. Time
 
 The Time requirement requires 2 extra values, both are times in ticks. The requirement is met when the time is between fromTicks and toTicks. Will also work with values that cross midnight (e.q. from=23000, to=1000).
 
@@ -346,5 +340,31 @@ The Time requirement requires 2 extra values, both are times in ticks. The requi
     requirementType=time
     fromTicks=13000
     toTicks=22000
+}
+```
+
+### 4.2.5. Quest Status
+
+The Quest requirement requires 2 extra values: the questId and the status of the quest. This requirement is most usefull when adding quest triggers to dialogue. This can be done by creating a path with a quest status requirement with status=available. 
+
+```
+{
+    requirementId=1
+    requirementType=quest
+    questId=3
+    status=available
+}
+```
+
+### 4.2.6. Active Stage
+
+The Quest requirement requires 2 extra values, the questId and the stageId. This requirement is most usefull when adding quest objectives to dialogue. This can be done by creating a path with a active stage requirement with the correspending questId and stageId. The objectiveId is not required.
+
+```
+{
+    requirementId=1
+    requirementType=stage
+    questId=3
+    stageId=2
 }
 ```
