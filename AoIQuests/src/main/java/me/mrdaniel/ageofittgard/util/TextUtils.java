@@ -24,7 +24,8 @@ public class TextUtils {
         if (node.hasListChildren()) {
             return node.getList(TypeToken.of(String.class)).stream().map(TextUtils::toText).collect(Collectors.toList());
         } else {
-            return Lists.newArrayList(toText(node.getString("")));
+            Text obj = toText(node.getString(null));
+            return obj == null ? Lists.newArrayList() : Lists.newArrayList(obj);
         }
     }
 

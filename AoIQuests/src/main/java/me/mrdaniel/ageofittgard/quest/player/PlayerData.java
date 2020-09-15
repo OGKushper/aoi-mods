@@ -2,6 +2,8 @@ package me.mrdaniel.ageofittgard.quest.player;
 
 import com.google.common.collect.Lists;
 import me.mrdaniel.ageofittgard.AoIQuests;
+import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatus;
+import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatusus;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -43,8 +45,8 @@ public class PlayerData {
         return this.active;
     }
 
-    public Optional<ActiveQuest> getActive(Quest quest) {
-        return this.active.stream().filter(active -> active.getQuest().getQuestId() == quest.getQuestId()).findFirst();
+    public Optional<ActiveQuest> getActive(int questId) {
+        return this.active.stream().filter(active -> active.getQuest().getQuestId() == questId).findFirst();
     }
 
     public List<Integer> getCompleted() {
@@ -65,6 +67,10 @@ public class PlayerData {
 
     public List<ItemStack> getUnclaimed() {
         return this.unclaimed;
+    }
+
+    public QuestStatus getStatus(int questId) {
+        return this.isCompleted(questId) ? QuestStatusus.COMPLETED : this.isStarted(questId) ? QuestStatusus.ACTIVE : QuestStatusus.AVAILABLE;
     }
 
     public ActiveQuest setup(Quest quest) {

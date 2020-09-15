@@ -2,7 +2,7 @@ package me.mrdaniel.ageofittgard.quest.quest;
 
 import com.google.common.collect.Lists;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
-import me.mrdaniel.ageofittgard.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.Requirement;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Event;
@@ -15,7 +15,7 @@ public abstract class QuestObjective {
     protected final int objectiveId;
     protected final ObjectiveType type;
 
-    protected final List<QuestRequirement> requirements;
+    protected final List<Requirement> requirements;
 
     protected QuestObjective(int objectiveId, ObjectiveType type) {
         this.objectiveId = objectiveId;
@@ -45,7 +45,7 @@ public abstract class QuestObjective {
     }
 
     protected boolean evaluateRequirements(Player player) {
-        for (QuestRequirement req : this.requirements) {
+        for (Requirement req : this.requirements) {
             if (!req.evaluate(player)) {
                 return false;
             }
@@ -64,15 +64,15 @@ public abstract class QuestObjective {
         return this.type;
     }
 
-    public List<QuestRequirement> getRequirements() {
+    public List<Requirement> getRequirements() {
         return requirements;
     }
 
-    public void addRequirements(Collection<QuestRequirement> requirements) {
+    public void addRequirements(Collection<Requirement> requirements) {
         this.requirements.addAll(requirements);
     }
 
-    public QuestObjective addRequirement(QuestRequirement requirement) {
+    public QuestObjective addRequirement(Requirement requirement) {
         this.requirements.add(requirement);
         return this;
     }

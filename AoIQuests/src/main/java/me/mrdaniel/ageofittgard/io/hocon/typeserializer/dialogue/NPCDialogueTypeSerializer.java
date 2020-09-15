@@ -3,10 +3,10 @@ package me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue;
 import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
 import me.mrdaniel.ageofittgard.io.hocon.HoconPersistStrategy;
+import me.mrdaniel.ageofittgard.quest.Requirement;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;
-import me.mrdaniel.ageofittgard.quest.QuestRequirement;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
@@ -20,12 +20,12 @@ public class NPCDialogueTypeSerializer implements TypeSerializer<NPCDialogue> {
     @Nullable
     @Override
     public NPCDialogue deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        NPCDialogue data = new NPCDialogue(new HoconPersistStrategy(), value.getNode("dialogueId").getInt(0));
+        NPCDialogue data = new NPCDialogue(new HoconPersistStrategy(), value.getNode("npcId").getInt(0));
 
         data.setFirstNode(value.getNode("firstNodeId").getInt(0));
         value.getNode("nodes").getList(TypeToken.of(DialogueNode.class)).forEach(data::addNode);
         value.getNode("links").getList(TypeToken.of(DialogueLink.class)).forEach(data::addLink);
-        value.getNode("requirements").getList(TypeToken.of(QuestRequirement.class)).forEach(data::addRequirement);
+        value.getNode("requirements").getList(TypeToken.of(Requirement.class)).forEach(data::addRequirement);
 
         return data;
     }
@@ -33,12 +33,12 @@ public class NPCDialogueTypeSerializer implements TypeSerializer<NPCDialogue> {
     @Override
     public void serialize(@NonNull TypeToken<?> type, @Nullable NPCDialogue obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
         if (obj != null) {
-            value.getNode("dialogueId").setValue(obj.getDialogueId());
+            value.getNode("npcId").setValue(obj.getNpcId());
             value.getNode("firstNodeId").setValue(obj.getFirstNode());
             value.getNode("nodes").setValue(new TypeToken<List<DialogueNode>>(){}, Lists.newArrayList(obj.getNodes().values()));
             value.getNode("links").setValue(new TypeToken<List<DialogueLink>>(){}, Lists.newArrayList(obj.getLinks().values()));
             if (!obj.getRequirements().isEmpty()) {
-                value.getNode("requirements").setValue(new TypeToken<List<QuestRequirement>>(){}, Lists.newArrayList(obj.getRequirements().values()));
+                value.getNode("requirements").setValue(new TypeToken<List<Requirement>>(){}, Lists.newArrayList(obj.getRequirements().values()));
             }
         }
     }

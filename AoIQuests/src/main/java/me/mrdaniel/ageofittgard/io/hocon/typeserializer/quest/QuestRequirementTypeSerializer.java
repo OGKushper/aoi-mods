@@ -2,9 +2,10 @@ package me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest;
 
 import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
+import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatus;
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementType;
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
-import me.mrdaniel.ageofittgard.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.Requirement;
 import me.mrdaniel.ageofittgard.quest.requirement.*;
 import me.mrdaniel.npcs.utils.Position;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -16,7 +17,7 @@ import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.Map;
 
-public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequirement> {
+public class QuestRequirementTypeSerializer implements TypeSerializer<Requirement> {
 
     private final Map<RequirementType, TypeSerializer> serializers;
 
@@ -25,18 +26,19 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequi
         this.serializers.put(RequirementTypes.ITEM, new Item());
         this.serializers.put(RequirementTypes.LOCATION, new Location());
         this.serializers.put(RequirementTypes.MONEY, new Money());
-        this.serializers.put(RequirementTypes.QUEST, new Quest());
         this.serializers.put(RequirementTypes.TIME, new Time());
+        this.serializers.put(RequirementTypes.QUEST_STATUS, new Quest());
+        this.serializers.put(RequirementTypes.STAGE_ACTIVE, new Stage());
     }
 
     @Nullable
     @Override
-    public QuestRequirement deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        return (QuestRequirement) this.serializers.get(value.getNode("requirementType").getValue(TypeToken.of(RequirementType.class))).deserialize(type, value);
+    public Requirement deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        return (Requirement) this.serializers.get(value.getNode("requirementType").getValue(TypeToken.of(RequirementType.class))).deserialize(type, value);
     }
 
     @Override
-    public void serialize(@NonNull TypeToken<?> type, @Nullable QuestRequirement obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+    public void serialize(@NonNull TypeToken<?> type, @Nullable Requirement obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
         if (obj != null) {
             this.serializers.get(obj.getRequirementType()).serialize(type, obj, value);
 
@@ -45,22 +47,21 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequi
         }
     }
 
-    public static class Item implements TypeSerializer<QuestRequirementItem> {
+    private static class Item implements TypeSerializer<RequirementItem> {
 
         @Nullable
         @Override
-        public QuestRequirementItem deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            QuestRequirementItem data = new QuestRequirementItem(value.getNode("requirementId").getInt());
-
-            data.setItem(value.getNode("item").getValue(TypeToken.of(ItemStack.class)));
-            data.setItemAmount(value.getNode("itemAmount").getInt());
-            data.setTake(value.getNode("take").getBoolean());
-
-            return data;
+        public RequirementItem deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            return new RequirementItem(
+                    value.getNode("requirementId").getInt(),
+                    value.getNode("item").getValue(TypeToken.of(ItemStack.class)),
+                    value.getNode("itemAmount").getInt(),
+                    value.getNode("take").getBoolean()
+            );
         }
 
         @Override
-        public void serialize(@NonNull TypeToken<?> type, @Nullable QuestRequirementItem obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        public void serialize(@NonNull TypeToken<?> type, @Nullable RequirementItem obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
                 value.getNode("item").setValue(TypeToken.of(ItemStack.class), obj.getItem());
                 value.getNode("itemAmount").setValue(obj.getItemAmount());
@@ -69,21 +70,16 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequi
         }
     }
 
-    public static class Location implements TypeSerializer<QuestRequirementLocation> {
+    private static class Location implements TypeSerializer<RequirementLocation> {
 
         @Nullable
         @Override
-        public QuestRequirementLocation deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            QuestRequirementLocation data = new QuestRequirementLocation(value.getNode("requirementId").getInt());
-
-            data.setTarget(value.getNode("target").getValue(TypeToken.of(Position.class)));
-            data.setDistance(value.getNode("distance").getDouble());
-
-            return data;
+        public RequirementLocation deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            return new RequirementLocation(value.getNode("requirementId").getInt(), value.getNode("target").getValue(TypeToken.of(Position.class)), value.getNode("distance").getDouble());
         }
 
         @Override
-        public void serialize(@NonNull TypeToken<?> type, @Nullable QuestRequirementLocation obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        public void serialize(@NonNull TypeToken<?> type, @Nullable RequirementLocation obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
                 value.getNode("target").setValue(TypeToken.of(Position.class), obj.getTarget());
                 value.getNode("distance").setValue(obj.getDistance());
@@ -91,21 +87,16 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequi
         }
     }
 
-    public static class Money implements TypeSerializer<QuestRequirementMoney> {
+    private static class Money implements TypeSerializer<RequirementMoney> {
 
         @Nullable
         @Override
-        public QuestRequirementMoney deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            QuestRequirementMoney data = new QuestRequirementMoney(value.getNode("requirementId").getInt());
-
-            data.setMoney(value.getNode("money").getDouble());
-            data.setTake(value.getNode("take").getBoolean());
-
-            return data;
+        public RequirementMoney deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            return new RequirementMoney(value.getNode("requirementId").getInt(), value.getNode("money").getDouble(), value.getNode("take").getBoolean());
         }
 
         @Override
-        public void serialize(@NonNull TypeToken<?> type, @Nullable QuestRequirementMoney obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        public void serialize(@NonNull TypeToken<?> type, @Nullable RequirementMoney obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
                 value.getNode("money").setValue(obj.getMoney());
                 value.getNode("take").setValue(obj.isTake());
@@ -113,44 +104,53 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<QuestRequi
         }
     }
 
-    public static class Quest implements TypeSerializer<QuestRequirementQuest> {
+    private static class Time implements TypeSerializer<RequirementTime> {
 
         @Nullable
         @Override
-        public QuestRequirementQuest deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            QuestRequirementQuest data = new QuestRequirementQuest(value.getNode("requirementId").getInt());
-
-            data.setQuestId(value.getNode("questId").getInt());
-
-            return data;
+        public RequirementTime deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            return new RequirementTime(value.getNode("requirementId").getInt(), value.getNode("fromTicks").getInt(), value.getNode("toTicks").getInt());
         }
 
         @Override
-        public void serialize(@NonNull TypeToken<?> type, @Nullable QuestRequirementQuest obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        public void serialize(@NonNull TypeToken<?> type, @Nullable RequirementTime obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
-                value.getNode("questId").setValue(obj.getQuestId());
+                value.getNode("fromTicks").setValue(obj.getFromTicks());
+                value.getNode("toTicks").setValue(obj.getToTicks());
             }
         }
     }
 
-    public static class Time implements TypeSerializer<QuestRequirementTime> {
+    private static class Quest implements TypeSerializer<RequirementQuestStatus> {
 
         @Nullable
         @Override
-        public QuestRequirementTime deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            QuestRequirementTime data = new QuestRequirementTime(value.getNode("requirementId").getInt());
-
-            data.setFromTicks(value.getNode("fromTicks").getInt());
-            data.setToTicks(value.getNode("toTicks").getInt());
-
-            return data;
+        public RequirementQuestStatus deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            return new RequirementQuestStatus(value.getNode("requirementId").getInt(), value.getNode("questId").getInt(), value.getNode("status").getValue(TypeToken.of(QuestStatus.class)));
         }
 
         @Override
-        public void serialize(@NonNull TypeToken<?> type, @Nullable QuestRequirementTime obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        public void serialize(@NonNull TypeToken<?> type, @Nullable RequirementQuestStatus obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
             if (obj != null) {
-                value.getNode("fromTicks").setValue(obj.getFromTicks());
-                value.getNode("toTicks").setValue(obj.getToTicks());
+                value.getNode("questId").setValue(obj.getQuestId());
+                value.getNode("status").setValue(TypeToken.of(QuestStatus.class), obj.getStatus());
+            }
+        }
+    }
+
+    private static class Stage implements TypeSerializer<RequirementStageActive> {
+
+        @Nullable
+        @Override
+        public RequirementStageActive deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            return new RequirementStageActive(value.getNode("requirementId").getInt(), value.getNode("questId").getInt(), value.getNode("stageId").getInt());
+        }
+
+        @Override
+        public void serialize(@NonNull TypeToken<?> type, @Nullable RequirementStageActive obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            if (obj != null) {
+                value.getNode("questId").setValue(obj.getQuestId());
+                value.getNode("stageId").setValue(obj.getStageId());
             }
         }
     }

@@ -13,8 +13,7 @@ public abstract class DialogueNode {
     }
 
     public void run(DialogueRunner runner) {
-        runner.getData().setProgress(runner.getDialogue().getDialogueId(), this.nodeId);
-        runner.getPlayer().offer(runner.getData());
+        runner.setProgress(this.nodeId);
     }
 
     public int getNodeId() {

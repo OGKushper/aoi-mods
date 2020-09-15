@@ -60,7 +60,7 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
                 continue;
             }
 
-            QuestStatus questStatus = data.isCompleted(quest.getQuestId()) ? QuestStatusus.COMPLETED : data.isStarted(quest.getQuestId()) ? QuestStatusus.ACTIVE : QuestStatusus.AVAILABLE;
+            QuestStatus questStatus = data.getStatus(quest.getQuestId());
 
             // Do not display available quests
             if (questStatus == QuestStatusus.AVAILABLE) {
@@ -76,7 +76,7 @@ public class QuestListInventoryMenu extends AbstractInventoryListMenu {
                     .itemType(questStatus.getItemType())
                     .quantity(1)
                     .add(Keys.DISPLAY_NAME, quest.getName())
-                    .add(Keys.ITEM_LORE, questStatus == QuestStatusus.COMPLETED ? this.getCompletedLore(quest) : questStatus == QuestStatusus.ACTIVE ? this.getActiveLore(data.getActive(quest).get()) : Lists.newArrayList())
+                    .add(Keys.ITEM_LORE, questStatus == QuestStatusus.COMPLETED ? this.getCompletedLore(quest) : questStatus == QuestStatusus.ACTIVE ? this.getActiveLore(data.getActive(quest.getQuestId()).get()) : Lists.newArrayList())
                     .add(Keys.HIDE_ENCHANTMENTS, true)
                     .build());
             if (this.newQuest != null && this.newQuest.getQuestId() == quest.getQuestId()) {

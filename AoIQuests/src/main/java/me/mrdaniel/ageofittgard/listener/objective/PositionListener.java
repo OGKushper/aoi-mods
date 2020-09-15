@@ -1,11 +1,12 @@
 package me.mrdaniel.ageofittgard.listener.objective;
 
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypes;
+import me.mrdaniel.ageofittgard.quest.quest.objective.ObjectiveLocation;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
 
-public class PositionListener extends AbstractObjectiveListener {
+public class PositionListener extends AbstractObjectiveListener<ObjectiveLocation> {
 
     public PositionListener() {
         super(ObjectiveTypes.LOCATION);

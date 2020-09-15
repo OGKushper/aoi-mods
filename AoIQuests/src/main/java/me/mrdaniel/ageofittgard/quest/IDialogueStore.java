@@ -10,11 +10,10 @@ public interface IDialogueStore {
 
     void load();
     void unload();
-
-    NPCDialogue create(int id);
     void delete(NPCDialogue dialogue);
 
-    Optional<NPCDialogue> get(Integer id);
+    Optional<NPCDialogue> get(int npcId);
+    NPCDialogue getOrCreate(int npcId);
     List<NPCDialogue> getAll();
 
     IPersistStrategy getPersistStrategy();

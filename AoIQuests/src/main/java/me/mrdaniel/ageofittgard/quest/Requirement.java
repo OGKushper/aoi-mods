@@ -3,12 +3,12 @@ package me.mrdaniel.ageofittgard.quest;
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementType;
 import org.spongepowered.api.entity.living.player.Player;
 
-public abstract class QuestRequirement {
+public abstract class Requirement {
 
     protected int requirementId;
     protected RequirementType requirementType;
 
-    public QuestRequirement(RequirementType requirementType, int requirementId) {
+    public Requirement(RequirementType requirementType, int requirementId) {
         this.requirementType = requirementType;
         this.requirementId = requirementId;
     }

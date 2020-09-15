@@ -6,6 +6,7 @@ import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
 import org.spongepowered.api.Sponge;
 
+// TODO: Overhaul this node type to be used specifically for completing quest objectives.
 public class EndDialogueNode extends DialogueNode {
 
     public EndDialogueNode(int nodeId) {
@@ -14,10 +15,9 @@ public class EndDialogueNode extends DialogueNode {
 
     @Override
     public void run(DialogueRunner runner) {
-        runner.getData().deleteProgress(runner.getDialogue().getDialogueId());
-        runner.getPlayer().offer(runner.getData());
+        runner.deleteProgress();
         runner.stop();
 
-        Sponge.getEventManager().post(new CompleteDialogueEvent(runner.getPlayer(), runner.getDialogue().getDialogueId()));
+        Sponge.getEventManager().post(new CompleteDialogueEvent(runner.getPlayer(), runner.getDialogue().getNpcId()));
     }
 }

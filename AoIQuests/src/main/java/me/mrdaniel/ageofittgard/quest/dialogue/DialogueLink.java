@@ -23,12 +23,11 @@ public class DialogueLink {
     }
 
     public void run(DialogueRunner runner, int lineIndex) {
-        runner.getPlayer().sendMessage(this.npcLines.get(lineIndex));
-
-        if (lineIndex + 1 < this.npcLines.size()) {
+        if (lineIndex < this.npcLines.size()) {
+            runner.getPlayer().sendMessage(this.npcLines.get(lineIndex));
             runner.runLinkDelayed(this, lineIndex + 1);
         } else {
-            runner.runNodeDelayed(this.nextNodeId);
+            runner.runNode(this.nextNodeId);
         }
     }
 

@@ -28,17 +28,17 @@ public class DialogueData extends AbstractData<DialogueData, ImmutableDialogueDa
 		return progress;
 	}
 
-	public int getProgress(Integer dialogueId) {
-		return this.progress.getOrDefault(dialogueId, 0);
+	public int getProgress(Integer npcId) {
+		return this.progress.getOrDefault(npcId, 0);
 	}
 
 	public void setProgress(Map<Integer, Integer> progress) {
 		this.progress = progress;
 	}
 
-	public void setProgress(Integer dialogueId, Integer progress) { this.progress.put(dialogueId, progress); }
+	public void setProgress(Integer npcId, Integer progress) { this.progress.put(npcId, progress); }
 
-	public void deleteProgress(Integer dialogueId) { this.progress.remove(dialogueId); }
+	public void deleteProgress(Integer npcId) { this.progress.remove(npcId); }
 
 	@Override
 	protected void registerGettersAndSetters() {

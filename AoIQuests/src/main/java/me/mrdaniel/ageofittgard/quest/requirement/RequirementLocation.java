@@ -1,21 +1,21 @@
 package me.mrdaniel.ageofittgard.quest.requirement;
 
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
-import me.mrdaniel.ageofittgard.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.Requirement;
 import me.mrdaniel.npcs.utils.Position;
 import org.spongepowered.api.entity.living.player.Player;
 
-public class QuestRequirementLocation extends QuestRequirement {
+public class RequirementLocation extends Requirement {
 
     private Position target;
     private double distanceSquared;
     private double distance;
 
-    public QuestRequirementLocation(int requirementId) {
+    public RequirementLocation(int requirementId) {
         super(RequirementTypes.LOCATION, requirementId);
     }
 
-    public QuestRequirementLocation(int requirementId, Position target, double distance) {
+    public RequirementLocation(int requirementId, Position target, double distance) {
         this(requirementId);
 
         this.target = target;

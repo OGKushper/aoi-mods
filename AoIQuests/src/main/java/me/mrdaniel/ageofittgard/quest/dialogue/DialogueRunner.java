@@ -5,6 +5,8 @@ import me.mrdaniel.ageofittgard.data.dialogue.DialogueData;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.scheduler.Task;
 
+import javax.annotation.Nullable;
+
 public class DialogueRunner {
 
     private final Player player;
@@ -18,15 +20,22 @@ public class DialogueRunner {
     }
 
     public void start() {
-        int currentNode = this.data.getProgress(this.dialogue.getDialogueId());
-        this.runNode(currentNode == 0 ? dialogue.getFirstNode() : currentNode);
+        int currentNode = this.data.getProgress(this.dialogue.getNpcId());
+        this.runNode(currentNode == 0 ? this.dialogue.getFirstNode() : currentNode);
     }
 
     public void runNode(int nodeId) {
-        if (!this.player.isOnline()) {
+        this.runNode(this.dialogue.getNodes().get(nodeId));
+    }
+
+    public void runNode(DialogueNode node) {
+        if (node == null) {
+            this.deleteProgress();
+            this.stop();
+        } else if (!this.player.isOnline() || !this.player.isLoaded()) {
             this.stop();
         } else {
-            this.dialogue.getNodes().get(nodeId).run(this);
+            node.run(this);
         }
     }
 
@@ -38,7 +47,7 @@ public class DialogueRunner {
         this.runLink(linkId, 0);
     }
 
-    public void runLink(DialogueLink link) {
+    public void runLink(@Nullable DialogueLink link) {
         this.runLink(link, 0);
     }
 
@@ -46,16 +55,29 @@ public class DialogueRunner {
         this.runLink(this.dialogue.getLinks().get(linkId), lineIndex);
     }
 
-    public void runLink(DialogueLink link, int lineIndex) {
-        if (!this.player.isOnline()) {
+    public void runLink(@Nullable DialogueLink link, int lineIndex) {
+        if (link == null) {
+            this.deleteProgress();
+            this.stop();
+        } else if (!this.player.isOnline() || !this.player.isLoaded()) {
             this.stop();
         } else {
             link.run(this, lineIndex);
         }
     }
 
-    public void runLinkDelayed(DialogueLink link, int lineIndex) {
+    public void runLinkDelayed(@Nullable DialogueLink link, int lineIndex) {
         Task.builder().delayTicks(NPCDialogue.DELAY_TICKS).execute(() -> this.runLink(link, lineIndex)).submit(AoIQuests.getInstance());
+    }
+
+    public void setProgress(int nodeId) {
+        this.data.setProgress(this.dialogue.getNpcId(), nodeId);
+        this.player.offer(this.data);
+    }
+
+    public void deleteProgress() {
+        this.data.deleteProgress(this.dialogue.getNpcId());
+        this.player.offer(this.data);
     }
 
     public void stop() {

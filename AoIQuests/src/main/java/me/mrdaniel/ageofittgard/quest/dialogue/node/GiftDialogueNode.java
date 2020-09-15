@@ -1,6 +1,7 @@
 package me.mrdaniel.ageofittgard.quest.dialogue.node;
 
 import me.mrdaniel.ageofittgard.AoIQuests;
+import me.mrdaniel.ageofittgard.catalogtypes.nodetype.NodeType;
 import me.mrdaniel.ageofittgard.catalogtypes.nodetype.NodeTypes;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
@@ -16,6 +17,12 @@ public class GiftDialogueNode extends DialogueNode {
         super(nodeId, NodeTypes.GIFT);
     }
 
+    public GiftDialogueNode(int nodeId, int linkId) {
+        this(nodeId);
+
+        this.linkId = linkId;
+    }
+
     @Override
     public void run(DialogueRunner runner) {
         super.run(runner);
@@ -26,6 +33,7 @@ public class GiftDialogueNode extends DialogueNode {
         } else {
             AoIQuests.getInstance().getPlayerDataManager().getPlayerData(runner.getPlayer().getUniqueId()).addUnclaimed(this.item.copy()).save();
         }
+
         runner.runLink(this.linkId);
     }
 

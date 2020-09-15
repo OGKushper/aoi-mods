@@ -1,19 +1,19 @@
 package me.mrdaniel.ageofittgard.quest.requirement;
 
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
-import me.mrdaniel.ageofittgard.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.Requirement;
 import org.spongepowered.api.entity.living.player.Player;
 
-public class QuestRequirementTime extends QuestRequirement {
+public class RequirementTime extends Requirement {
 
     private int fromTicks;
     private int toTicks;
 
-    public QuestRequirementTime(int requirementId) {
+    public RequirementTime(int requirementId) {
         super(RequirementTypes.TIME, requirementId);
     }
 
-    public QuestRequirementTime(int requirementId, int fromTicks, int toTicks) {
+    public RequirementTime(int requirementId, int fromTicks, int toTicks) {
         this(requirementId);
 
         this.fromTicks = fromTicks;

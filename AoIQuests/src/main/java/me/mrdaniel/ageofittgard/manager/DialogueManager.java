@@ -40,37 +40,28 @@ public class DialogueManager {
         this.runners.clear();
     }
 
-    public NPCDialogue createDialogue() {
-        return this.dialogueStore.create(this.getNextDialogueId());
+    public Optional<NPCDialogue> getDialogue(int npcId) {
+        return this.dialogueStore.get(npcId);
     }
 
-    public Optional<NPCDialogue> getDialogue(Integer id) {
-        return this.dialogueStore.get(id);
+    public NPCDialogue getOrCreateDialogue(int npcId) {
+        return this.dialogueStore.getOrCreate(npcId);
     }
 
     public List<NPCDialogue> getAllDialogues() {
         return this.dialogueStore.getAll();
     }
 
-    private int getNextDialogueId() {
-        int id = 1;
-
-        while (this.getDialogue(id).isPresent()) {
-            id++;
-        }
-        return id;
-    }
-
-    public void startDialogue(int dialogueId, Player player) {
+    public void startDialogue(Player player, int npcId) {
         if (this.runners.containsKey(player.getUniqueId())) {
             return;
         }
 
-        NPCDialogue dialogue = this.getDialogue(dialogueId).orElse(null);
+        NPCDialogue dialogue = this.getDialogue(npcId).orElse(null);
         DialogueData data = player.get(DialogueData.class).orElse(new DialogueData());
 
         if (dialogue == null) {
-            AoIQuests.getInstance().getLogger().warn("Failed to find Dialogue " + dialogueId + " for a Quest Objective!");
+            AoIQuests.getInstance().getLogger().warn("Failed to find dialogue for NPC  " + npcId + " for a Quest Objective!");
             player.sendMessage(Text.of(TextColors.RED, "Dialogue not found. Please contact an admin."));
             return;
         }

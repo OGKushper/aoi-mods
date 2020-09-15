@@ -31,7 +31,7 @@ import java.util.UUID;
 
 public class QuestProgressManager {
 
-    private List<AbstractObjectiveListener> objectiveListeners;
+    private List<AbstractObjectiveListener<? extends QuestObjective>> objectiveListeners;
 
     public QuestProgressManager() {
         this.objectiveListeners = Lists.newArrayList();
@@ -62,7 +62,7 @@ public class QuestProgressManager {
     public void load(UUID uuid, PlayerData data) {
         for (Quest quest : AoIQuests.getInstance().getQuestManager().getAllQuests()) {
             if (!data.isCompleted(quest.getQuestId())) {
-                this.load(uuid, data, data.getActive(quest).orElseGet(() -> data.setup(quest)));
+                this.load(uuid, data, data.getActive(quest.getQuestId()).orElseGet(() -> data.setup(quest)));
             }
         }
     }
@@ -120,7 +120,7 @@ public class QuestProgressManager {
             return;
         }
 
-        ActiveQuest active = data.getActive(quest).orElseGet(() -> data.setup(quest));
+        ActiveQuest active = data.getActive(quest.getQuestId()).orElseGet(() -> data.setup(quest));
         active.load(data);
         active.setStage(quest.getStage(1).orElseThrow(InvalidQuestException::new));
         active.getProgress().clear();

@@ -1,22 +1,22 @@
 package me.mrdaniel.ageofittgard.quest.requirement;
 
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
-import me.mrdaniel.ageofittgard.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.Requirement;
 import me.mrdaniel.ageofittgard.util.ItemUtils;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-public class QuestRequirementItem extends QuestRequirement {
+public class RequirementItem extends Requirement {
 
     private ItemStack item;
     private int itemAmount;
     private boolean take;
 
-    public QuestRequirementItem(int requirementId) {
+    public RequirementItem(int requirementId) {
         super(RequirementTypes.ITEM, requirementId);
     }
 
-    public QuestRequirementItem(int requirementId, ItemStack item, int itemAmount, boolean take) {
+    public RequirementItem(int requirementId, ItemStack item, int itemAmount, boolean take) {
         this(requirementId);
 
         this.item = item;

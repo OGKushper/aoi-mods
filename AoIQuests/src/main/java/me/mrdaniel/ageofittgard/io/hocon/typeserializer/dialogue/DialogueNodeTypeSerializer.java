@@ -22,6 +22,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
 
     public DialogueNodeTypeSerializer() {
         this.serializers = Maps.newHashMap();
+        this.serializers.put(NodeTypes.BRANCHING, new Branching());
         this.serializers.put(NodeTypes.LINK, new Link());
         this.serializers.put(NodeTypes.CHOOSE, new Choose());
         this.serializers.put(NodeTypes.BREAK, new Break());
@@ -44,6 +45,27 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
             value.getNode("nodeType").setValue(TypeToken.of(NodeType.class), obj.getNodeType());
         }
     }
+
+    private static class Branching implements TypeSerializer<BranchingDialogueNode> {
+
+        @Nullable
+        @Override
+        public BranchingDialogueNode deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            BranchingDialogueNode data = new BranchingDialogueNode(value.getNode("nodeId").getInt());
+
+            data.getLinks().addAll(value.getNode("linkIds").getList(TypeToken.of(Integer.class)));
+
+            return data;
+        }
+
+        @Override
+        public void serialize(@NonNull TypeToken<?> type, @Nullable BranchingDialogueNode obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+            if (obj != null) {
+                value.getNode("linkIds").setValue(new TypeToken<List<Integer>>(){}, obj.getLinks());
+            }
+        }
+    }
+
 
     private static class Link implements TypeSerializer<LinkDialogueNode> {
 

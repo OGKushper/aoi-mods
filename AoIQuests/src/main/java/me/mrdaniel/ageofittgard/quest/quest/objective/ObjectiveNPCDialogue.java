@@ -10,23 +10,21 @@ import org.spongepowered.api.event.Event;
 public class ObjectiveNPCDialogue extends QuestObjective {
 
     private int npcId;
-    private int dialogueId;
 
     public ObjectiveNPCDialogue(int objectiveId) {
-        this(objectiveId, 0, 0);
+        this(objectiveId, 0);
     }
 
-    public ObjectiveNPCDialogue(int objectiveId, int npcId, int dialogueId) {
+    public ObjectiveNPCDialogue(int objectiveId, int npcId) {
         super(objectiveId, ObjectiveTypes.NPC_DIALOGUE);
 
         this.npcId = npcId;
-        this.dialogueId = dialogueId;
     }
 
     @Override
     protected boolean evaluateObjective(Player player, Event event) {
         if (event instanceof CompleteDialogueEvent) {
-            return ((CompleteDialogueEvent) event).getDialogueId() == this.dialogueId;
+            return ((CompleteDialogueEvent) event).getNpcId() == this.npcId;
         }
 
         return false;
@@ -49,13 +47,5 @@ public class ObjectiveNPCDialogue extends QuestObjective {
 
     public void setNpcId(int npcId) {
         this.npcId = npcId;
-    }
-
-    public int getDialogueId() {
-        return this.dialogueId;
-    }
-
-    public void setDialogueId(int dialogueId) {
-        this.dialogueId = dialogueId;
     }
 }

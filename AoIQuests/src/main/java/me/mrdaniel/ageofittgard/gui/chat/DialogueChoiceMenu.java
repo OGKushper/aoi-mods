@@ -4,7 +4,6 @@ import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
 import me.mrdaniel.ageofittgard.quest.dialogue.node.ChooseDialogueNode;
 import me.mrdaniel.npcs.gui.chat.AbstractChatMenu;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.ClickAction;
 import org.spongepowered.api.text.action.HoverAction;
@@ -48,13 +47,13 @@ public class DialogueChoiceMenu extends AbstractChatMenu {
     }
 
     private HoverAction.ShowText getHoverAction(DialogueLink link) {
-        return TextActions.showText(this.conditionsMet(super.player, link, false) ? Text.of(TextColors.DARK_GREEN, "Click to choose this option.") : Text.of(TextColors.RED, "Conditions not met!"));
+        return TextActions.showText(this.runner.getDialogue().metRequirements(super.player, link, false) ? Text.of(TextColors.DARK_GREEN, "Click to choose this option.") : Text.of(TextColors.RED, "Conditions not met!"));
     }
 
     private ClickAction.ExecuteCallback getClickAction(DialogueLink link) {
         return TextActions.executeCallback(src -> {
             if (!this.completed) {
-                if (this.conditionsMet(super.player, link, true)) {
+                if (this.runner.getDialogue().metRequirements(super.player, link, true)) {
                     this.completed = true;
                     this.runner.runLink(link);
                 } else {
@@ -62,11 +61,5 @@ public class DialogueChoiceMenu extends AbstractChatMenu {
                 }
             }
         });
-    }
-
-    private boolean conditionsMet(Player player, DialogueLink link, boolean apply) {
-        return link.getRequirements().stream()
-                .map(this.runner.getDialogue().getRequirements()::get)
-                .allMatch(condition -> apply ? condition.apply(player) : condition.evaluate(player));
     }
 }

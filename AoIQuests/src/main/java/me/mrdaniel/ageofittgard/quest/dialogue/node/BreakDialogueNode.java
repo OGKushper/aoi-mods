@@ -12,10 +12,15 @@ public class BreakDialogueNode extends DialogueNode {
         super(nodeId, NodeTypes.BREAK);
     }
 
+    public BreakDialogueNode(int nodeId, int nextNodeId) {
+        this(nodeId);
+
+        this.nextNodeId = nextNodeId;
+    }
+
     @Override
     public void run(DialogueRunner runner) {
-        runner.getData().setProgress(runner.getDialogue().getDialogueId(), this.nextNodeId);
-        runner.getPlayer().offer(runner.getData());
+        runner.setProgress(this.nextNodeId);
         runner.stop();
     }
 

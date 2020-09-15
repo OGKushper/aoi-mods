@@ -8,12 +8,12 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 public class CompleteDialogueEvent extends AbstractEvent {
 
     private final Player player;
-    private final int dialogueId;
+    private final int npcId;
     private final Cause cause;
 
     public CompleteDialogueEvent(Player player, int dialogueId) {
         this.player = player;
-        this.dialogueId = dialogueId;
+        this.npcId = dialogueId;
         this.cause = CauseUtils.getPluginCause();
     }
 
@@ -21,8 +21,8 @@ public class CompleteDialogueEvent extends AbstractEvent {
         return this.player;
     }
 
-    public int getDialogueId() {
-        return this.dialogueId;
+    public int getNpcId() {
+        return this.npcId;
     }
 
     @Override

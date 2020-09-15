@@ -1,7 +1,7 @@
 package me.mrdaniel.ageofittgard.quest.requirement;
 
 import me.mrdaniel.ageofittgard.catalogtypes.requirementtype.RequirementTypes;
-import me.mrdaniel.ageofittgard.quest.QuestRequirement;
+import me.mrdaniel.ageofittgard.quest.Requirement;
 import me.mrdaniel.ageofittgard.util.CauseUtils;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
@@ -11,13 +11,20 @@ import org.spongepowered.api.service.economy.transaction.ResultType;
 
 import java.math.BigDecimal;
 
-public class QuestRequirementMoney extends QuestRequirement {
+public class RequirementMoney extends Requirement {
 
     private double money;
     private boolean take;
 
-    public QuestRequirementMoney(int requirementId) {
+    public RequirementMoney(int requirementId) {
         super(RequirementTypes.MONEY, requirementId);
+    }
+
+    public RequirementMoney(int requirementId, double money, boolean take) {
+        this(requirementId);
+
+        this.money = money;
+        this.take = take;
     }
 
     @Override
