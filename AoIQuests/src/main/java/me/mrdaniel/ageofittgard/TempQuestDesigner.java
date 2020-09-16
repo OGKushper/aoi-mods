@@ -3,7 +3,9 @@ package me.mrdaniel.ageofittgard;
 import me.mrdaniel.ageofittgard.catalogtypes.questitem.QuestItems;
 import me.mrdaniel.ageofittgard.catalogtypes.queststatus.QuestStatusus;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
-import me.mrdaniel.ageofittgard.quest.dialogue.node.*;
+import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
+import me.mrdaniel.ageofittgard.quest.dialogue.event.DialogueEventCompleteObjective;
+import me.mrdaniel.ageofittgard.quest.dialogue.event.DialogueEventGift;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
 import me.mrdaniel.ageofittgard.quest.quest.QuestStage;
 import me.mrdaniel.ageofittgard.quest.quest.QuestTrigger;
@@ -29,16 +31,17 @@ public class TempQuestDesigner {
 
         AoIQuests.getInstance().getDialogueManager().getOrCreateDialogue(1)
                 .setFirstNode(1)
-                .addNode(new BranchingDialogueNode(1).addLinks(1, 2))
+                .addEvent(new DialogueEventCompleteObjective(1))
+                .addNode(new DialogueNode(1, false).addLinks(1, 2))
 
                 // Quest 1 Trigger path
                 .addRequirement(new RequirementQuestStatus(1, 1, QuestStatusus.AVAILABLE))
                 .addLink(new DialogueLink(1, 2)
-                        .addRequirement(1)
+                        .addRequirements(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Youngster", TextColors.GRAY, ": Hey there adventurer!"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Youngster", TextColors.GRAY, ": Did you know there is a haunted house near that cliff?"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Youngster", TextColors.GRAY, ": Anyways, nice meeting you!")))
-                .addNode(new EndDialogueNode(2))
+                .addNode(new DialogueNode(2, false).addEvents(1))
 
                 // Post-quest path
                 .addLink(new DialogueLink(2, -1)
@@ -49,16 +52,17 @@ public class TempQuestDesigner {
 
         AoIQuests.getInstance().getDialogueManager().getOrCreateDialogue(2)
                 .setFirstNode(1)
-                .addNode(new BranchingDialogueNode(1).addLinks(1, 4, 5))
+                .addEvent(new DialogueEventCompleteObjective(1))
+                .addNode(new DialogueNode(1, false).addLinks(1, 4, 5))
 
                 // Quest 1 Stage 2 path
                 .addRequirement(new RequirementStageActive(1, 1, 2))
                 .addLink(new DialogueLink(1, 2)
-                        .addRequirement(1)
+                        .addRequirements(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Old Man", TextColors.GRAY, ": Hey there youngster."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Old Man", TextColors.GRAY, ": You came here to learn the history of the abandoned house near the cliff?"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Old Man", TextColors.GRAY, ": Well I could tell you all about it!")))
-                .addNode(new ChooseDialogueNode(2).addLinks(2, 3))
+                .addNode(new DialogueNode(2, true).addLinks(2, 3))
                 .addLink(new DialogueLink(2,3)
                         .setChoiceLine(Text.of(TextColors.GRAY, "I would love to hear it."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Old Man", TextColors.GRAY, ": Almost 50 years ago, an entire family was murdered in that house."))
@@ -69,7 +73,7 @@ public class TempQuestDesigner {
                         .setChoiceLine(Text.of(TextColors.GRAY, "No, I dont have time for that old man!"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Old Man", TextColors.GRAY, ": Well alright then."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Old Man", TextColors.GRAY, ": You dont have to be so rude about it...")))
-                .addNode(new EndDialogueNode(3))
+                .addNode(new DialogueNode(3, false).addEvents(1))
 
                 // Pre quest path
                 .addLink(new DialogueLink(4, -1)
@@ -119,47 +123,53 @@ public class TempQuestDesigner {
 
         AoIQuests.getInstance().getDialogueManager().getOrCreateDialogue(3)
                 .setFirstNode(1)
-                .addNode(new BranchingDialogueNode(1).addLinks(1, 2))
+                .addEvent(new DialogueEventCompleteObjective(1))
+                .addNode(new DialogueNode(1, false).addLinks(1, 100, 2))
 
                 // Quest 2 Trigger path
                 .addRequirement(new RequirementQuestStatus(1, 2, QuestStatusus.AVAILABLE))
                 .addLink(new DialogueLink(1, 2)
-                        .addRequirement(1)
+                        .addRequirements(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": I hate bullies, one stole my favorite childhood toy yesterday."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": I don't think I'll ever see it again.")))
-                .addNode(new EndDialogueNode(2))
+                .addNode(new DialogueNode(2, false).addEvents(1))
 
                 // Quest 2 Stage 4 path
                 .addLink(new DialogueLink(2, 3)
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": Did you find my toy?")))
-                .addNode(new BranchingDialogueNode(3).addLinks(3, -1))
+                .addNode(new DialogueNode(3, false).addLinks(3, -1))
                 .addRequirement(new RequirementStageActive(2, 2, 4))
-                .addLink(new DialogueLink(3, 4).addRequirement(2))
-                .addNode(new ChooseDialogueNode(4).addLinks(4, 5))
+                .addLink(new DialogueLink(3, 4).addRequirements(2))
+                .addNode(new DialogueNode(4, true).addLinks(4, 5))
                 .addLink(new DialogueLink(4, -1)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Not yet kiddo."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": I don't think I'll ever get it back.")))
                 .addLink(new DialogueLink(5, 5)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Ofcourse I did, here it is!"))
-                        .addRequirement(3)
+                        .addRequirements(3)
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": Wow, thank you so much sir!"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": I'll never let anyone take it away from me again!")))
                 .addRequirement(new RequirementItem(3, QuestItems.BILLY_TOY.build(), 1, true))
-                .addNode(new EndDialogueNode(5))
+                .addNode(new DialogueNode(5, false).addEvents(1))
+
+                // Post quest path
+                .addLink(new DialogueLink(100, -1)
+                        .addNpcLine(Text.of(TextColors.AQUA, "Billy", TextColors.GRAY, ": Thank you so much for getting me my toy back sir!")))
                 .save();
 
         // Dialogue Bully
 
         AoIQuests.getInstance().getDialogueManager().getOrCreateDialogue(4)
                 .setFirstNode(1)
-                .addNode(new BranchingDialogueNode(1).addLinks(1, 4))
+                .addEvent(new DialogueEventCompleteObjective(1))
+                .addNode(new DialogueNode(1, false).addLinks(1, 4))
 
                 // Quest 2 Stage 1 path
                 .addRequirement(new RequirementStageActive(1, 2, 1))
                 .addLink(new DialogueLink(1, 2)
-                        .addRequirement(1)
+                        .addRequirements(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Bully", TextColors.GRAY, ": Hey asshole, what do you want!")))
-                .addNode(new ChooseDialogueNode(2).addLinks(2, 3))
+                .addNode(new DialogueNode(2, true).addLinks(2, 3))
                 .addLink(new DialogueLink(2, -1)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Nothing, I'm sorry kid."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Bully", TextColors.GRAY, ": That's what I thought!")))
@@ -167,7 +177,7 @@ public class TempQuestDesigner {
                         .setChoiceLine(Text.of(TextColors.GRAY, "I am going to need you to give me Billy's toy!"))
                         .addNpcLine(Text.of(TextColors.AQUA, "Bully", TextColors.GRAY, ": Haha, you'll never get it. I hid it in a place nobody will ever find it!"))
                 )
-                .addNode(new EndDialogueNode(4))
+                .addNode(new DialogueNode(4, false).addEvents(1))
 
                 // Pre/post quest path
                 .addLink(new DialogueLink(4, -1)
@@ -178,18 +188,19 @@ public class TempQuestDesigner {
 
         AoIQuests.getInstance().getDialogueManager().getOrCreateDialogue(5)
                 .setFirstNode(1)
-                .addNode(new LinkDialogueNode(1).setLinkId(1))
+                .addEvent(new DialogueEventCompleteObjective(1))
+                .addNode(new DialogueNode(1, false).addLinks(1))
                 .addLink(new DialogueLink(1, 2)
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": Hello there young man."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": Do you need any sewing done?")))
-                .addNode(new BranchingDialogueNode(2).addLinks(2, 10))
+                .addNode(new DialogueNode(2, false).addLinks(2, 10))
 
                 // Quest 2 Stage 3 path
                 .addRequirement(new RequirementStageActive(1, 2, 3))
                 .addLink(new DialogueLink(2, 3)
-                        .addRequirement(1)
+                        .addRequirements(1)
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": I'll always help a good fellow like you!")))
-                .addNode(new ChooseDialogueNode(3).addLinks(3, 4))
+                .addNode(new DialogueNode(3, true).addLinks(3, 4))
                 .addLink(new DialogueLink(3, -1)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Oh no thank you, I'm good."))
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": Alright then."))
@@ -197,12 +208,13 @@ public class TempQuestDesigner {
                 .addRequirement(new RequirementItem(2, QuestItems.BILLY_TOY_PART.build(), 3, true))
                 .addLink(new DialogueLink(4, 4)
                         .setChoiceLine(Text.of(TextColors.GRAY, "Actually, do you think you could fix this toy for me?"))
-                        .addRequirement(2)
+                        .addRequirements(2)
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": That is no problem at all!")))
-                .addNode(new GiftDialogueNode(4, 5).setItem(QuestItems.BILLY_TOY.build()))
+                .addEvent(new DialogueEventGift(2, QuestItems.BILLY_TOY.build()))
+                .addNode(new DialogueNode(4, false).addLinks(5).addEvents(2))
                 .addLink(new DialogueLink(5, 5)
                         .addNpcLine(Text.of(TextColors.AQUA, "Seamstress", TextColors.GRAY, ": There you go young man, good as new.")))
-                .addNode(new EndDialogueNode(5))
+                .addNode(new DialogueNode(5, false).addEvents(1))
 
                 // Pre/post quest path
                 .addLink(new DialogueLink(10, -1)

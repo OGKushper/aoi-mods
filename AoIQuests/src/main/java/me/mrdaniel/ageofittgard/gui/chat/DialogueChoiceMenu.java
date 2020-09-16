@@ -1,8 +1,8 @@
 package me.mrdaniel.ageofittgard.gui.chat;
 
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
+import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
-import me.mrdaniel.ageofittgard.quest.dialogue.node.ChooseDialogueNode;
 import me.mrdaniel.npcs.gui.chat.AbstractChatMenu;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.ClickAction;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class DialogueChoiceMenu extends AbstractChatMenu {
 
     private DialogueRunner runner;
-    private ChooseDialogueNode node;
+    private DialogueNode node;
     private boolean completed;
 
-    public DialogueChoiceMenu(DialogueRunner runner, ChooseDialogueNode node) {
+    public DialogueChoiceMenu(DialogueRunner runner, DialogueNode node) {
         this.setPlayer(runner.getPlayer());
         this.setTitle(Text.of(TextColors.GOLD, TextStyles.BOLD, "Make a choice."));
 

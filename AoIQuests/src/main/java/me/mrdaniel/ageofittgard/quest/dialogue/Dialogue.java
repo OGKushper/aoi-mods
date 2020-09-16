@@ -8,7 +8,7 @@ import org.spongepowered.api.entity.living.player.Player;
 
 import java.util.Map;
 
-public class NPCDialogue {
+public class Dialogue {
 
     public static final long DELAY_TICKS = 60L;
 
@@ -18,21 +18,23 @@ public class NPCDialogue {
     private int firstNode;
     private final Map<Integer, DialogueNode> nodes;
     private final Map<Integer, DialogueLink> links;
+    private final Map<Integer, DialogueEvent> events;
     private final Map<Integer, Requirement> requirements;
 
     /**
      * Required empty constructor for Hocon config file instantiation. Should never be used.
      */
-    public NPCDialogue() {
+    public Dialogue() {
         this(AoIQuests.getInstance().getDialogueManager().getPersistStrategy(), 0);
     }
 
-    public NPCDialogue(IPersistStrategy persistStrategy, int npcId) {
+    public Dialogue(IPersistStrategy persistStrategy, int npcId) {
         this.persistStrategy = persistStrategy;
 
         this.npcId = npcId;
         this.nodes = Maps.newHashMap();
         this.links = Maps.newHashMap();
+        this.events = Maps.newHashMap();
         this.requirements = Maps.newHashMap();
     }
 
@@ -44,7 +46,7 @@ public class NPCDialogue {
         return this.firstNode;
     }
 
-    public NPCDialogue setFirstNode(int firstNode) {
+    public Dialogue setFirstNode(int firstNode) {
         this.firstNode = firstNode;
         return this;
     }
@@ -53,7 +55,7 @@ public class NPCDialogue {
         return this.nodes;
     }
 
-    public NPCDialogue addNode(DialogueNode node) {
+    public Dialogue addNode(DialogueNode node) {
         this.nodes.put(node.getNodeId(), node);
         return this;
     }
@@ -62,8 +64,17 @@ public class NPCDialogue {
         return this.links;
     }
 
-    public NPCDialogue addLink(DialogueLink link) {
+    public Dialogue addLink(DialogueLink link) {
         this.links.put(link.getLinkId(), link);
+        return this;
+    }
+
+    public Map<Integer, DialogueEvent> getEvents() {
+        return this.events;
+    }
+
+    public Dialogue addEvent(DialogueEvent event) {
+        this.events.put(event.getEventId(), event);
         return this;
     }
 
@@ -71,7 +82,7 @@ public class NPCDialogue {
         return this.requirements;
     }
 
-    public NPCDialogue addRequirement(Requirement requirement) {
+    public Dialogue addRequirement(Requirement requirement) {
         this.requirements.put(requirement.getRequirementId(), requirement);
         return this;
     }

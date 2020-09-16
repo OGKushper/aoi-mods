@@ -2,8 +2,8 @@ package me.mrdaniel.ageofittgard;
 
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
-import me.mrdaniel.ageofittgard.catalogtypes.nodetype.NodeType;
-import me.mrdaniel.ageofittgard.catalogtypes.nodetype.NodeTypeRegistryModule;
+import me.mrdaniel.ageofittgard.catalogtypes.eventtype.EventType;
+import me.mrdaniel.ageofittgard.catalogtypes.eventtype.EventTypeRegistryModule;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveType;
 import me.mrdaniel.ageofittgard.catalogtypes.objectivetype.ObjectiveTypeRegistryModule;
 import me.mrdaniel.ageofittgard.catalogtypes.questitem.QuestItem;
@@ -18,9 +18,10 @@ import me.mrdaniel.ageofittgard.data.AoIKeys;
 import me.mrdaniel.ageofittgard.data.dialogue.DialogueDataBuilder;
 import me.mrdaniel.ageofittgard.io.hocon.config.DefaultConfig;
 import me.mrdaniel.ageofittgard.io.hocon.config.MainConfig;
+import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.DialogueEventTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.DialogueLinkTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.DialogueNodeTypeSerializer;
-import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.NPCDialogueTypeSerializer;
+import me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue.DialogueTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.player.ActiveQuestTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.player.PlayerDataTypeSerializer;
 import me.mrdaniel.ageofittgard.io.hocon.typeserializer.quest.*;
@@ -30,9 +31,10 @@ import me.mrdaniel.ageofittgard.manager.PlayerDataManager;
 import me.mrdaniel.ageofittgard.manager.QuestDataManager;
 import me.mrdaniel.ageofittgard.manager.QuestProgressManager;
 import me.mrdaniel.ageofittgard.quest.Requirement;
+import me.mrdaniel.ageofittgard.quest.dialogue.Dialogue;
+import me.mrdaniel.ageofittgard.quest.dialogue.DialogueEvent;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
-import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;
 import me.mrdaniel.ageofittgard.quest.player.ActiveQuest;
 import me.mrdaniel.ageofittgard.quest.player.PlayerData;
 import me.mrdaniel.ageofittgard.quest.quest.Quest;
@@ -105,13 +107,13 @@ public class AoIQuests {
         DialogueDataBuilder.register();
 
         this.game.getRegistry().registerModule(RequirementType.class, new RequirementTypeRegistryModule());
-        this.game.getRegistry().registerModule(NodeType.class, new NodeTypeRegistryModule());
+        this.game.getRegistry().registerModule(EventType.class, new EventTypeRegistryModule());
         this.game.getRegistry().registerModule(ObjectiveType.class, new ObjectiveTypeRegistryModule());
         this.game.getRegistry().registerModule(QuestItem.class, new QuestItemRegistryModule());
         this.game.getRegistry().registerModule(QuestStatus.class, new QuestStatusRegistryModule());
 
         CatalogTypeSerializer.register(RequirementType.class);
-        CatalogTypeSerializer.register(NodeType.class);
+        CatalogTypeSerializer.register(EventType.class);
         CatalogTypeSerializer.register(ObjectiveType.class);
         CatalogTypeSerializer.register(QuestStatus.class);
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Quest.class), new QuestTypeSerializer());
@@ -121,9 +123,10 @@ public class AoIQuests {
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Requirement.class), new QuestRequirementTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(PlayerData.class), new PlayerDataTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(ActiveQuest.class), new ActiveQuestTypeSerializer());
-        TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(NPCDialogue.class), new NPCDialogueTypeSerializer());
+        TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Dialogue.class), new DialogueTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(DialogueNode.class), new DialogueNodeTypeSerializer());
         TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(DialogueLink.class), new DialogueLinkTypeSerializer());
+        TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(DialogueEvent.class), new DialogueEventTypeSerializer());
     }
 
     @Listener

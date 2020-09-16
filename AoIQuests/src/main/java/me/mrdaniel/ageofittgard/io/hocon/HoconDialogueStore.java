@@ -6,7 +6,7 @@ import me.mrdaniel.ageofittgard.AoIQuests;
 import me.mrdaniel.ageofittgard.io.IPersistStrategy;
 import me.mrdaniel.ageofittgard.io.hocon.config.Config;
 import me.mrdaniel.ageofittgard.quest.IDialogueStore;
-import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;
+import me.mrdaniel.ageofittgard.quest.dialogue.Dialogue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class HoconDialogueStore implements IDialogueStore {
 
     private final Path storageDir;
-    private final Map<Integer, NPCDialogue> data;
+    private final Map<Integer, Dialogue> data;
 
     public HoconDialogueStore(Path configDir) {
         this.storageDir = configDir.resolve("dialogue");
@@ -39,8 +39,8 @@ public class HoconDialogueStore implements IDialogueStore {
         }
 
         for (String fileName : this.storageDir.toFile().list()) {
-            Config<NPCDialogue> config = new Config<>(NPCDialogue.class, this.storageDir, fileName);
-            NPCDialogue dialogue = config.get();
+            Config<Dialogue> config = new Config<>(Dialogue.class, this.storageDir, fileName);
+            Dialogue dialogue = config.get();
             dialogue.load(config);
 
             this.data.put(dialogue.getNpcId(), dialogue);
@@ -49,36 +49,36 @@ public class HoconDialogueStore implements IDialogueStore {
 
     @Override
     public void unload() {
-        this.data.values().forEach(NPCDialogue::unload); // Prevents memory leaks
+        this.data.values().forEach(Dialogue::unload); // Prevents memory leaks
         this.data.clear();
     }
 
     @Override
-    public void delete(NPCDialogue dialogue) {
-        NPCDialogue deleted = this.data.remove(dialogue.getNpcId());
+    public void delete(Dialogue dialogue) {
+        Dialogue deleted = this.data.remove(dialogue.getNpcId());
         if (deleted != null) {
             deleted.delete();
         }
     }
 
     @Override
-    public Optional<NPCDialogue> get(int npcId) {
+    public Optional<Dialogue> get(int npcId) {
         return Optional.ofNullable(this.data.get(npcId));
     }
 
     @Override
-    public NPCDialogue getOrCreate(int npcId) {
+    public Dialogue getOrCreate(int npcId) {
         return this.data.computeIfAbsent(npcId, this::create);
     }
 
     @Override
-    public List<NPCDialogue> getAll() {
+    public List<Dialogue> getAll() {
         return Lists.newArrayList(this.data.values());
     }
 
-    private NPCDialogue create(int npcId) {
-        Config<NPCDialogue> config = new Config<>(new NPCDialogue(this.getPersistStrategy(), npcId), this.storageDir, "dialogue_npc_" + npcId + ".conf");
-        NPCDialogue dialogue = config.get();
+    private Dialogue create(int npcId) {
+        Config<Dialogue> config = new Config<>(new Dialogue(this.getPersistStrategy(), npcId), this.storageDir, "dialogue_npc_" + npcId + ".conf");
+        Dialogue dialogue = config.get();
         dialogue.load(config);
 
         this.data.put(npcId, dialogue);
