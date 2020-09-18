@@ -11,12 +11,12 @@ public class RequirementQuestStatus extends Requirement {
     private int questId;
     private QuestStatus status;
 
-    public RequirementQuestStatus(int requirementId) {
-        super(RequirementTypes.QUEST_STATUS, requirementId);
+    public RequirementQuestStatus() {
+        super(RequirementTypes.QUEST_STATUS);
     }
 
-    public RequirementQuestStatus(int requirementId, int questId, QuestStatus status) {
-        this(requirementId);
+    public RequirementQuestStatus(int questId, QuestStatus status) {
+        this();
 
         this.questId = questId;
         this.status = status;

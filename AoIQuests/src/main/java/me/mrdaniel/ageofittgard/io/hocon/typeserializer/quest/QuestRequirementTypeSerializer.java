@@ -42,7 +42,6 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<Requiremen
         if (obj != null) {
             this.serializers.get(obj.getRequirementType()).serialize(type, obj, value);
 
-            value.getNode("requirementId").setValue(obj.getRequirementId());
             value.getNode("requirementType").setValue(TypeToken.of(RequirementType.class), obj.getRequirementType());
         }
     }
@@ -53,7 +52,6 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<Requiremen
         @Override
         public RequirementItem deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
             return new RequirementItem(
-                    value.getNode("requirementId").getInt(),
                     value.getNode("item").getValue(TypeToken.of(ItemStack.class)),
                     value.getNode("itemAmount").getInt(),
                     value.getNode("take").getBoolean()
@@ -75,7 +73,7 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<Requiremen
         @Nullable
         @Override
         public RequirementLocation deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            return new RequirementLocation(value.getNode("requirementId").getInt(), value.getNode("target").getValue(TypeToken.of(Position.class)), value.getNode("distance").getDouble());
+            return new RequirementLocation(value.getNode("target").getValue(TypeToken.of(Position.class)), value.getNode("distance").getDouble());
         }
 
         @Override
@@ -92,7 +90,7 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<Requiremen
         @Nullable
         @Override
         public RequirementMoney deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            return new RequirementMoney(value.getNode("requirementId").getInt(), value.getNode("money").getDouble(), value.getNode("take").getBoolean());
+            return new RequirementMoney(value.getNode("money").getDouble(), value.getNode("take").getBoolean());
         }
 
         @Override
@@ -109,7 +107,7 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<Requiremen
         @Nullable
         @Override
         public RequirementTime deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            return new RequirementTime(value.getNode("requirementId").getInt(), value.getNode("fromTicks").getInt(), value.getNode("toTicks").getInt());
+            return new RequirementTime(value.getNode("fromTicks").getInt(), value.getNode("toTicks").getInt());
         }
 
         @Override
@@ -126,7 +124,7 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<Requiremen
         @Nullable
         @Override
         public RequirementQuestStatus deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            return new RequirementQuestStatus(value.getNode("requirementId").getInt(), value.getNode("questId").getInt(), value.getNode("status").getValue(TypeToken.of(QuestStatus.class)));
+            return new RequirementQuestStatus(value.getNode("questId").getInt(), value.getNode("status").getValue(TypeToken.of(QuestStatus.class)));
         }
 
         @Override
@@ -143,7 +141,7 @@ public class QuestRequirementTypeSerializer implements TypeSerializer<Requiremen
         @Nullable
         @Override
         public RequirementStageActive deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            return new RequirementStageActive(value.getNode("requirementId").getInt(), value.getNode("questId").getInt(), value.getNode("stageId").getInt());
+            return new RequirementStageActive(value.getNode("questId").getInt(), value.getNode("stageId").getInt());
         }
 
         @Override

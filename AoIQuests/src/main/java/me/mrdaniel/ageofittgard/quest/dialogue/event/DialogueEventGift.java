@@ -11,13 +11,12 @@ public class DialogueEventGift extends DialogueEvent {
 
     private ItemStack item;
 
-    public DialogueEventGift(int eventId) {
-        super(eventId, EventTypes.GIFT);
+    public DialogueEventGift() {
+        super(EventTypes.GIFT);
     }
 
-    public DialogueEventGift(int eventId, ItemStack item) {
-        this(eventId);
-
+    public DialogueEventGift(ItemStack item) {
+        this();
         this.item = item;
     }
 

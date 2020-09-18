@@ -12,12 +12,12 @@ public class RequirementStageActive extends Requirement {
     private int questId;
     private int stageId;
 
-    public RequirementStageActive(int requirementId) {
-        super(RequirementTypes.STAGE_ACTIVE, requirementId);
+    public RequirementStageActive() {
+        super(RequirementTypes.STAGE_ACTIVE);
     }
 
-    public RequirementStageActive(int requirementId, int questId, int stageId) {
-        this(requirementId);
+    public RequirementStageActive(int questId, int stageId) {
+        this();
 
         this.questId = questId;
         this.stageId = stageId;

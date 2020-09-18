@@ -10,8 +10,8 @@ public class DialogueNode {
     private int nodeId;
     private boolean choiceMenu;
 
-    private final List<Integer> links;
-    private final List<Integer> events;
+    private final List<DialogueLink> links;
+    private final List<DialogueEvent> events;
 
     public DialogueNode(int nodeId, boolean choiceMenu) {
         this.nodeId = nodeId;
@@ -23,15 +23,15 @@ public class DialogueNode {
     public void run(DialogueRunner runner) {
         runner.setProgress(this.nodeId);
 
-        this.events.stream().map(runner.getDialogue().getEvents()::get).forEach(e -> e.run(runner));
+        this.events.forEach(e -> e.run(runner));
 
         if (this.choiceMenu) {
             new DialogueChoiceMenu(runner, this).open();
             return;
         } else {
-            for (Integer linkId : this.links) {
-                if (runner.getDialogue().metRequirements(runner.getPlayer(), linkId, true)) {
-                    runner.runLink(linkId);
+            for (DialogueLink link : this.links) {
+                if (link.metRequirements(runner.getPlayer(), true)) {
+                    runner.runLink(link);
                     return;
                 }
             }
@@ -49,25 +49,36 @@ public class DialogueNode {
         return this.choiceMenu;
     }
 
-    public List<Integer> getLinks() {
+    public List<DialogueLink> getLinks() {
         return this.links;
     }
 
-    public DialogueNode addLinks(int... linkIds) {
-        for (int linkId : linkIds) {
-            this.links.add(linkId);
-        }
+    public DialogueNode addLink(DialogueLink link) {
+        this.links.add(link);
         return this;
     }
 
-    public List<Integer> getEvents() {
+    public List<DialogueEvent> getEvents() {
         return this.events;
     }
 
-    public DialogueNode addEvents(int... eventIds) {
-        for (int eventId : eventIds) {
-            this.events.add(eventId);
-        }
+    public DialogueNode addEvent(DialogueEvent event) {
+        this.events.add(event);
         return this;
+    }
+
+    public DialogueNode getNode(int nodeId) {
+        if (this.nodeId == nodeId) {
+            return this;
+        }
+
+        DialogueNode node;
+        for (DialogueLink link : this.links) {
+            if (link.getNextNode() != null && (node = link.getNextNode().getNode(nodeId)) != null) {
+                return node;
+            }
+        }
+
+        return null;
     }
 }

@@ -12,12 +12,12 @@ public class RequirementItem extends Requirement {
     private int itemAmount;
     private boolean take;
 
-    public RequirementItem(int requirementId) {
-        super(RequirementTypes.ITEM, requirementId);
+    public RequirementItem() {
+        super(RequirementTypes.ITEM);
     }
 
-    public RequirementItem(int requirementId, ItemStack item, int itemAmount, boolean take) {
-        this(requirementId);
+    public RequirementItem(ItemStack item, int itemAmount, boolean take) {
+        this();
 
         this.item = item;
         this.itemAmount = itemAmount;

@@ -1,5 +1,6 @@
 package me.mrdaniel.ageofittgard.gui.chat;
 
+import com.google.common.collect.Lists;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
@@ -13,7 +14,6 @@ import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.format.TextStyles;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DialogueChoiceMenu extends AbstractChatMenu {
 
@@ -32,10 +32,11 @@ public class DialogueChoiceMenu extends AbstractChatMenu {
 
     @Override
     protected List<Text> getContents() {
-        return this.node.getLinks()
-                .stream()
-                .map(this.runner.getDialogue().getLinks()::get)
-                .map(this::getLineText).collect(Collectors.toList());
+        List<Text> lines = Lists.newArrayList();
+
+        this.node.getLinks().forEach(l -> lines.add(this.getLineText(l)));
+
+        return lines;
     }
 
     private Text getLineText(DialogueLink link) {
@@ -47,13 +48,13 @@ public class DialogueChoiceMenu extends AbstractChatMenu {
     }
 
     private HoverAction.ShowText getHoverAction(DialogueLink link) {
-        return TextActions.showText(this.runner.getDialogue().metRequirements(super.player, link, false) ? Text.of(TextColors.DARK_GREEN, "Click to choose this option.") : Text.of(TextColors.RED, "Conditions not met!"));
+        return TextActions.showText(link.metRequirements(super.player, false) ? Text.of(TextColors.DARK_GREEN, "Click to choose this option.") : Text.of(TextColors.RED, "Conditions not met!"));
     }
 
     private ClickAction.ExecuteCallback getClickAction(DialogueLink link) {
         return TextActions.executeCallback(src -> {
             if (!this.completed) {
-                if (this.runner.getDialogue().metRequirements(super.player, link, true)) {
+                if (link.metRequirements(super.player, true)) {
                     this.completed = true;
                     this.runner.runLink(link);
                 } else {

@@ -5,16 +5,10 @@ import org.spongepowered.api.entity.living.player.Player;
 
 public abstract class Requirement {
 
-    protected int requirementId;
     protected RequirementType requirementType;
 
-    public Requirement(RequirementType requirementType, int requirementId) {
+    public Requirement(RequirementType requirementType) {
         this.requirementType = requirementType;
-        this.requirementId = requirementId;
-    }
-
-    public int getRequirementId() {
-        return this.requirementId;
     }
 
     public RequirementType getRequirementType() {

@@ -16,13 +16,12 @@ public class RequirementMoney extends Requirement {
     private double money;
     private boolean take;
 
-    public RequirementMoney(int requirementId) {
-        super(RequirementTypes.MONEY, requirementId);
+    public RequirementMoney() {
+        super(RequirementTypes.MONEY);
     }
 
-    public RequirementMoney(int requirementId, double money, boolean take) {
-        this(requirementId);
-
+    public RequirementMoney(double money, boolean take) {
+        this();
         this.money = money;
         this.take = take;
     }

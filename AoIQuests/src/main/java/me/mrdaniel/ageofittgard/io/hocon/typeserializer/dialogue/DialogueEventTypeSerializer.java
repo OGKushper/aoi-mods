@@ -37,7 +37,6 @@ public class DialogueEventTypeSerializer implements TypeSerializer<DialogueEvent
         if (obj != null) {
             this.serializers.get(obj.getEventType()).serialize(type, obj, value);
 
-            value.getNode("eventId").setValue(obj.getEventId());
             value.getNode("eventType").setValue(TypeToken.of(EventType.class), obj.getEventType());
         }
     }
@@ -47,7 +46,7 @@ public class DialogueEventTypeSerializer implements TypeSerializer<DialogueEvent
         @Nullable
         @Override
         public DialogueEventCompleteObjective deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) {
-            return new DialogueEventCompleteObjective(value.getNode("eventId").getInt());
+            return new DialogueEventCompleteObjective();
         }
 
         @Override
@@ -59,7 +58,7 @@ public class DialogueEventTypeSerializer implements TypeSerializer<DialogueEvent
         @Nullable
         @Override
         public DialogueEventGift deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-            return new DialogueEventGift(value.getNode("eventId").getInt(), value.getNode("item").getValue(TypeToken.of(ItemStack.class)));
+            return new DialogueEventGift(value.getNode("item").getValue(TypeToken.of(ItemStack.class)));
         }
 
         @Override

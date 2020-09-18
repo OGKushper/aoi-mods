@@ -9,13 +9,12 @@ public class RequirementTime extends Requirement {
     private int fromTicks;
     private int toTicks;
 
-    public RequirementTime(int requirementId) {
-        super(RequirementTypes.TIME, requirementId);
+    public RequirementTime() {
+        super(RequirementTypes.TIME);
     }
 
-    public RequirementTime(int requirementId, int fromTicks, int toTicks) {
-        this(requirementId);
-
+    public RequirementTime(int fromTicks, int toTicks) {
+        this();
         this.fromTicks = fromTicks;
         this.toTicks = toTicks;
     }

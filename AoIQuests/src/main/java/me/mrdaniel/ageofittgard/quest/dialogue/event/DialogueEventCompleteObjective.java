@@ -8,8 +8,8 @@ import org.spongepowered.api.Sponge;
 
 public class DialogueEventCompleteObjective extends DialogueEvent {
 
-    public DialogueEventCompleteObjective(int eventId) {
-        super(eventId, EventTypes.OBJECTIVE);
+    public DialogueEventCompleteObjective() {
+        super(EventTypes.OBJECTIVE);
     }
 
     @Override

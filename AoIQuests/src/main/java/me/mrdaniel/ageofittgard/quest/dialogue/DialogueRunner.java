@@ -21,14 +21,10 @@ public class DialogueRunner {
 
     public void start() {
         int currentNode = this.data.getProgress(this.dialogue.getNpcId());
-        this.runNode(currentNode == 0 ? this.dialogue.getFirstNode() : currentNode);
+        this.runNode(currentNode == 0 ? this.dialogue.getRoot() : this.dialogue.getRoot().getNode(currentNode));
     }
 
-    public void runNode(Integer nodeId) {
-        this.runNode(this.dialogue.getNodes().get(nodeId));
-    }
-
-    public void runNode(DialogueNode node) {
+    public void runNode(@Nullable DialogueNode node) {
         if (node == null) {
             this.deleteProgress();
             this.stop();
@@ -39,20 +35,8 @@ public class DialogueRunner {
         }
     }
 
-    public void runNodeDelayed(Integer nodeId) {
-        Task.builder().delayTicks(Dialogue.DELAY_TICKS).execute(() -> this.runNode(nodeId)).submit(AoIQuests.getInstance());
-    }
-
-    public void runLink(Integer linkId) {
-        this.runLink(linkId, 0);
-    }
-
     public void runLink(@Nullable DialogueLink link) {
         this.runLink(link, 0);
-    }
-
-    public void runLink(Integer linkId, int lineIndex) {
-        this.runLink(this.dialogue.getLinks().get(linkId), lineIndex);
     }
 
     public void runLink(@Nullable DialogueLink link, int lineIndex) {

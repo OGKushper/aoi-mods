@@ -4,16 +4,10 @@ import me.mrdaniel.ageofittgard.catalogtypes.eventtype.EventType;
 
 public abstract class DialogueEvent {
 
-    private final int eventId;
     private final EventType eventType;
 
-    public DialogueEvent(int eventId, EventType eventType) {
-        this.eventId = eventId;
+    public DialogueEvent(EventType eventType) {
         this.eventType = eventType;
-    }
-
-    public int getEventId() {
-        return this.eventId;
     }
 
     public EventType getEventType() {

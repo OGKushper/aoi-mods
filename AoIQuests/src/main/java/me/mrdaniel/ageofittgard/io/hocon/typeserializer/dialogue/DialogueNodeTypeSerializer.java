@@ -1,6 +1,8 @@
 package me.mrdaniel.ageofittgard.io.hocon.typeserializer.dialogue;
 
 import com.google.common.reflect.TypeToken;
+import me.mrdaniel.ageofittgard.quest.dialogue.DialogueEvent;
+import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -17,8 +19,8 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
     public DialogueNode deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
         DialogueNode node = new DialogueNode(value.getNode("nodeId").getInt(), value.getNode("choiceMenu").getBoolean(false));
 
-        node.getLinks().addAll(value.getNode("linkIds").getList(TypeToken.of(Integer.class)));
-        node.getEvents().addAll(value.getNode("eventIds").getList(TypeToken.of(Integer.class)));
+        node.getLinks().addAll(value.getNode("links").getList(TypeToken.of(DialogueLink.class)));
+        node.getEvents().addAll(value.getNode("events").getList(TypeToken.of(DialogueEvent.class)));
 
         return node;
     }
@@ -28,8 +30,8 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
         if (obj != null) {
             value.getNode("nodeId").setValue(obj.getNodeId());
             if (obj.isChoiceMenu()) value.getNode("choiceMenu").setValue(true);
-            if (!obj.getLinks().isEmpty()) value.getNode("linkIds").setValue(new TypeToken<List<Integer>>(){}, obj.getLinks());
-            if (!obj.getEvents().isEmpty()) value.getNode("eventIds").setValue(new TypeToken<List<Integer>>(){}, obj.getEvents());
+            if (!obj.getLinks().isEmpty()) value.getNode("links").setValue(new TypeToken<List<DialogueLink>>(){}, obj.getLinks());
+            if (!obj.getEvents().isEmpty()) value.getNode("events").setValue(new TypeToken<List<DialogueEvent>>(){}, obj.getEvents());
         }
     }
 }

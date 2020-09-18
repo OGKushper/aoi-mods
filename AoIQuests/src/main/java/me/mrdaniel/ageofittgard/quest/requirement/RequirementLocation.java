@@ -11,13 +11,12 @@ public class RequirementLocation extends Requirement {
     private double distanceSquared;
     private double distance;
 
-    public RequirementLocation(int requirementId) {
-        super(RequirementTypes.LOCATION, requirementId);
+    public RequirementLocation() {
+        super(RequirementTypes.LOCATION);
     }
 
-    public RequirementLocation(int requirementId, Position target, double distance) {
-        this(requirementId);
-
+    public RequirementLocation(Position target, double distance) {
+        this();
         this.target = target;
         this.distanceSquared = distance * distance;
         this.distance = distance;
