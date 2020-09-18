@@ -15,7 +15,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
     @Nullable
     @Override
     public DialogueNode deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        DialogueNode node = new DialogueNode(value.getNode("nodeId").getInt(), value.getNode("choiceMenu").getBoolean());
+        DialogueNode node = new DialogueNode(value.getNode("nodeId").getInt(), value.getNode("choiceMenu").getBoolean(false));
 
         node.getLinks().addAll(value.getNode("linkIds").getList(TypeToken.of(Integer.class)));
         node.getEvents().addAll(value.getNode("eventIds").getList(TypeToken.of(Integer.class)));
@@ -27,7 +27,7 @@ public class DialogueNodeTypeSerializer implements TypeSerializer<DialogueNode> 
     public void serialize(@NonNull TypeToken<?> type, @Nullable DialogueNode obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
         if (obj != null) {
             value.getNode("nodeId").setValue(obj.getNodeId());
-            value.getNode("choiceMenu").setValue(obj.isChoiceMenu());
+            if (obj.isChoiceMenu()) value.getNode("choiceMenu").setValue(true);
             if (!obj.getLinks().isEmpty()) value.getNode("linkIds").setValue(new TypeToken<List<Integer>>(){}, obj.getLinks());
             if (!obj.getEvents().isEmpty()) value.getNode("eventIds").setValue(new TypeToken<List<Integer>>(){}, obj.getEvents());
         }
