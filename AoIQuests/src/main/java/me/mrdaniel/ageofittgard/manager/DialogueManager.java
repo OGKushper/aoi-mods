@@ -8,7 +8,7 @@ import me.mrdaniel.ageofittgard.io.hocon.HoconDialogueStore;
 import me.mrdaniel.ageofittgard.io.hocon.config.MainConfig;
 import me.mrdaniel.ageofittgard.quest.IDialogueStore;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueRunner;
-import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;
+import me.mrdaniel.ageofittgard.quest.dialogue.Dialogue;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
@@ -40,15 +40,15 @@ public class DialogueManager {
         this.runners.clear();
     }
 
-    public Optional<NPCDialogue> getDialogue(int npcId) {
+    public Optional<Dialogue> getDialogue(int npcId) {
         return this.dialogueStore.get(npcId);
     }
 
-    public NPCDialogue getOrCreateDialogue(int npcId) {
+    public Dialogue getOrCreateDialogue(int npcId) {
         return this.dialogueStore.getOrCreate(npcId);
     }
 
-    public List<NPCDialogue> getAllDialogues() {
+    public List<Dialogue> getAllDialogues() {
         return this.dialogueStore.getAll();
     }
 
@@ -57,7 +57,7 @@ public class DialogueManager {
             return;
         }
 
-        NPCDialogue dialogue = this.getDialogue(npcId).orElse(null);
+        Dialogue dialogue = this.getDialogue(npcId).orElse(null);
         DialogueData data = player.get(DialogueData.class).orElse(new DialogueData());
 
         if (dialogue == null) {

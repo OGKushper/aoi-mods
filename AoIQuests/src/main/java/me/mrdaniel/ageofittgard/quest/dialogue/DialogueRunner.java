@@ -11,9 +11,9 @@ public class DialogueRunner {
 
     private final Player player;
     private final DialogueData data;
-    private final NPCDialogue dialogue;
+    private final Dialogue dialogue;
 
-    public DialogueRunner(Player player, DialogueData data, NPCDialogue dialogue) {
+    public DialogueRunner(Player player, DialogueData data, Dialogue dialogue) {
         this.player = player;
         this.data = data;
         this.dialogue = dialogue;
@@ -24,7 +24,7 @@ public class DialogueRunner {
         this.runNode(currentNode == 0 ? this.dialogue.getFirstNode() : currentNode);
     }
 
-    public void runNode(int nodeId) {
+    public void runNode(Integer nodeId) {
         this.runNode(this.dialogue.getNodes().get(nodeId));
     }
 
@@ -39,11 +39,11 @@ public class DialogueRunner {
         }
     }
 
-    public void runNodeDelayed(int nodeId) {
-        Task.builder().delayTicks(NPCDialogue.DELAY_TICKS).execute(() -> this.runNode(nodeId)).submit(AoIQuests.getInstance());
+    public void runNodeDelayed(Integer nodeId) {
+        Task.builder().delayTicks(Dialogue.DELAY_TICKS).execute(() -> this.runNode(nodeId)).submit(AoIQuests.getInstance());
     }
 
-    public void runLink(int linkId) {
+    public void runLink(Integer linkId) {
         this.runLink(linkId, 0);
     }
 
@@ -51,7 +51,7 @@ public class DialogueRunner {
         this.runLink(link, 0);
     }
 
-    public void runLink(int linkId, int lineIndex) {
+    public void runLink(Integer linkId, int lineIndex) {
         this.runLink(this.dialogue.getLinks().get(linkId), lineIndex);
     }
 
@@ -67,7 +67,7 @@ public class DialogueRunner {
     }
 
     public void runLinkDelayed(@Nullable DialogueLink link, int lineIndex) {
-        Task.builder().delayTicks(NPCDialogue.DELAY_TICKS).execute(() -> this.runLink(link, lineIndex)).submit(AoIQuests.getInstance());
+        Task.builder().delayTicks(Dialogue.DELAY_TICKS).execute(() -> this.runLink(link, lineIndex)).submit(AoIQuests.getInstance());
     }
 
     public void setProgress(int nodeId) {
@@ -92,7 +92,7 @@ public class DialogueRunner {
         return data;
     }
 
-    public NPCDialogue getDialogue() {
+    public Dialogue getDialogue() {
         return dialogue;
     }
 }

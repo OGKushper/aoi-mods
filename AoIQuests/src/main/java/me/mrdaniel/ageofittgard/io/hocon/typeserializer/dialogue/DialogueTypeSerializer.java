@@ -6,7 +6,7 @@ import me.mrdaniel.ageofittgard.io.hocon.HoconPersistStrategy;
 import me.mrdaniel.ageofittgard.quest.Requirement;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueLink;
 import me.mrdaniel.ageofittgard.quest.dialogue.DialogueNode;
-import me.mrdaniel.ageofittgard.quest.dialogue.NPCDialogue;
+import me.mrdaniel.ageofittgard.quest.dialogue.Dialogue;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
@@ -15,12 +15,12 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.List;
 
-public class NPCDialogueTypeSerializer implements TypeSerializer<NPCDialogue> {
+public class DialogueTypeSerializer implements TypeSerializer<Dialogue> {
 
     @Nullable
     @Override
-    public NPCDialogue deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
-        NPCDialogue data = new NPCDialogue(new HoconPersistStrategy(), value.getNode("npcId").getInt(0));
+    public Dialogue deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
+        Dialogue data = new Dialogue(new HoconPersistStrategy(), value.getNode("npcId").getInt(0));
 
         data.setFirstNode(value.getNode("firstNodeId").getInt(0));
         value.getNode("nodes").getList(TypeToken.of(DialogueNode.class)).forEach(data::addNode);
@@ -31,7 +31,7 @@ public class NPCDialogueTypeSerializer implements TypeSerializer<NPCDialogue> {
     }
 
     @Override
-    public void serialize(@NonNull TypeToken<?> type, @Nullable NPCDialogue obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
+    public void serialize(@NonNull TypeToken<?> type, @Nullable Dialogue obj, @NonNull ConfigurationNode value) throws ObjectMappingException {
         if (obj != null) {
             value.getNode("npcId").setValue(obj.getNpcId());
             value.getNode("firstNodeId").setValue(obj.getFirstNode());

@@ -1,15 +1,15 @@
-package me.mrdaniel.ageofittgard.catalogtypes.nodetype;
+package me.mrdaniel.ageofittgard.catalogtypes.eventtype;
 
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
-@CatalogedBy(NodeTypes.class)
-public class NodeType implements CatalogType {
+@CatalogedBy(EventTypes.class)
+public class EventType implements CatalogType {
 
 	private final String name;
 	private final String id;
 
-	NodeType(String name, String id) {
+	EventType(String name, String id) {
 		this.name = name;
 		this.id = id;
 	}

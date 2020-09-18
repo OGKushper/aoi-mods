@@ -135,7 +135,7 @@ Each objective is described further below.
 
 ### 4.1.1. NPC Dialogue
 
-The NPC Dialogue objective requires two extra values: the dialogueId and the npcId. The dialogueId must refer to a valid dialogue and the npcId must refer to a valid npc.
+The NPC Dialogue objective requires one extra value, the npcId. The npcId must refer to a valid NPC. Most logic should be handled by the dialogue. 
 
 ```
 {

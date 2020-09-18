@@ -18,7 +18,7 @@ public class DialogueLinkTypeSerializer implements TypeSerializer<DialogueLink> 
     public DialogueLink deserialize(@NonNull TypeToken<?> type, @NonNull ConfigurationNode value) throws ObjectMappingException {
         DialogueLink data = new DialogueLink(value.getNode("linkId").getInt(), value.getNode("nextNodeId").getInt());
         data.setChoiceLine(TextUtils.toText(value.getNode("choiceLine").getString(null)));
-        data.setNpcLines(TextUtils.deserialize(value.getNode("npcLines")));
+        data.getNpcLines().addAll(TextUtils.deserialize(value.getNode("npcLines")));
         data.getRequirements().addAll(value.getNode("requirements").getList(TypeToken.of(Integer.class)));
 
         return data;
@@ -31,7 +31,7 @@ public class DialogueLinkTypeSerializer implements TypeSerializer<DialogueLink> 
             value.getNode("nextNodeId").setValue(obj.getNextNodeId());
             value.getNode("choiceLine").setValue(TextUtils.toString(obj.getChoiceLine()));
             TextUtils.serialize(value.getNode("npcLines"), obj.getNpcLines());
-            value.getNode("requirements").setValue(new TypeToken<List<Integer>>(){}, obj.getRequirements());
+            if (!obj.getRequirements().isEmpty()) value.getNode("requirements").setValue(new TypeToken<List<Integer>>(){}, obj.getRequirements());
         }
     }
 }

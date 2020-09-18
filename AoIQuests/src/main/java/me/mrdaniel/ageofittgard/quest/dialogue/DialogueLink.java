@@ -8,11 +8,11 @@ import java.util.List;
 public class DialogueLink {
 
     private final int linkId;
-    private final int nextNodeId;
+    private int nextNodeId;
 
     private Text choiceLine;
-    private List<Text> npcLines;
-    private List<Integer> requirements;
+    private final List<Text> npcLines;
+    private final List<Integer> requirements;
 
     public DialogueLink(int linkId, int nextNodeId) {
         this.linkId = linkId;
@@ -32,15 +32,19 @@ public class DialogueLink {
     }
 
     public int getLinkId() {
-        return linkId;
+        return this.linkId;
     }
 
     public int getNextNodeId() {
         return nextNodeId;
     }
 
+    public void setNextNodeId(int nextNodeId) {
+        this.nextNodeId = nextNodeId;
+    }
+
     public Text getChoiceLine() {
-        return choiceLine;
+        return this.choiceLine;
     }
 
     public DialogueLink setChoiceLine(Text choiceLine) {
@@ -57,17 +61,14 @@ public class DialogueLink {
         return this;
     }
 
-    public DialogueLink setNpcLines(List<Text> npcLines) {
-        this.npcLines = npcLines;
-        return this;
-    }
-
     public List<Integer> getRequirements() {
         return requirements;
     }
 
-    public DialogueLink addRequirement(int requirementId) {
-        this.requirements.add(requirementId);
+    public DialogueLink addRequirements(int... requirementIds) {
+        for (int requirementId : requirementIds) {
+            this.requirements.add(requirementId);
+        }
         return this;
     }
 }
